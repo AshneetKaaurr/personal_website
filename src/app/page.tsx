@@ -109,7 +109,7 @@ export default function Home() {
       {/* ---------------------------------------------------------------- */}
       {/* Contact sheet — six frames, one per pillar.                      */}
       {/* ---------------------------------------------------------------- */}
-      <Surface surface="screen" className="border-t border-graphite/25 py-9">
+      <Surface surface="screen" className="border-t border-rule py-9">
         <Bleed>
           <h2 className="sr-only">Sections of this site</h2>
           <ul className="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -123,7 +123,7 @@ export default function Home() {
                   <h3 className="mt-3 font-data font-expanded text-h3 text-print group-hover:underline">
                     {label}
                   </h3>
-                  <p className="mt-2 font-display text-body text-graphite-screen">
+                  <p className="mt-2 font-display text-body text-muted">
                     {note}
                   </p>
                 </Link>
@@ -148,27 +148,27 @@ export default function Home() {
             </h2>
             <dl className="mt-6 grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               <div>
-                <dt className="font-data text-meta text-graphite">Doctorate</dt>
+                <dt className="font-data text-meta text-muted">Doctorate</dt>
                 <dd className="font-display text-body">
                   PhD, Human Resource Management, IIM Ahmedabad, 2018 to 2023
                 </dd>
               </div>
               <div>
-                <dt className="font-data text-meta text-graphite">Faculty</dt>
+                <dt className="font-data text-meta text-muted">Faculty</dt>
                 <dd className="font-display text-body">
                   Assistant Professor, Organisation and Leadership Studies,
                   SPJIMR Mumbai, April 2023 to March 2026
                 </dd>
               </div>
               <div>
-                <dt className="font-data text-meta text-graphite">Board</dt>
+                <dt className="font-data text-meta text-muted">Board</dt>
                 <dd className="font-display text-body">
                   Independent Director, Punjab Communications Limited, April
                   2026 to present
                 </dd>
               </div>
               <div>
-                <dt className="font-data text-meta text-graphite">
+                <dt className="font-data text-meta text-muted">
                   Certification
                 </dt>
                 <dd className="font-display text-body">
@@ -176,7 +176,7 @@ export default function Home() {
                 </dd>
               </div>
               <div>
-                <dt className="font-data text-meta text-graphite">
+                <dt className="font-data text-meta text-muted">
                   Faculty development
                 </dt>
                 <dd className="font-display text-body">
@@ -184,7 +184,7 @@ export default function Home() {
                 </dd>
               </div>
               <div>
-                <dt className="font-data text-meta text-graphite">Recognition</dt>
+                <dt className="font-data text-meta text-muted">Recognition</dt>
                 <dd className="font-display text-body">
                   Three best-paper awards: Academy of Management 2023, EDII
                   2023, Anusandhan RDAIS 2025
@@ -204,7 +204,7 @@ export default function Home() {
       {/* ---------------------------------------------------------------- */}
       {/* Recent research — three papers, newest first.                    */}
       {/* ---------------------------------------------------------------- */}
-      <Surface surface="print" className="border-t border-graphite/25 py-9">
+      <Surface surface="print" className="border-t border-rule py-9">
         <Bleed>
           <Marginalia
             margin={
@@ -222,7 +222,7 @@ export default function Home() {
               {recentPapers.map((paper) => (
                 <li key={paper.id}>
                   <p
-                    className="font-data text-meta text-graphite"
+                    className="font-data text-meta text-muted"
                     data-figures="tabular"
                   >
                     {paper.year}
@@ -231,7 +231,7 @@ export default function Home() {
                   <h3 className="mt-2 font-display text-h3 tracking-tight">
                     {paper.title}
                   </h3>
-                  <p className="mt-2 font-data text-meta text-graphite">
+                  <p className="mt-2 font-data text-meta text-muted">
                     {paper.venue}
                   </p>
                   <p className="mt-3 font-display text-body">{paper.summary}</p>
@@ -240,7 +240,7 @@ export default function Home() {
             </ul>
 
             <p className="mt-7">
-              <Link href="/publications" className="font-data text-meta text-mark">
+              <Link href="/publications" className="font-data text-meta text-accent">
                 All publications
               </Link>
             </p>
@@ -252,7 +252,7 @@ export default function Home() {
       {/* Recent activity — the freshness signal the old Now page served.  */}
       {/* Built last, because a stale strip does more damage than none.    */}
       {/* ---------------------------------------------------------------- */}
-      <Surface surface="print" className="border-t border-graphite/25 py-9">
+      <Surface surface="print" className="border-t border-rule py-9">
         <Bleed>
           <h2 className="font-display text-h2 tracking-tight">Recent activity</h2>
           <PendingNotice item="the recent activity strip" owner="Build">

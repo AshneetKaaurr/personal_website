@@ -101,6 +101,57 @@
   --breakpoint-xl: 80rem;
 }
 
+/* ---------------------------------------------------------------------------
+   Surface-relative values.
+
+   Three of the six palette tokens do not survive a move to the dark surface:
+   --graphite is 3.20:1 on --screen, and --mark is 1.78:1. So the values whose
+   correct colour DEPENDS on which surface they land on are resolved through
+   the cascade rather than chosen by hand at each call site. A component that
+   uses text-muted is readable on either surface; a component that hardcodes
+   text-graphite is readable on exactly one, and nothing stops it being placed
+   on the other.
+
+   Measured, see NOTES.md. Every pair below clears 4.5:1.
+--------------------------------------------------------------------------- */
+
+@layer base {
+  :root,
+  [data-surface='print'] {
+    --surface-muted: var(--color-graphite); /* 4.54:1 on --print */
+    --surface-accent: var(--color-mark); /* 8.15:1 on --print */
+    --surface-rule: color-mix(in srgb, var(--color-graphite) 35%, transparent);
+    --surface-inset: color-mix(in srgb, var(--color-ink) 5%, transparent);
+  }
+
+  [data-surface='screen'] {
+    --surface-muted: var(--color-graphite-screen); /* 6.81:1 on --screen */
+    --surface-accent: var(--color-print); /* 14.54:1 on --screen */
+    --surface-rule: color-mix(in srgb, var(--color-graphite-screen) 40%, transparent);
+    --surface-inset: color-mix(in srgb, var(--color-print) 8%, transparent);
+  }
+}
+
+@utility text-muted {
+  color: var(--surface-muted);
+}
+
+@utility text-accent {
+  color: var(--surface-accent);
+}
+
+@utility border-rule {
+  border-color: var(--surface-rule);
+}
+
+@utility border-accent {
+  border-color: var(--surface-accent);
+}
+
+@utility bg-inset {
+  background-color: var(--surface-inset);
+}
+
 @layer base {
   *,
   *::before,

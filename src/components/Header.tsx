@@ -21,7 +21,7 @@ export function Header() {
   const pathname = usePathname()
 
   return (
-    <header className="border-b border-graphite/30 bg-print" data-surface="print">
+    <header className="border-b border-rule bg-print" data-surface="print">
       <div className="mx-auto flex max-w-page flex-wrap items-baseline gap-x-6 gap-y-3 px-5 py-4 lg:px-7">
         <Link
           href="/"
@@ -41,7 +41,7 @@ export function Header() {
                     aria-current={current ? 'page' : undefined}
                     className={
                       current
-                        ? 'font-data text-meta text-mark underline'
+                        ? 'font-data text-meta text-accent underline'
                         : 'font-data text-meta text-ink no-underline hover:underline'
                     }
                   >

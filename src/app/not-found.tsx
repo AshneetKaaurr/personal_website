@@ -29,7 +29,7 @@ export default function NotFound() {
             <ul className="mt-6">
               {PRIMARY_NAV.map(({ href, label }) => (
                 <li key={href} className="mt-2">
-                  <Link href={href} className="font-data text-body text-mark">
+                  <Link href={href} className="font-data text-body text-accent">
                     {label}
                   </Link>
                 </li>

@@ -5,7 +5,7 @@ import { FOOTER_NAV, PRIMARY_NAV } from '@/lib/nav'
 export function Footer() {
   return (
     <footer
-      className="border-t border-graphite/30 bg-print"
+      className="border-t border-rule bg-print"
       data-surface="print"
     >
       <div className="mx-auto max-w-page px-5 py-9 lg:px-7">
@@ -24,7 +24,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <p className="mt-7 font-data text-meta text-graphite">
+        <p className="mt-7 font-data text-meta text-muted">
           © {new Date().getFullYear()} Ashneet Kaur
         </p>
       </div>

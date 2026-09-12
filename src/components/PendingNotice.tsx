@@ -18,12 +18,12 @@ interface PendingNoticeProps {
  */
 export function PendingNotice({ item, owner, children }: PendingNoticeProps) {
   return (
-    <div className="my-6 border-l-2 border-mark bg-screen-2/5 py-3 pl-4">
-      <p className="font-data text-meta text-mark">
+    <div className="my-6 border-l-2 border-accent bg-inset py-3 pl-4">
+      <p className="font-data text-meta text-accent">
         Pending {owner === 'Client' ? 'from client' : 'in build'} — {item}
       </p>
       {children ? (
-        <div className="mt-2 max-w-measure-wide font-data text-meta text-graphite">
+        <div className="mt-2 max-w-measure-wide font-data text-meta text-muted">
           {children}
         </div>
       ) : null}

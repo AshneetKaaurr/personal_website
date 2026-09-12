@@ -58,7 +58,7 @@ export default function Styleguide() {
       </Surface>
 
       {/* Palette ---------------------------------------------------------- */}
-      <Surface surface="print" className="border-t border-graphite/25 py-9">
+      <Surface surface="print" className="border-t border-rule py-9">
         <Bleed>
           <Marginalia margin={<MarginRecord label="Section" value="Palette" />}>
             <h2 className="font-display text-h2 tracking-tight">Six values</h2>
@@ -66,14 +66,14 @@ export default function Styleguide() {
               {PALETTE.map(({ token, value, note }) => (
                 <li key={token}>
                   <div
-                    className="h-8 w-full rounded-frame border border-graphite/40"
+                    className="h-8 w-full rounded-frame border border-rule"
                     style={{ backgroundColor: value }}
                   />
                   <p className="mt-2 font-data text-meta">{token}</p>
-                  <p className="font-data text-meta text-graphite" data-figures="tabular">
+                  <p className="font-data text-meta text-muted" data-figures="tabular">
                     {value}
                   </p>
-                  <p className="font-data text-meta text-graphite">{note}</p>
+                  <p className="font-data text-meta text-muted">{note}</p>
                 </li>
               ))}
             </ul>
@@ -82,7 +82,7 @@ export default function Styleguide() {
       </Surface>
 
       {/* Type ------------------------------------------------------------- */}
-      <Surface surface="print" className="border-t border-graphite/25 py-9">
+      <Surface surface="print" className="border-t border-rule py-9">
         <Bleed>
           <Marginalia margin={<MarginRecord label="Section" value="Type" />}>
             <h2 className="font-display text-h2 tracking-tight">
@@ -90,8 +90,8 @@ export default function Styleguide() {
             </h2>
             <ul className="mt-6">
               {TYPE_SCALE.map(({ name, className, note }) => (
-                <li key={name} className="border-t border-graphite/25 py-4">
-                  <p className="font-data text-meta text-graphite">
+                <li key={name} className="border-t border-rule py-4">
+                  <p className="font-data text-meta text-muted">
                     {name} — {note}
                   </p>
                   <p className={`mt-1 font-display ${className} tracking-tight`}>
@@ -128,7 +128,7 @@ export default function Styleguide() {
           <h2 className="font-display text-h2 tracking-tight text-print">
             Frames
           </h2>
-          <p className="mt-3 max-w-measure font-display text-body text-graphite-screen">
+          <p className="mt-3 max-w-measure font-display text-body text-muted">
             Two ratios and nothing else. Both render as placeholders until a
             photograph is cleared in the manifest.
           </p>
@@ -136,13 +136,13 @@ export default function Styleguide() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <div>
               <Frame shot="P-01" sizes="(min-width: 30rem) 45vw, 100vw" />
-              <p className="mt-2 font-data text-meta text-graphite-screen">
+              <p className="mt-2 font-data text-meta text-muted">
                 4:5 portrait
               </p>
             </div>
             <div>
               <Frame shot="S-01" sizes="(min-width: 30rem) 45vw, 100vw" />
-              <p className="mt-2 font-data text-meta text-graphite-screen">
+              <p className="mt-2 font-data text-meta text-muted">
                 3:2 landscape
               </p>
             </div>
@@ -151,7 +151,7 @@ export default function Styleguide() {
       </Surface>
 
       {/* Outstanding photography ------------------------------------------ */}
-      <Surface surface="print" className="border-t border-graphite/25 py-9">
+      <Surface surface="print" className="border-t border-rule py-9">
         <Bleed>
           <Marginalia
             margin={
@@ -171,8 +171,8 @@ export default function Styleguide() {
 
             <ul className="mt-6">
               {outstanding.map((shot) => (
-                <li key={shot.ref} className="border-t border-graphite/25 py-3">
-                  <p className="font-data text-meta text-graphite">
+                <li key={shot.ref} className="border-t border-rule py-3">
+                  <p className="font-data text-meta text-muted">
                     {shot.ref} — {shot.ratio} — {shot.usedOn.join(', ')}
                   </p>
                   <p className="font-display text-body">{shot.description}</p>

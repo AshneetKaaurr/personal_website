@@ -41,7 +41,7 @@ export function MarginRecord({
 }) {
   return (
     <div className="mb-3">
-      <dt className="font-data text-meta text-graphite">{label}</dt>
+      <dt className="font-data text-meta text-muted">{label}</dt>
       <dd className="font-data text-meta" data-figures="tabular">
         {value}
       </dd>
