@@ -1,0 +1,28 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# next
+/.next/
+/out/
+/build
+next-env.d.ts
+
+# production photography — real files are added deliberately, never bulk-committed
+# (see CLAUDE.md hard rule 3; placeholders render until a photo lands here)
+/public/photos/**/*.psd
+/public/photos/**/*.tif
+/public/photos/**/*_RAW.*
+
+# env
+.env*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+/coverage
+.vercel
+*.tsbuildinfo
+.eslintcache
