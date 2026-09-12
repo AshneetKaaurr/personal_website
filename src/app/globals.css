@@ -70,6 +70,10 @@
   --tracking-normal: 0;
 
   /* -- spacing: a deliberate ramp, not a 4px multiplier -------------------- */
+  /* Zero is a step. Switching off Tailwind's dynamic --spacing also removes
+     it, and min-w-0 / p-0 / gap-0 silently stop generating — which is how a
+     grid item quietly refuses to shrink and widens the whole page. */
+  --spacing-0: 0px;
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;

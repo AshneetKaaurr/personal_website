@@ -32,12 +32,18 @@ interface Pillar {
  * The contact sheet — six frames, one per pillar. The signature element, and
  * the reason the shot list is a blocking dependency. Six real photographs, not
  * six identical cards. BUILD-PLAN.md §8.
+ *
+ * All six are 3:2. A contact sheet is a sheet of identically-sized frames —
+ * that is what makes it read as one. Mixing the 4:5 portrait in among them
+ * pushed its row out of alignment and the grid stopped looking like a sheet
+ * and started looking like a bug. The 4:5 ratio still carries every portrait
+ * elsewhere on the site; it just cannot sit inside this particular grid.
  */
 const PILLARS: Pillar[] = [
   {
     href: '/about',
     label: 'About',
-    shot: 'P-02',
+    shot: 'E-04',
     note: 'SRCC to Delhi School of Economics, Deloitte, McKinsey, ATOS, a PhD at IIM Ahmedabad, and two ventures founded along the way.',
   },
   {
@@ -83,16 +89,16 @@ export default function Home() {
       <Surface surface="screen" as="header" className="pb-9 pt-8 lg:pb-10">
         <Bleed>
           <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-7">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-4">
               <Frame
                 shot="P-01"
-                sizes="(min-width: 64rem) 40vw, 100vw"
+                sizes="(min-width: 64rem) 32vw, 100vw"
                 priority
                 className="frame-advance"
               />
             </div>
 
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7 lg:col-start-6">
               <h1 className="font-data font-expanded-max text-hero tracking-tight text-print">
                 Ashneet Kaur
               </h1>

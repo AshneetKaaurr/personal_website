@@ -94,9 +94,15 @@ export default function Styleguide() {
                   <p className="font-data text-meta text-muted">
                     {name} — {note}
                   </p>
-                  <p className={`mt-1 font-display ${className} tracking-tight`}>
-                    Leadership through cinema
-                  </p>
+                  {/* The display sizes are wider than a 320px viewport by
+                      design — a specimen has to show the real size. So the
+                      specimen scrolls inside its own track rather than
+                      widening the page. */}
+                  <div className="overflow-x-auto">
+                    <p className={`mt-1 font-display ${className} tracking-tight`}>
+                      Leadership through cinema
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -104,11 +110,13 @@ export default function Styleguide() {
             <h3 className="mt-7 font-display text-h3 tracking-tight">
               Archivo width axis
             </h3>
-            <p className="mt-3 font-data text-h3">Archivo at normal width</p>
-            <p className="font-data font-expanded text-h3">Archivo expanded</p>
-            <p className="font-data font-expanded-max text-h3">
-              Archivo expanded, maximum
-            </p>
+            <div className="overflow-x-auto">
+              <p className="mt-3 font-data text-h3">Archivo at normal width</p>
+              <p className="font-data font-expanded text-h3">Archivo expanded</p>
+              <p className="font-data font-expanded-max text-h3">
+                Archivo expanded, maximum
+              </p>
+            </div>
 
             <h3 className="mt-7 font-display text-h3 tracking-tight">
               Body measure

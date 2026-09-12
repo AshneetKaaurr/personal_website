@@ -22,8 +22,12 @@ export function Marginalia({ margin, children, className }: MarginaliaProps) {
     <div
       className={`grid gap-x-6 gap-y-4 lg:grid-cols-12 ${className ?? ''}`}
     >
-      <div className="lg:col-span-2">{margin}</div>
-      <div className="lg:col-span-9 lg:col-start-4">{children}</div>
+      {/* min-w-0 on both columns: a grid item defaults to min-width:auto and
+          will not shrink below its content, so one wide child (a long title,
+          a type specimen, a table) widens the whole page instead of scrolling
+          inside its own container. */}
+      <div className="min-w-0 lg:col-span-2">{margin}</div>
+      <div className="min-w-0 lg:col-span-9 lg:col-start-4">{children}</div>
     </div>
   )
 }

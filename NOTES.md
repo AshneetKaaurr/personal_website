@@ -104,6 +104,48 @@ reaches production. Kept as specified.
 
 ---
 
+## 2026-09-12 — First visual pass on Home, 320/390/768/1280
+
+Screenshotted with real viewport emulation (puppeteer-core driving the
+installed Chrome) rather than `chrome --headless --window-size`. That matters:
+Windows Chrome enforces a minimum window width of roughly 500px, so the first
+round of "390px" screenshots showed a cut-off page and a two-column grid that
+did not exist. Two of the three bugs found in that round were artefacts of the
+screenshot method. **Do not trust `--window-size` below ~500px.**
+
+Three real defects, all fixed:
+
+1. **The contact sheet had a ragged row.** About was mapped to P-02, a 4:5
+   portrait, sitting among five 3:2 landscapes — so its tile ran taller and the
+   headings in that row fell off the baseline of their neighbours. A contact
+   sheet is a sheet of identically-sized frames; that uniformity is the whole
+   reason it reads as one object. About now uses E-04, and all six are 3:2. The
+   4:5 ratio still carries portraits everywhere else; it just cannot sit inside
+   this grid.
+
+2. **`/styleguide` scrolled horizontally at 320px.** The type specimens show
+   the display sizes at their real size, which is genuinely wider than a 320px
+   viewport. Correct fix is to let the specimen scroll in its own track, not to
+   shrink it and lie about the size.
+
+3. **`min-w-0` did not exist**, which is why fix 2 did not work at first.
+   Switching off Tailwind's dynamic `--spacing` also removes the zero step, so
+   `min-w-0`, `p-0` and `gap-0` silently stop generating — no error, the class
+   just does nothing. Grid items default to `min-width: auto` and will not
+   shrink below their content, so one wide child widens the entire page.
+   `--spacing-0: 0px` is now declared explicitly, and both Marginalia columns
+   carry `min-w-0`.
+
+The third one is the one to remember: **switching off a Tailwind namespace
+removes utilities silently.** A class that generates nothing looks identical to
+a class that is working until something overflows.
+
+The audit script lives in the session scratchpad, not the repo. It walks every
+element at 320/390/768/1280 and reports anything extending past the viewport.
+Worth rebuilding as a committed script when there are more pages to check.
+
+---
+
 ## Not done yet
 
 Home is the only real page. Everything else is the honest skeleton — each
