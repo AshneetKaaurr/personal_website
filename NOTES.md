@@ -146,6 +146,61 @@ Worth rebuilding as a committed script when there are more pages to check.
 
 ---
 
+## 2026-09-14 — Real photography arrives
+
+30 files supplied. 22 are in the site; 5 are HEIC that will not decode and 2
+were byte-identical duplicates of files already in the set
+(`IMG_8090_Original[35]_personal.jpg`, `IMG_8897_Original_Consulting.jpg`).
+
+**HEIC is a dead end on this machine.** sharp reads the container and reports
+4032x3024, then fails the pixel decode — its bundled libheif has no HEVC
+decoder, which is a patent-licensing thing rather than corruption. Windows'
+own WIC stack fails too (`0xC00D5212`), because HEVC Video Extensions is a paid
+Store add-on. Not worth retrying: those five need re-exporting as JPEG at
+source.
+
+**An intake step now exists** (`scripts/prepare-photos.mjs`) and the originals
+live in a gitignored `photo-intake/`, not in `public/`. Three reasons, the
+first being the one that matters:
+
+1. **EXIF.** The originals carry it and phone EXIF carries GPS. Everything in
+   `public/` is downloadable by anyone, coordinates included. The prepared
+   files have all metadata stripped — verified after the fact, not assumed.
+2. **Weight.** 43MB of originals became 6.8MB of web-ready files. Several
+   originals were 4032px and 4MB when the largest size `deviceSizes` will ever
+   serve is 2400px.
+3. **Orientation.** Rotation is baked into the pixels rather than left as an
+   EXIF flag that some pipelines honour and others ignore.
+
+**Aspect ratios are not cropped in the file.** Only 6 of the 22 arrived at 3:2
+and none at 4:5; the rest are 4:3, 3:4 or 2:3. Automating a crop to the two
+fixed ratios would eventually take the top of someone's head, so the files keep
+their own ratio and the frame crops them with `object-fit: cover`, steered by a
+per-photograph `focal` in the manifest. A judgement per photo, recorded as
+data, and reversible.
+
+**The ragged-grid bug came back, exactly where it was predicted to.** The
+Speaker strip mixed 4:5 and 3:2 frames in one grid and the rows fell out of
+alignment — the same defect fixed by hand on the home contact sheet two days
+ago. It is now a component, `FrameGrid`, which renders one grid per ratio and
+cannot mix them. The lesson generalises: a rule enforced by hand on one page is
+a rule that gets broken on the next one.
+
+**Screenshot method, again.** A `fullPage` Puppeteer screenshot does not
+scroll, so `loading="lazy"` frames below the fold never request their images
+and the capture looks broken. The Gallery's Portraits section appeared
+completely empty. The fix is to scroll the page, await every image, and assert
+`naturalWidth > 0` before capturing — `scratchpad/shot.mjs` does that and
+reports loaded/total. Second time a screenshot artefact has looked like a real
+bug. Suspect the tool before the site.
+
+**11 of the 22 are held.** Anything with an identifiable student, participant
+or colleague in frame is `consent: 'pending'` and renders a placeholder, per
+CLAUDE.md and BUILD-PLAN.md §6.3. One constant — `THIRD_PARTY` in
+`src/content/photos.ts` — releases all of them once she confirms in writing.
+
+---
+
 ## Not done yet
 
 Home is the only real page. Everything else is the honest skeleton — each

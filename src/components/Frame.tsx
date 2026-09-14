@@ -57,6 +57,10 @@ export function Frame({
         sizes={sizes}
         priority={priority}
         loading={priority ? undefined : 'lazy'}
+        // The prepared files keep their own aspect ratio, so the frame crops
+        // them. `focal` steers that crop per photograph — a judgement about
+        // where her head and hands are, not something to automate.
+        style={photo.focal ? { objectPosition: photo.focal } : undefined}
         className={`h-full w-full rounded-frame object-cover ${imageClassName ?? ''}`}
       />
     </div>

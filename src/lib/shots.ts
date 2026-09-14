@@ -1,14 +1,17 @@
 /**
- * The shot list. BUILD-PLAN.md §6.1.
+ * The shot list.
  *
- * Photography is a blocking dependency, not an asset-gathering task at the end
- * — so the shots she owes us are declared here as data. Every <Frame> on the
- * site references one of these by ref. Until the photo arrives, the frame
- * renders a visible placeholder carrying the ref, so the outstanding list is
- * legible on every preview deploy.
+ * Originally the set of photographs requested from the client
+ * (BUILD-PLAN.md §6.1). Now that real photography has arrived, each ref that
+ * has a photograph describes *that photograph*, and the refs still waiting
+ * keep their original request wording so the outstanding list stays readable.
  *
- * Adding a photo: drop the file in /public/photos and add an entry to
- * src/content/photos.ts keyed by the same ref. Nothing else changes.
+ * Every <Frame> on the site references one of these by ref. Until a photo
+ * arrives, the frame renders a visible placeholder carrying the ref, so the
+ * outstanding list is legible on every preview deploy.
+ *
+ * Adding a photo: run `node scripts/prepare-photos.mjs` to slug and downsize
+ * it, then add an entry to src/content/photos.ts keyed by the ref.
  */
 
 export const FRAME_RATIOS = {
@@ -23,7 +26,7 @@ export type FrameRatio = (typeof FRAME_RATIOS)[keyof typeof FRAME_RATIOS]
 export interface Shot {
   ref: string
   ratio: FrameRatio
-  /** What the photograph is of. Shown in the placeholder, and the brief. */
+  /** What the photograph is of. Shown in the placeholder when one is missing. */
   description: string
   /** Where it appears on the site. */
   usedOn: string[]
@@ -35,113 +38,165 @@ export interface Shot {
 }
 
 export const SHOTS = [
+  // -- Portraits ------------------------------------------------------------
   {
     ref: 'P-01',
     ratio: '4:5',
-    description: 'Primary portrait, environmental, natural light, looking to camera',
+    description: 'Standing at a campus terrace railing, looking to camera',
     usedOn: ['Home hero', 'About', 'Press kit'],
     launchCritical: true,
   },
   {
     ref: 'P-02',
     ratio: '4:5',
-    description: 'Secondary portrait, different setting and outfit',
+    description: 'Seated in an office against a bookshelf, hands clasped',
     usedOn: ['Media bios', 'Board and Advisory'],
     launchCritical: false,
   },
   {
     ref: 'P-03',
     ratio: '3:2',
-    description: 'Speaking portrait, mid-gesture, on a stage or at a podium',
+    description: 'Speaking at a lectern with a microphone, mid-sentence',
     usedOn: ['Speaker hero', 'Press kit'],
     launchCritical: true,
   },
+  {
+    ref: 'P-04',
+    ratio: '3:2',
+    description: 'Outdoors against a stone building, leaning on a railing',
+    usedOn: ['Home contact sheet', 'About'],
+    launchCritical: false,
+  },
+  {
+    ref: 'P-05',
+    ratio: '3:2',
+    description: 'Seated in a wooden chair in daylight, looking to camera',
+    usedOn: ['About', 'Press kit'],
+    launchCritical: false,
+  },
+  {
+    ref: 'P-06',
+    ratio: '3:2',
+    description: 'Standing beside a glass wall, arms folded, reflection visible',
+    usedOn: ['Home contact sheet', 'Media'],
+    launchCritical: false,
+  },
+  {
+    ref: 'P-07',
+    ratio: '4:5',
+    description: 'Seated in a wooden chair in full daylight, full length',
+    usedOn: ['Press kit', 'Board and Advisory'],
+    launchCritical: false,
+  },
 
+  // -- At work --------------------------------------------------------------
+  {
+    ref: 'W-01',
+    ratio: '3:2',
+    description: 'At a desk with a laptop, reading, nameplate in frame',
+    usedOn: ['Home contact sheet', 'Research'],
+    launchCritical: false,
+  },
+
+  // -- Classroom ------------------------------------------------------------
   {
     ref: 'C-01',
     ratio: '3:2',
-    description: 'Classroom — teaching, participants visible, case discussion in progress',
+    description: 'Teaching a seminar room session at a U-shaped table',
     usedOn: ['Training', 'Home contact sheet'],
     launchCritical: true,
   },
   {
     ref: 'C-02',
     ratio: '3:2',
-    description: 'Classroom — whiteboard or screen mid-session, students working',
-    usedOn: ['Training', 'Home contact sheet'],
+    description: 'With a full cohort in a tiered lecture theatre',
+    usedOn: ['Training', 'Gallery'],
     launchCritical: true,
   },
   {
     ref: 'C-03',
     ratio: '3:2',
-    description: 'Classroom — a film-based session, the three co-designed courses',
-    usedOn: ['Training course strip'],
+    description: 'With an international cohort in a European classroom',
+    usedOn: ['Training course strip', 'Training visiting'],
     launchCritical: true,
   },
   {
     ref: 'C-04',
     ratio: '3:2',
-    description: 'Classroom — small-group or prototyping work, design thinking session',
-    usedOn: ['Training', 'Gallery'],
+    description: 'Second frame with the same international cohort',
+    usedOn: ['Training visiting', 'Gallery'],
     launchCritical: false,
   },
 
+  // -- Stage ----------------------------------------------------------------
   {
     ref: 'S-01',
     ratio: '3:2',
-    description: 'Stage — conference presentation at a lectern, slide visible behind',
-    usedOn: ['Speaker', 'Gallery'],
+    description: 'Presenting from a screen to a seated conference audience',
+    usedOn: ['Speaker', 'Home contact sheet', 'Gallery'],
     launchCritical: true,
   },
   {
     ref: 'S-02',
     ratio: '3:2',
-    description: 'Stage — panel seating, in conversation',
+    description: 'Auditorium stage during a conference session, seen wide',
     usedOn: ['Speaker', 'Gallery'],
     launchCritical: true,
   },
   {
     ref: 'S-03',
     ratio: '3:2',
-    description: 'Stage — wide room shot showing the audience and the scale of the session',
+    description:
+      'Stage — wide room shot showing the audience and the scale of the session',
     usedOn: ['Speaker', 'Gallery'],
     launchCritical: true,
   },
   {
     ref: 'S-04',
-    ratio: '3:2',
-    description: 'Stage — Academy of Management or EGOS session, badge or backdrop legible',
+    ratio: '4:5',
+    description:
+      'Beside the signage for the 86th Annual Meeting of the Academy of Management',
+    usedOn: ['Speaker', 'Gallery'],
+    launchCritical: false,
+  },
+  {
+    ref: 'S-05',
+    ratio: '4:5',
+    description: 'In front of an HRIC 2026 conference backdrop',
     usedOn: ['Speaker', 'Gallery'],
     launchCritical: false,
   },
 
+  // -- Executive rooms ------------------------------------------------------
   {
     ref: 'M-01',
-    ratio: '3:2',
-    description: 'MDP room — U-shaped table, senior participants, session underway',
+    ratio: '4:5',
+    description: 'Group photograph with participants around a seminar table',
     usedOn: ['Consulting', 'Training'],
     launchCritical: false,
   },
   {
     ref: 'M-02',
     ratio: '3:2',
-    description: 'MDP room — facilitating at the board with executives responding',
-    usedOn: ['Consulting'],
+    description: 'Group photograph during an organisational visit',
+    usedOn: ['Consulting', 'Home contact sheet'],
     launchCritical: false,
   },
   {
     ref: 'M-03',
     ratio: '3:2',
-    description: 'MDP room — participants in group exercise, materials on the table',
+    description:
+      'MDP room — participants in group exercise, materials on the table',
     usedOn: ['Consulting', 'Gallery'],
     launchCritical: false,
   },
 
+  // -- Events ---------------------------------------------------------------
   {
     ref: 'E-01',
-    ratio: '3:2',
-    description: 'Best Paper Award, HR Division, Academy of Management 2023, Boston',
-    usedOn: ['Gallery', 'Research'],
+    ratio: '4:5',
+    description: 'On stage at a conference on governance in the age of AI',
+    usedOn: ['Gallery', 'Speaker'],
     launchCritical: false,
   },
   {
@@ -161,25 +216,33 @@ export const SHOTS = [
   {
     ref: 'E-04',
     ratio: '3:2',
-    description: 'Wharton Global Faculty Development Programme 2025, cohort or session',
+    description: 'Wharton Global Faculty Development Programme 2025',
     usedOn: ['Gallery', 'About'],
     launchCritical: false,
   },
   {
     ref: 'E-05',
-    ratio: '3:2',
-    description: 'Conference moment — with co-authors or colleagues between sessions',
-    usedOn: ['Gallery'],
+    ratio: '4:5',
+    description: 'Outside Copenhagen Business School during a conference trip',
+    usedOn: ['Gallery', 'Speaker'],
     launchCritical: false,
   },
   {
     ref: 'E-06',
     ratio: '3:2',
-    description: 'Institutional event — convocation, panel or campus occasion',
-    usedOn: ['Gallery'],
+    description: 'Full cohort group photograph in a campus atrium',
+    usedOn: ['Gallery', 'Training'],
+    launchCritical: false,
+  },
+  {
+    ref: 'E-07',
+    ratio: '4:5',
+    description: 'With three colleagues at a recording or panel session',
+    usedOn: ['Gallery', 'Media'],
     launchCritical: false,
   },
 
+  // -- Details --------------------------------------------------------------
   {
     ref: 'D-01',
     ratio: '3:2',

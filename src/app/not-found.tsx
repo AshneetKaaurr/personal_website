@@ -38,7 +38,7 @@ export default function NotFound() {
           </div>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <Frame shot="D-01" sizes="(min-width: 64rem) 33vw, 100vw" />
+            <Frame shot="P-05" sizes="(min-width: 64rem) 33vw, 100vw" />
           </div>
         </div>
       </Bleed>

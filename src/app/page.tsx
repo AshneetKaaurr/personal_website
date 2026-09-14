@@ -43,13 +43,13 @@ const PILLARS: Pillar[] = [
   {
     href: '/about',
     label: 'About',
-    shot: 'E-04',
+    shot: 'P-04',
     note: 'SRCC to Delhi School of Economics, Deloitte, McKinsey, ATOS, a PhD at IIM Ahmedabad, and two ventures founded along the way.',
   },
   {
     href: '/research',
     label: 'Research',
-    shot: 'D-02',
+    shot: 'W-01',
     note: 'What AI-driven systems do to employee privacy, trust and engagement, and the ethics of algorithmic decisions in HR.',
   },
   {
@@ -61,19 +61,19 @@ const PILLARS: Pillar[] = [
   {
     href: '/media',
     label: 'Media Articles',
-    shot: 'D-03',
+    shot: 'P-06',
     note: 'Eight published pieces, from the vanishing first job in the age of AI to sustainable leadership.',
   },
   {
     href: '/speaker',
     label: 'Speaker',
-    shot: 'S-01',
+    shot: 'P-03',
     note: 'Five Academy of Management annual meetings across six years, EGOS, EURAM, BCERC.',
   },
   {
     href: '/consulting',
     label: 'Consulting',
-    shot: 'M-01',
+    shot: 'M-02',
     note: 'Management development programmes, and consulting engagements with ICAI, Bosch India, HURL and ATOS.',
   },
 ]

@@ -9,8 +9,17 @@
 /build
 next-env.d.ts
 
-# production photography — real files are added deliberately, never bulk-committed
-# (see CLAUDE.md hard rule 3; placeholders render until a photo lands here)
+# Raw photo deliveries as downloaded (OneDrive exports, zips). Same reasoning
+# as photo-intake below: EXIF, weight, and no reason for the repo to carry them.
+/OneDrive_*/
+/OneDrive_*.zip
+
+# Photographs as supplied, before processing. Not served and not committed:
+# they still carry EXIF, which on phone photos includes GPS coordinates, and
+# several are 4MB+. scripts/prepare-photos.mjs reads from here and writes the
+# stripped, resized, web-ready files into /public/photos, which IS committed.
+/photo-intake/
+
 /public/photos/**/*.psd
 /public/photos/**/*.tif
 /public/photos/**/*_RAW.*

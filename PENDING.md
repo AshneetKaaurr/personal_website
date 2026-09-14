@@ -13,7 +13,9 @@ visible on every preview deploy rather than only here.
 
 | # | Item | Owner | Blocks | Proposed answer |
 |---|---|---|---|---|
-| 1 | **Photography — the full shot list.** 23 shots declared in `src/lib/shots.ts`. None supplied. 8 are marked launch-critical: P-01, P-03, C-01, C-02, C-03, S-01, S-02, S-03. | Client | Home, Speaker, Training, Gallery, Press kit | Shoot the 8 launch-critical frames first. Below that set the design cannot carry itself and those sections have to be rebuilt as type. |
+| 1 | **Written consent for the group photographs.** 11 of the 22 supplied photographs show students, participants or colleagues who are identifiable. They are wired up but render as placeholders. | Client | Training (all 6 frames), Gallery, Home contact sheet (2 of 6), Speaker (3 of 6) | Confirm in writing that those people consent to appearing on a public site, then set `THIRD_PARTY` to `'confirmed'` in `src/content/photos.ts` — one constant releases all 11. |
+| 1b | **Five HEIC files cannot be opened.** `Global teaching.HEIC`, `IMG_0973.HEIC`, `IMG_9432.HEIC`, `IMG_9439.HEIC`, `IMG_9440.HEIC`. | Client | Whatever they turn out to show | Neither sharp's libheif nor Windows has an HEVC decoder on this machine, so they cannot be converted here. Re-export as JPEG and drop them in `photo-intake/`. |
+| 1c | **Shots still not covered by any photograph.** S-03, M-03, E-02, E-03, E-04, D-01, D-02, D-03. | Client | Gallery, Research, Section breaks | The three best-paper award moments (E-02, E-03), the Wharton FDP (E-04) and the three detail frames are the notable gaps. |
 | 2 | **Current institutional affiliation.** The CV shows SPJIMR to March 2026 and an ISB email address. | Client | About, Home, every bio, page metadata | Nothing states a current institution until she confirms. The Home credentials band currently states the SPJIMR dates as a closed range, which is accurate either way. |
 | 3 | **Plain-English summaries, all 12.** Every one is a draft written by Claude, describing what the paper looks at. None describes a finding. | Client | Publications, Research, Home, production build | She approves or rewrites each. The production build fails while any remains `draft`. |
 | 4 | **Research theme assignment for all 12 records.** Proposed by Claude, not stated by her. | Client | Research and its three theme pages | Current proposal is in `CONTENT-INVENTORY.md` §3 and encoded in `src/content/publications.ts`. |
@@ -34,7 +36,9 @@ visible on every preview deploy rather than only here.
 | 12 | Response-time commitment per enquiry type | Client | Contact | Real numbers. Not "within 24 hours" because it reads well. |
 | 13 | Google Scholar and LinkedIn URLs | Client | Contact, About, Research | On the CV as links; the URLs need extracting. |
 | 14 | ATOS dates — the CV shows Apr 2019 to May 2019, a one-month span | Client | About, Consulting | Likely a typo. Confirm before publishing either way. |
-| 15 | Photo consent for identifiable participants and students | Client | Gallery, Training | Written confirmation. The manifest refuses to publish any photo whose `consent` is `pending`. |
+| 15 | Dates and places for each photograph | Client | Gallery captions | Several captions say what is happening but not where or when. A gallery caption should carry all three. |
+| 15b | Photographer credit line | Client | Press kit | Owed on the studio portraits if a photographer took them. |
+| 15c | Print-resolution files for the press kit | Client | Press kit | The published files are capped at 2400px on the long edge — right for the web, too small for print. |
 | 16 | Social Media page — curated collection or LinkedIn embed | Client | Social | Recommend the curated collection: 4 to 6 items she adds to, each with a real date, a link and one line of her framing. The embed needs no maintenance but renders as a widget and the design loses control of it. |
 | 17 | Nav placement sign-off — five in the bar, the rest in the footer | Client | Header, final | Shipped as five: About, Research, Training, Speaker, Consulting. Six pillars plus a wordmark plus a CTA is eight items; it breaks at tablet and buries everything. She can overrule. |
 | 18 | Sitemap sign-off as final | Client | Phase 3 | Routes as built match `BUILD-PLAN.md` §5. |
