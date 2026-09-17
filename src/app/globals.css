@@ -16,9 +16,34 @@
   --radius-xl: 1.5rem;
   --radius-2xl: 2rem;
   --radius-3xl: 3rem;
+}
 
-  --animate-fade-in: fade-in 0.8s ease-out forwards;
-  --animate-slide-up: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@layer utilities {
+  .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
+  .animate-slide-up { animation: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .animate-scroll-y { animation: scroll-y 40s linear infinite; }
+  .animate-scroll-y-reverse { animation: scroll-y-reverse 45s linear infinite; }
+  .animate-scroll-y-slow { animation: scroll-y 55s linear infinite; }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scroll-y {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+
+  @keyframes scroll-y-reverse {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+  }
 }
 
 @layer base {
@@ -55,31 +80,6 @@
   }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes scroll-y {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
-}
-
-@keyframes scroll-y-reverse {
-  from { transform: translateY(-50%); }
-  to { transform: translateY(0); }
-}
 
 /* Used by the hero's pillar rail. Referenced before it existed, so the rail
    was showing a scrollbar. */
@@ -90,16 +90,4 @@
   &::-webkit-scrollbar {
     display: none;
   }
-}
-
-@utility animate-scroll-y {
-  animation: scroll-y 40s linear infinite;
-}
-
-@utility animate-scroll-y-reverse {
-  animation: scroll-y-reverse 45s linear infinite;
-}
-
-@utility animate-scroll-y-slow {
-  animation: scroll-y 55s linear infinite;
 }

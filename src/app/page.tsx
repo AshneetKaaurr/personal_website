@@ -10,6 +10,9 @@ import {
   RecordList,
   Section,
 } from '@/components/Page'
+import { FadeIn, FadeInRight, ScaleIn } from '@/components/Motion'
+import { HeroSlideshowBg, HeroBadge } from '@/components/HeroSlideshow'
+import { ContactTrigger } from '@/components/ContactTrigger'
 import { byRecency, journalArticles } from '@/content/publications'
 import type { ShotRef } from '@/lib/shots'
 
@@ -92,97 +95,71 @@ export default function Home() {
       {/* Premium Hero — Full screen, large typography, bottom glass bar.  */}
       {/* ---------------------------------------------------------------- */}
       <section className="relative h-screen min-h-[800px] w-full overflow-hidden bg-light-bg">
-        
-        {/* Dynamic Collage Background */}
-        <div className="absolute inset-0 w-full lg:w-1/2 overflow-hidden z-0 opacity-40 mix-blend-multiply">
-          <div className="grid grid-cols-3 gap-4 w-[120%] -ml-[10%] h-[200vh] -mt-[50vh] rotate-[-6deg]">
-            {/* Column 1 - Down */}
-            <div className="flex flex-col gap-4 animate-scroll-y">
-              {['C-01', 'E-01', 'M-01', 'P-02', 'C-01', 'E-01'].map((img, i) => (
-                <div key={`col1-${i}`} className="relative h-64 w-full rounded-2xl overflow-hidden shadow-lg">
-                  <Frame shot={img as ShotRef} sizes="33vw" className="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" />
-                </div>
-              ))}
-            </div>
-            {/* Column 2 - Up */}
-            <div className="flex flex-col gap-4 animate-scroll-y-reverse">
-              {['P-03', 'S-01', 'C-02', 'P-04', 'P-03', 'S-01'].map((img, i) => (
-                <div key={`col2-${i}`} className="relative h-80 w-full rounded-2xl overflow-hidden shadow-lg">
-                  <Frame shot={img as ShotRef} sizes="33vw" className="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" />
-                </div>
-              ))}
-            </div>
-            {/* Column 3 - Down Slow */}
-            <div className="flex flex-col gap-4 animate-scroll-y-slow">
-              {['E-05', 'P-06', 'S-02', 'C-03', 'E-05', 'P-06'].map((img, i) => (
-                <div key={`col3-${i}`} className="relative h-72 w-full rounded-2xl overflow-hidden shadow-lg">
-                  <Frame shot={img as ShotRef} sizes="33vw" className="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Frosted Glass Overlay for Collage */}
-        <div className="absolute inset-0 w-full lg:w-1/2 z-0 bg-white/70 backdrop-blur-xl pointer-events-none" />
+        {/* React-controlled Apple-Style Glassmorphism Slideshow */}
+        <HeroSlideshowBg />
 
         {/* Faint Watermark Text */}
-        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.03]">
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.03] z-0">
           <span className="font-serif text-[25vw] leading-none whitespace-nowrap tracking-tighter">
             Ashneet
           </span>
         </div>
 
-        <div className="absolute inset-0 grid grid-cols-1 lg:grid-cols-2">
-          {/* Left: Typography */}
-          <div className="flex flex-col justify-center px-12 lg:px-24 z-10 animate-slide-up">
-            <span className="font-sans text-sm font-semibold tracking-widest text-sage mb-6">
-              01
-            </span>
-            <h1 className="font-serif text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] tracking-tight text-dark-text mb-8">
-              Ashneet<br/>Kaur
-            </h1>
-            <p className="font-sans text-xl text-sage max-w-md">
-              Scholar and educator in Organizational Behaviour and HRM.
-            </p>
-            
-            <div className="mt-16 flex items-center gap-6 font-sans text-sm font-medium tracking-wide">
-              <button className="flex items-center gap-2 hover:text-coral transition-colors">
-                <span className="text-lg">‹</span> previous
-              </button>
-              <button className="flex items-center gap-2 text-sage hover:text-coral transition-colors">
-                next <span className="text-lg">›</span>
-              </button>
-            </div>
-          </div>
+        {/* Floating Background Stats (Sits BEHIND portrait for depth) */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-[320px] lg:w-[400px] flex flex-col justify-center gap-6 px-4 md:px-8 py-32 z-[5] pointer-events-none hidden md:flex">
+          <FadeInRight delay={0.6} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
+            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">3 Best-Paper Awards</h4>
+            <p className="text-sm text-dark-text/70 leading-relaxed">Recognized at the Academy of Management, EDII, and Anusandhan RDAIS for groundbreaking HR research.</p>
+          </FadeInRight>
 
-          {/* Right: Main Profile Image */}
-          <div className="relative h-full w-full hidden lg:block">
-            {/* We use a standard img tag here with object-cover and gradient fade at the bottom */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
-            <img 
-              src="/photos/p-05-seated.jpg" 
-              alt="Dr Ashneet Kaur" 
-              className="absolute inset-0 w-full h-full object-cover object-center animate-fade-in"
-            />
+          <FadeInRight delay={0.8} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
+            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">12+ Published Records</h4>
+            <p className="text-sm text-dark-text/70 leading-relaxed">A decade of rigorous research featured in top-tier global management journals.</p>
+          </FadeInRight>
+
+          <FadeInRight delay={1.0} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
+            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">Executive Consulting</h4>
+            <p className="text-sm text-dark-text/70 leading-relaxed">Strategic engagements with ICAI, Bosch India, HURL, and ATOS across international offices.</p>
+          </FadeInRight>
+        </div>
+
+        {/* Profile Cutout (Sits behind text, in front of background stats) */}
+        <FadeIn delay={0.4} className="absolute inset-0 flex items-end justify-center lg:justify-end pointer-events-none z-10 overflow-visible">
+          <img 
+            src="/photos/p-05-seated-no-bg.png" 
+            alt="Dr Ashneet Kaur" 
+            className="w-auto max-w-[200%] h-[80vh] sm:h-[85vh] md:h-[90vh] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto translate-y-0 md:-translate-y-12 lg:-translate-y-24 translate-x-2 sm:translate-x-4 lg:translate-x-12"
+          />
+        </FadeIn>
+
+        {/* Foreground Text Layer (Overlaps photo) */}
+        <div className="absolute inset-0 flex flex-col items-start justify-end md:justify-center px-4 md:px-8 lg:px-24 pb-44 sm:pb-32 md:pb-0 pointer-events-none z-20">
+          <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col items-start pt-24 md:pt-0">
+            <FadeInRight delay={0.6}>
+              <h1 className="font-serif text-[3.5rem] sm:text-6xl md:text-8xl lg:text-[10rem] xl:text-[11rem] leading-[0.9] md:leading-[0.85] tracking-tighter text-dark-text drop-shadow-[0_4px_32px_rgba(255,255,255,1)] mix-blend-normal pointer-events-auto">
+                Ashneet<br />Kaur
+              </h1>
+            </FadeInRight>
             
-            {/* Text over image (like in the template) */}
-            <div className="absolute bottom-40 right-16 z-20 max-w-sm text-white/90 font-sans text-sm leading-relaxed text-right">
-              <div className="w-12 h-px bg-white/50 ml-auto mb-4"></div>
-              Working at the intersection of human systems, technological change and sustainable organization design.
-            </div>
+            <FadeIn delay={0.8} className="w-full mt-2 md:mt-0">
+              <HeroBadge />
+            </FadeIn>
+
+            <FadeIn delay={1.0} className="w-full mt-2 pointer-events-auto">
+              <ContactTrigger />
+            </FadeIn>
           </div>
         </div>
 
         {/* Bottom Glassmorphism Bar */}
-        <div className="absolute bottom-0 left-0 w-full z-30 glass-dark py-6 px-12 lg:px-24 flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-shrink-0">
-            <Link href="#content" className="font-serif text-white text-xl tracking-wide flex items-center gap-4 group">
+        <FadeIn delay={1.2} className="absolute bottom-0 left-0 w-full z-30 glass-dark py-4 md:py-6 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row items-center gap-6 md:gap-12">
+          <div className="flex-shrink-0 w-full md:w-auto text-center md:text-left">
+            <Link href="#content" className="font-serif text-white text-lg md:text-xl tracking-wide flex items-center justify-center md:justify-start gap-4 group">
               explore <span className="group-hover:translate-x-2 transition-transform duration-300">›</span>
             </Link>
           </div>
           
-          <div className="flex-1 flex gap-8 overflow-x-auto no-scrollbar pb-2 md:pb-0 items-center justify-between">
+          <div className="flex-1 w-full flex gap-4 md:gap-8 overflow-x-auto no-scrollbar pb-2 md:pb-0 items-center justify-start md:justify-between mask-edges">
             {PILLARS.slice(0, 4).map(({ href, label, shot }) => (
               <Link key={href} href={href} className="flex items-center gap-4 group min-w-[200px]">
                 <div className="w-12 h-12 rounded-full overflow-hidden relative border border-white/20 group-hover:border-coral transition-colors flex-shrink-0">
@@ -198,12 +175,12 @@ export default function Home() {
               <span className="text-sm tracking-widest font-sans font-medium">all</span>
             </Link>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
 
-      <Container>
-        <Section title="Where the work has been done">
+      <Container id="content">
+        <Section title="Where the work has been done" intro="A foundation in research and practice, linking organisational behaviour to strategic outcomes.">
           <RecordList columns={3}>
             <Record label="Doctorate">
               PhD in Human Resource Management, IIM Ahmedabad, 2018 to 2023
@@ -237,36 +214,35 @@ export default function Home() {
           </Note>
         </Section>
 
-        <Section title="Recent research">
-          <ul className="grid gap-8 md:grid-cols-3">
+        <Section title="Recent research" intro="Latest published work from a decade of research.">
+          <ul className="grid gap-6 md:grid-cols-3">
             {recentPapers.map((paper) => (
-              <li key={paper.id}>
-                <p className="text-sm text-sage">
-                  {paper.year}
-                  {paper.abdc ? ` — ABDC ${paper.abdc}` : ''}
-                </p>
-                <h3 className="mt-2 font-serif text-xl leading-snug">
+              <li 
+                key={paper.id}
+                className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300 flex flex-col"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-dark-text/5 text-xs font-medium text-dark-text">
+                    {paper.year}
+                  </span>
+                  {paper.abdc ? (
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
+                      ABDC {paper.abdc}
+                    </span>
+                  ) : null}
+                </div>
+                <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors mb-2">
                   {paper.title}
                 </h3>
-                <p className="mt-2 text-sm text-sage">{paper.venue}</p>
-                <p className="mt-3 leading-relaxed">{paper.summary}</p>
+                <p className="text-sm text-sage mb-3">{paper.venue}</p>
+                <p className="leading-relaxed text-dark-text/70 text-sm flex-1">{paper.summary}</p>
               </li>
             ))}
           </ul>
 
-          <p className="mt-8">
-            <PageLink href="/publications">All publications</PageLink>
-          </p>
-        </Section>
-
-        <Section title="Recent activity">
-          <Note kind="needs" item="the recent activity strip">
-            This strip surfaces the newest item across publications, media,
-            speaking and social, with its real date. It is deliberately not
-            built from hardcoded entries: a stale freshness signal does more
-            damage than none. It ships once the media, speaking and social
-            collections carry dates.
-          </Note>
+          <div className="mt-8 flex justify-end">
+            <PageLink href="/publications">View all publications</PageLink>
+          </div>
         </Section>
       </Container>
     </>
