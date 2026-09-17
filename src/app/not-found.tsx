@@ -1,47 +1,32 @@
-import Link from 'next/link'
-
-import { Frame } from '@/components/Frame'
-import { Bleed, Surface } from '@/components/Surface'
+import { Container, PageTitle, Section } from '@/components/Page'
 import { PRIMARY_NAV } from '@/lib/nav'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Page not found',
 }
 
-/**
- * 404. Her voice, a route back to the pillars, one photograph.
- * Not a joke page. BUILD-PLAN.md §8.
- */
 export default function NotFound() {
   return (
-    <Surface surface="print" className="py-9">
-      <Bleed>
-        <div className="grid gap-7 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h1 className="font-display text-h1 tracking-tight">
-              There is nothing at this address
-            </h1>
-            <p className="mt-5 max-w-measure font-display text-body">
-              The link may be old, or it may have a typo in it. Here is the rest
-              of the site.
-            </p>
+    <Container>
+      <PageTitle lede="The link may be old, or it may have a typo in it. Here is the rest of the site.">
+        There is nothing at this address
+      </PageTitle>
 
-            <ul className="mt-6">
-              {PRIMARY_NAV.map(({ href, label }) => (
-                <li key={href} className="mt-2">
-                  <Link href={href} className="font-data text-body text-accent">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-4 lg:col-start-9">
-            <Frame shot="P-05" sizes="(min-width: 64rem) 33vw, 100vw" />
-          </div>
-        </div>
-      </Bleed>
-    </Surface>
+      <Section>
+        <ul className="space-y-3">
+          {PRIMARY_NAV.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className="underline underline-offset-4 hover:text-coral"
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+    </Container>
   )
 }

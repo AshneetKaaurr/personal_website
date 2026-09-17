@@ -25,8 +25,8 @@ interface FrameProps {
  * shot ref, and the placeholder when it does not — so pages are written once,
  * against the shot list, and photographs fill in behind them as they arrive.
  *
- * Radius is 2px and the ratio is one of exactly two values. That consistency
- * is what makes the frame idea read as a frame. §3.4.
+ * The frame sets no radius of its own — whatever wraps it decides that, so the
+ * component does not carry a design opinion the page then has to fight.
  */
 export function Frame({
   shot,
@@ -61,7 +61,7 @@ export function Frame({
         // them. `focal` steers that crop per photograph — a judgement about
         // where her head and hands are, not something to automate.
         style={photo.focal ? { objectPosition: photo.focal } : undefined}
-        className={`h-full w-full rounded-frame object-cover ${imageClassName ?? ''}`}
+        className={`h-full w-full object-cover ${imageClassName ?? ''}`}
       />
     </div>
   )

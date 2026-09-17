@@ -8,10 +8,23 @@ import { z } from 'zod'
  * list or a wrong ABDC rank is a real problem, not a cosmetic one.
  */
 
+/**
+ * Four themes, not three.
+ *
+ * BUILD-PLAN.md assumed three. The CV supports four: two of her three
+ * best-paper awards are on new ventures and founders, and with the agility
+ * paper, the Product Entrepreneurship Lab, Start Your Business, FiNovate,
+ * BCERC, the AOM Entrepreneurship Division editorship and two ventures she
+ * founded herself, entrepreneurship is not a sideline in this record. Under a
+ * three-theme structure it disappears. See SITE-COPY.md.
+ *
+ * Proposed, not confirmed by her. PENDING.md carries it.
+ */
 export const themeSchema = z.enum([
   'algorithms-at-work',
   'sustainable-people-systems',
-  'careers-and-advancement',
+  'careers-and-mobility',
+  'founders-ventures-growth',
 ])
 
 export type Theme = z.infer<typeof themeSchema>

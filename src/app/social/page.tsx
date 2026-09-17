@@ -1,26 +1,37 @@
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
+import { Container, Note, PageTitle, Section } from '@/components/Page'
 
 export const metadata = {
-  title: "Social Media",
+  title: 'Social Media',
+  description: 'Recent talks, publications and writing, with dates.',
 }
 
-export default function Page() {
+export default function Social() {
   return (
-    <Surface surface="print" className="py-9">
-      <Bleed>
-        <h1 className="font-display text-h1 tracking-tight">Social Media</h1>
+    <Container>
+      <PageTitle lede="What she is working on at the moment, with dates, so you can tell whether this page is alive.">
+        Social Media
+      </PageTitle>
 
-        <PendingNotice item="this page" owner="Build">
-          <p>What goes here:</p>
-          <ul className="mt-2 list-disc pl-5">
-            <li className="mt-1">This page takes on the old Now page job: proving the site is alive. A decorative feed is worse than nothing.</li>
-            <li className="mt-1">Two honest options, one to be picked with her: a curated collection of four to six items she adds to, each with a real date, a link and one line of her framing; or a LinkedIn embed, which needs no maintenance but renders as a widget outside the design.</li>
-            <li className="mt-1">Whichever ships, a visible last-updated date. If the newest item passes 90 days old, the build warns.</li>
-          </ul>
-          <p className="mt-3">Blocked by: Her choice between the two options.</p>
-        </PendingNotice>
-      </Bleed>
-    </Surface>
+      <Section>
+        <Note kind="needs" item="a decision between two options">
+          <p>
+            <strong>A curated collection</strong> she adds to: four to six
+            items, each with a real date, a link and one line of her framing.
+            Manual, but it is hers and the design keeps control of it. This is
+            the recommendation.
+          </p>
+          <p>
+            <strong>A LinkedIn embed.</strong> No maintenance, but it renders as
+            a third-party widget, the design loses control of it, and it reads
+            as filler.
+          </p>
+          <p>
+            Whichever ships, the page carries a visible last-updated date, and
+            the build warns when the newest item passes ninety days old. A
+            decorative feed is worse than no feed.
+          </p>
+        </Note>
+      </Section>
+    </Container>
   )
 }

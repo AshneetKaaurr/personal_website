@@ -1,25 +1,44 @@
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
+import { Container, PageLink, PageTitle, Section } from '@/components/Page'
+import { INVITED_LECTURES, VISITING } from '@/content/record'
 
 export const metadata = {
-  title: "Visiting appointments",
+  title: 'Visiting appointments',
+  description:
+    'Visiting faculty at the University of Pécs, Great Lakes Chennai, Masters Union and Bharti College, and invited lectures.',
 }
 
-export default function Page() {
+export default function VisitingPage() {
   return (
-    <Surface surface="print" className="py-9">
-      <Bleed>
-        <h1 className="font-display text-h1 tracking-tight">Visiting appointments</h1>
+    <Container>
+      <PageTitle>Visiting appointments</PageTitle>
 
-        <PendingNotice item="this page" owner="Build">
-          <p>What goes here:</p>
-          <ul className="mt-2 list-disc pl-5">
-            <li className="mt-1">University of Pecs, Great Lakes Chennai, Masters Union and Bharti College, with what was taught at each.</li>
-            <li className="mt-1">Guest lectures, including the K.R. Mangalam session that scored 4.44 out of 5 across 100-plus participants.</li>
-          </ul>
-          <p className="mt-3">Blocked by: Nothing. Builds from the CV record.</p>
-        </PendingNotice>
-      </Bleed>
-    </Surface>
+      <Section title="Appointments">
+        <ul className="space-y-8">
+          {VISITING.map((post) => (
+            <li key={post.institution}>
+              <h2 className="font-serif text-lg">{post.institution}</h2>
+              <p className="mt-1 text-sm text-sage">{post.when}</p>
+              <p className="mt-2 leading-relaxed">{post.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title="Invited lectures">
+        <ul className="space-y-4">
+          {INVITED_LECTURES.map((lecture) => (
+            <li key={lecture} className="leading-relaxed">
+              {lecture}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section>
+        <p>
+          <PageLink href="/training">Back to training</PageLink>
+        </p>
+      </Section>
+    </Container>
   )
 }

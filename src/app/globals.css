@@ -1,159 +1,24 @@
 @import 'tailwindcss';
 
-/* ---------------------------------------------------------------------------
-   Reel & Frame — the design system.
-   These tokens ARE the Tailwind theme. Tailwind's own palette, type scale and
-   spacing ramp are turned off below so that nothing outside this block can
-   resolve to a utility. If `bg-slate-50` works, something here is broken.
-   Source of truth: BUILD-PLAN.md §3.2–3.4.
---------------------------------------------------------------------------- */
-
 @theme {
-  /* -- defaults off -------------------------------------------------------- */
-  --color-*: initial;
-  --font-*: initial;
-  --text-*: initial;
-  --spacing-*: initial;
-  --spacing: initial;
-  --radius-*: initial;
-  --shadow-*: initial;
-  --breakpoint-*: initial;
-  --tracking-*: initial;
-  --leading-*: initial;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, 'Times New Roman', serif;
 
-  /* -- palette: six values, §3.2 ------------------------------------------- */
-  --color-screen: #14171a; /* projection dark — the looking surface */
-  --color-screen-2: #1e2327; /* raised frame edge on dark */
-  --color-print: #e9e7e0; /* archival paper — the reading surface */
-  --color-ink: #191a17; /* body text on print */
-  --color-graphite: #64686b; /* meta, captions, marginalia */
-  --color-mark: #1f3c8c; /* ultramarine — the one accent */
+  --color-light-bg: #f8faf9;
+  --color-dark-text: #1a231f;
+  --color-sage: #81988b;
+  --color-coral: #e07a5f;
+  
+  --color-glass-dark: rgba(26, 35, 31, 0.85);
+  --color-glass-light: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(255, 255, 255, 0.2);
 
-  /* Readable meta on the dark surface. --graphite fails contrast on --screen,
-     so the screen surface gets its own meta value rather than an opacity hack. */
-  --color-graphite-screen: #9aa0a5;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 3rem;
 
-  --color-transparent: transparent;
-  --color-current: currentColor;
-
-  /* -- type families, §3.3 ------------------------------------------------- */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-
-  --font-display: var(--font-newsreader), Georgia, 'Times New Roman', serif;
-  --font-body: var(--font-newsreader), Georgia, 'Times New Roman', serif;
-  --font-data: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-
-  /* -- type scale: modular 1.25 from an 18px base, §3.3 -------------------- */
-  --text-meta: 0.875rem; /* 14 */
-  --text-meta--line-height: 1.4;
-  --text-body: 1.125rem; /* 18 */
-  --text-body--line-height: 1.65;
-  --text-lead: 1.40625rem; /* 22.5 */
-  --text-lead--line-height: 1.5;
-  --text-h3: 1.75rem; /* 28 */
-  --text-h3--line-height: 1.3;
-  --text-h2: 2.1875rem; /* 35 */
-  --text-h2--line-height: 1.2;
-  --text-h1: 2.75rem; /* 44 */
-  --text-h1--line-height: 1.15;
-  --text-title: 3.4375rem; /* 55 */
-  --text-title--line-height: 1.08;
-  --text-title-lg: 4.3125rem; /* 69 */
-  --text-title-lg--line-height: 1.04;
-  --text-hero: clamp(3.5rem, 9vw, 7.5rem); /* breaks scale, hero only */
-  --text-hero--line-height: 0.95;
-
-  /* -- tracking: headlines tighten, nothing tracks out --------------------- */
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-
-  /* -- spacing: a deliberate ramp, not a 4px multiplier -------------------- */
-  /* Zero is a step. Switching off Tailwind's dynamic --spacing also removes
-     it, and min-w-0 / p-0 / gap-0 silently stop generating — which is how a
-     grid item quietly refuses to shrink and widens the whole page. */
-  --spacing-0: 0px;
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-5: 1.5rem;
-  --spacing-6: 2rem;
-  --spacing-7: 3rem;
-  --spacing-8: 4rem;
-  --spacing-9: 6rem;
-  --spacing-10: 8rem;
-  --spacing-11: 12rem;
-
-  /* -- radius: 2px on frames, 0 on rules, 999px on nothing, §3.4 ----------- */
-  --radius-frame: 2px;
-
-  /* -- measure: body copy never exceeds 68–72 characters, §3.3 ------------- */
-  --container-measure: 34rem;
-  --container-measure-wide: 42rem;
-  --container-page: 84rem;
-
-  /* -- the two photographic ratios, and nothing else, §3.4 ----------------- */
-  --aspect-frame-landscape: 3 / 2;
-  --aspect-frame-portrait: 4 / 5;
-
-  /* -- breakpoints --------------------------------------------------------- */
-  --breakpoint-sm: 30rem;
-  --breakpoint-md: 48rem;
-  --breakpoint-lg: 64rem;
-  --breakpoint-xl: 80rem;
-}
-
-/* ---------------------------------------------------------------------------
-   Surface-relative values.
-
-   Three of the six palette tokens do not survive a move to the dark surface:
-   --graphite is 3.20:1 on --screen, and --mark is 1.78:1. So the values whose
-   correct colour DEPENDS on which surface they land on are resolved through
-   the cascade rather than chosen by hand at each call site. A component that
-   uses text-muted is readable on either surface; a component that hardcodes
-   text-graphite is readable on exactly one, and nothing stops it being placed
-   on the other.
-
-   Measured, see NOTES.md. Every pair below clears 4.5:1.
---------------------------------------------------------------------------- */
-
-@layer base {
-  :root,
-  [data-surface='print'] {
-    --surface-muted: var(--color-graphite); /* 4.54:1 on --print */
-    --surface-accent: var(--color-mark); /* 8.15:1 on --print */
-    --surface-rule: color-mix(in srgb, var(--color-graphite) 35%, transparent);
-    --surface-inset: color-mix(in srgb, var(--color-ink) 5%, transparent);
-  }
-
-  [data-surface='screen'] {
-    --surface-muted: var(--color-graphite-screen); /* 6.81:1 on --screen */
-    --surface-accent: var(--color-print); /* 14.54:1 on --screen */
-    --surface-rule: color-mix(in srgb, var(--color-graphite-screen) 40%, transparent);
-    --surface-inset: color-mix(in srgb, var(--color-print) 8%, transparent);
-  }
-}
-
-@utility text-muted {
-  color: var(--surface-muted);
-}
-
-@utility text-accent {
-  color: var(--surface-accent);
-}
-
-@utility border-rule {
-  border-color: var(--surface-rule);
-}
-
-@utility border-accent {
-  border-color: var(--surface-accent);
-}
-
-@utility bg-inset {
-  background-color: var(--surface-inset);
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+  --animate-slide-up: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @layer base {
@@ -163,153 +28,78 @@
     box-sizing: border-box;
   }
 
-  html {
-    -webkit-text-size-adjust: 100%;
-  }
-
   body {
     margin: 0;
-    font-family: var(--font-body);
-    font-size: var(--text-body);
-    line-height: var(--text-body--line-height);
-    font-synthesis-weight: none;
+    font-family: var(--font-sans);
+    color: var(--color-dark-text);
+    background-color: var(--color-light-bg);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-  }
-
-  /* Headings inherit from the type scale at the component level; the browser
-     defaults are cleared so nothing ships at an unintended size. */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  figure,
-  blockquote,
-  dl,
-  dd {
-    margin: 0;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-
-  ul,
-  ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  img,
-  picture,
-  svg,
-  video {
-    display: block;
-    max-width: 100%;
-  }
-
-  a {
-    color: inherit;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-  }
-
-  button,
-  input,
-  select,
-  textarea {
-    font: inherit;
-    color: inherit;
-  }
-
-  /* Ragged right everywhere. No justified text, no centred body copy. */
-  p,
-  li,
-  dd {
-    text-wrap: pretty;
-  }
-
-  h1,
-  h2,
-  h3 {
-    text-wrap: balance;
-  }
-
-  /* One visible focus treatment, both surfaces. --mark on print, and a paper
-     outline on screen where ultramarine on near-black fails 3:1. */
-  :focus-visible {
-    outline: 2px solid var(--color-mark);
-    outline-offset: 3px;
-  }
-
-  [data-surface='screen'] :focus-visible,
-  [data-surface='screen']:focus-visible {
-    outline-color: var(--color-print);
-  }
-
-  /* Tabular figures for years, page ranges and counts, §3.3. */
-  [data-figures='tabular'] {
-    font-variant-numeric: tabular-nums;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
   }
 }
 
 @layer components {
-  /* Archivo's width axis — the film-title-card treatment, §3.3. Declared here
-     rather than written inline so no component carries a raw axis value. */
-  .font-expanded {
-    font-stretch: 112%;
+  .glass-panel {
+    background: var(--color-glass-light);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
   }
 
-  .font-expanded-max {
-    font-stretch: 125%;
+  .glass-dark {
+    background: var(--color-glass-dark);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
+}
 
-  /* The single orchestrated moment: the home hero frame advances once on load,
-     like a projector pulling a frame. 180ms settle, 40ms hold, then nothing.
-     §3.5. Removed entirely under prefers-reduced-motion by the rule above. */
-  @keyframes frame-advance {
-    0% {
-      transform: translateY(1.25%);
-      opacity: 0.82;
-    }
-    78% {
-      transform: translateY(-0.14%);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  .frame-advance {
-    animation: frame-advance 220ms cubic-bezier(0.22, 0.92, 0.3, 1) both;
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    .frame-advance {
-      animation: none;
-    }
+@keyframes scroll-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes scroll-y-reverse {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+
+/* Used by the hero's pillar rail. Referenced before it existed, so the rail
+   was showing a scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
   }
+}
+
+@utility animate-scroll-y {
+  animation: scroll-y 40s linear infinite;
+}
+
+@utility animate-scroll-y-reverse {
+  animation: scroll-y-reverse 45s linear infinite;
+}
+
+@utility animate-scroll-y-slow {
+  animation: scroll-y 55s linear infinite;
 }

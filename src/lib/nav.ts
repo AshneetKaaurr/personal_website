@@ -11,8 +11,7 @@ export interface NavItem {
  * Six pillars plus a wordmark plus a CTA is eight items — it breaks at tablet
  * and buries everything. Media Articles, Social Media, Gallery, Board and
  * Advisory, Contact and Privacy live in the footer, with Gallery and Media
- * Articles also reachable from Home. This is a proposal pending her sign-off;
- * it is listed in PENDING.md and she can overrule it.
+ * Articles also reachable from Home. Pending her sign-off; see PENDING.md.
  */
 export const PRIMARY_NAV: NavItem[] = [
   { href: '/about', label: 'About' },

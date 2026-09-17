@@ -1,35 +1,81 @@
-import { Frame } from '@/components/Frame'
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
+import {
+  Container,
+  Note,
+  PageTitle,
+  Record,
+  RecordList,
+  Section,
+} from '@/components/Page'
 
 export const metadata = {
-  title: "Board and Advisory",
+  title: 'Board and Advisory',
+  description:
+    'Independent Director of Punjab Communications Limited, appointed under Section 149 of the Companies Act 2013 and the SEBI LODR Regulations.',
 }
 
-export default function Page() {
+/**
+ * Deliberately the plainest page on the site.
+ *
+ * CLAUDE.md hard rule 5: state the role, the statute and the dates, and stop.
+ * Nothing about the company's business, performance, strategy or outlook
+ * belongs here. It is a listed public sector undertaking and she is an
+ * independent director of it.
+ */
+export default function BoardAndAdvisory() {
   return (
-    <Surface surface="print" className="py-9">
-      <Bleed>
-        <div className="grid gap-7 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <Frame shot="P-02" sizes="(min-width: 64rem) 32vw, 100vw" />
-          </div>
-          <div className="min-w-0 lg:col-span-7 lg:col-start-6">
-        <h1 className="font-display text-h1 tracking-tight">Board and Advisory</h1>
+    <Container>
+      <PageTitle>Board and Advisory</PageTitle>
 
-        <PendingNotice item="this page" owner="Build">
-          <p>What goes here:</p>
-          <ul className="mt-2 list-disc pl-5">
-            <li className="mt-1">A deliberately plainer register: quieter type, a tighter measure, nothing above 35px, and no photography beyond P-02.</li>
-            <li className="mt-1">The role statement, and what she brings to a board — governance, HR systems, organisational risk, and technology and workforce transformation.</li>
-            <li className="mt-1">Her appointment framed exactly as the CV frames it: Independent Director, Punjab Communications Limited, Government of Punjab, appointed under Section 149 of the Companies Act 2013 and the SEBI LODR Regulations, April 2026 to present.</li>
-            <li className="mt-1">No commentary on the company. It is a listed PSU and she is an independent director.</li>
-          </ul>
-          <p className="mt-3">Blocked by: Nothing. Builds from the CV record.</p>
-        </PendingNotice>
-          </div>
-        </div>
-      </Bleed>
-    </Surface>
+      <Section title="The appointment">
+        <RecordList columns={1}>
+          <Record label="Role">
+            Independent Director, Punjab Communications Limited (PUNCOM),
+            Government of Punjab
+          </Record>
+          <Record label="Term">April 2026 to present</Record>
+          <Record label="Appointed under">
+            The Companies Act, 2013 (Section 149) and the SEBI (Listing
+            Obligations and Disclosure Requirements) Regulations
+          </Record>
+          <Record label="Responsibilities">
+            Provides strategic oversight on organisational governance,
+            compliance and performance, and contributes to board-level
+            decision-making on public sector enterprise operations and growth
+          </Record>
+        </RecordList>
+      </Section>
+
+      <Section
+        title="What she brings to a board"
+        intro="Written about her own expertise, not about the company."
+      >
+        <RecordList columns={2}>
+          <Record label="Governance and compliance">
+            A certified senior HR professional (SHRM-SCP) with doctoral training
+            in human resource management.
+          </Record>
+          <Record label="People systems and organisational risk">
+            Research and consulting on HR systems, retention, fairness and
+            knowledge-sharing, including engagements with ICAI, Bosch India and
+            HURL.
+          </Record>
+          <Record label="Technology and workforce transformation">
+            Published research on AI in HR decision-making, and executive
+            programmes on AI-enabled HR processes and the ethical questions they
+            raise.
+          </Record>
+          <Record label="Strategy and analysis">
+            Two years on McKinsey&apos;s Strategy Analytics team, and published
+            meta-analytic work on executive decision-making and firm
+            performance.
+          </Record>
+        </RecordList>
+
+        <Note kind="approve" item="the four claims above">
+          Each traces to the CV, but they are claims about her judgement and she
+          should decide how they are put.
+        </Note>
+      </Section>
+    </Container>
   )
 }

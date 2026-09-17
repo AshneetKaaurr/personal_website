@@ -1,32 +1,21 @@
 import type { Metadata } from 'next'
-import { Archivo, Newsreader } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import './globals.css'
 
-/**
- * Newsreader carries the optical-size axis — headlines set at a large optical
- * size, body at a small one. Weight stays 400–500; this is not a 700 site.
- */
-const newsreader = Newsreader({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  axes: ['opsz'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-newsreader',
+  variable: '--font-playfair',
 })
 
-/**
- * Archivo carries the width axis. Archivo Expanded is the film-title-card
- * treatment on the hero and section openers — that axis is the personality
- * and almost nobody uses it. BUILD-PLAN.md §3.3.
- */
-const archivo = Archivo({
+const inter = Inter({
   subsets: ['latin'],
-  axes: ['wdth'],
   display: 'swap',
-  variable: '--font-archivo',
+  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
@@ -35,7 +24,6 @@ export const metadata: Metadata = {
     default: 'Dr Ashneet Kaur',
     template: '%s — Dr Ashneet Kaur',
   },
-  // Drawn from her own CV profile summary. No claim here that is not hers.
   description:
     'Scholar and educator in Organizational Behaviour and HRM, working at the intersection of human systems, technological change and sustainable organization design.',
   openGraph: {
@@ -50,11 +38,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${newsreader.variable} ${archivo.variable}`}>
-      <body className="bg-print text-ink">
+    <html lang="en-IN" className={`${playfair.variable} ${inter.variable}`}>
+      <body className="bg-light-bg text-dark-text font-sans antialiased selection:bg-coral selection:text-white">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-print focus:px-4 focus:py-3 focus:font-data focus:text-meta focus:text-ink"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-dark-text"
         >
           Skip to content
         </a>

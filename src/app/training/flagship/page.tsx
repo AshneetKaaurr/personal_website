@@ -1,24 +1,47 @@
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
+import { Container, PageLink, PageTitle, Section } from '@/components/Page'
+import { INSTITUTION_BUILDING, PROGRAMMES } from '@/content/record'
 
 export const metadata = {
-  title: "Flagship courses and programmes",
+  title: 'Flagship courses and programmes',
+  description:
+    'Eight programmes at SPJIMR, from the two-year flagship to the doctoral fellowship.',
 }
 
-export default function Page() {
+export default function Flagship() {
   return (
-    <Surface surface="print" className="py-9">
-      <Bleed>
-        <h1 className="font-display text-h1 tracking-tight">Flagship courses and programmes</h1>
+    <Container>
+      <PageTitle lede="Eight programmes at SPJIMR, from the two-year flagship to the doctoral fellowship, taught through case studies, simulation, gamification and video-based learning.">
+        Flagship courses and programmes
+      </PageTitle>
 
-        <PendingNotice item="this page" owner="Build">
-          <p>What goes here:</p>
-          <ul className="mt-2 list-disc pl-5">
-            <li className="mt-1">PGDM, PGPM, PGEMP, PGPDM, PGDM-Online, GMP, FPM and SYB, with the subjects taught on each.</li>
-          </ul>
-          <p className="mt-3">Blocked by: Nothing. Builds from the CV record.</p>
-        </PendingNotice>
-      </Bleed>
-    </Surface>
+      <Section title="Programmes">
+        <dl className="space-y-6">
+          {PROGRAMMES.map((programme) => (
+            <div key={programme.name}>
+              <dt className="font-medium">{programme.name}</dt>
+              <dd className="mt-1 leading-relaxed text-sage">
+                {programme.taught}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+
+      <Section title="Institution building">
+        <ul className="space-y-4">
+          {INSTITUTION_BUILDING.map((item) => (
+            <li key={item} className="leading-relaxed">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section>
+        <p>
+          <PageLink href="/training">Back to training</PageLink>
+        </p>
+      </Section>
+    </Container>
   )
 }

@@ -201,6 +201,65 @@ CLAUDE.md and BUILD-PLAN.md §6.3. One constant — `THIRD_PARTY` in
 
 ---
 
+## 2026-09-17 — New design direction, and every page built as a skeleton
+
+The Reel & Frame system is gone. `globals.css` was rewritten around Playfair
+Display and Inter with a sage and coral palette, glass panels and rounded
+corners, and a new full-screen home hero was built on it. That is the client's
+call and it stands.
+
+**What it silently broke.** Tailwind does not error on a class it cannot
+generate, it just emits nothing. So when the old `@theme` block went, every
+utility built on it — `font-display`, `text-body`, `text-h1`, `bg-print`,
+`text-muted`, `border-rule`, `max-w-measure`, `rounded-frame` — stopped
+existing, and all 22 non-hero pages plus the header and footer rendered at
+browser defaults on a white page. The build passed the whole time. This is the
+second time this exact failure mode has cost real work; the first is logged
+above under `min-w-0`.
+
+Worth keeping: **a dead class and a working class look identical in source.**
+The only reliable check is to grep the generated CSS for each class the source
+uses. Doing that turned up eight genuinely dead ones, two of them inside the
+new hero itself — `text-meta` on the section marker, and `no-scrollbar` on the
+pillar rail, which had never been defined at all so the rail was showing a
+scrollbar. Both fixed.
+
+**Skeleton primitives.** `src/components/Page.tsx` holds Container, PageTitle,
+Section, Prose, Draft, Note and Record. Every page below the hero is built from
+them: semantic markup, a readable measure, no palette beyond what is already in
+the theme. When the design lands it lands in that one file.
+
+`Surface`, `Marginalia`, `PendingNotice` and `FrameGrid` were deleted rather
+than patched. All four encoded Reel & Frame decisions — two surfaces, a
+marginalia column, fixed 3:2 and 4:5 ratios — that the new direction does not
+make. Keeping them would have meant carrying a design argument the project has
+already moved past. Git has them.
+
+The styleguide route went too. It documented a palette and type scale that no
+longer exist. It should come back once the new system settles, because its
+other job — showing what photography is still outstanding — is still needed.
+
+**Four research themes, not three.** `BUILD-PLAN.md` assumed three. Two of her
+three best-paper awards are on new ventures and founders, and with the agility
+paper, the Product Entrepreneurship Lab, Start Your Business, FiNovate, BCERC,
+the AOM Entrepreneurship Division editorship and two ventures she founded
+herself, entrepreneurship is a genuine fourth strand that a three-theme
+structure erases. The theme pages are now one dynamic route rather than four
+near-identical files that would drift apart.
+
+**typedRoutes and dynamic segments.** `Route` is a union of route *patterns*,
+so `/research/[theme]` is assignable and `/research/algorithms-at-work` is not.
+One cast in `themeHref()` rather than scattered at every call site.
+
+**Documentation debt.** `CLAUDE.md` and `BUILD-PLAN.md` §3 still describe Reel
+& Frame in detail — two surfaces, the six-value palette, Newsreader and
+Archivo, the marginalia grid, the anti-AI checklist calibrated against that
+palette. None of it matches the code any more. Both documents need rewriting
+once the new direction settles, and until then they will misdirect anyone who
+reads them as current.
+
+---
+
 ## Not done yet
 
 Home is the only real page. Everything else is the honest skeleton — each

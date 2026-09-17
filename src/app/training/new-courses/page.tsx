@@ -1,25 +1,41 @@
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
+import { Container, PageLink, PageTitle, Section } from '@/components/Page'
+import { CO_DESIGNED_COURSES } from '@/content/record'
 
 export const metadata = {
-  title: "New innovative courses",
+  title: 'New innovative courses',
+  description:
+    'Three co-designed courses: leadership through film, strategy through Indian cricket, and resilience through Indian turnaround stories.',
 }
 
-export default function Page() {
+export default function NewCourses() {
   return (
-    <Surface surface="screen" className="py-9">
-      <Bleed>
-        <h1 className="font-display text-h1 tracking-tight">New innovative courses</h1>
+    <Container>
+      <PageTitle lede="Three courses, each co-designed, each built on material people will argue with.">
+        New innovative courses
+      </PageTitle>
 
-        <PendingNotice item="this page" owner="Build">
-          <p>What goes here:</p>
-          <ul className="mt-2 list-disc pl-5">
-            <li className="mt-1">The three co-designed courses at full width on the screen surface: Netflix and Learn, Pitch to Boardroom, and Resilience and Turnaround.</li>
-            <li className="mt-1">These are the most distinctive thing she has and currently the least visible.</li>
-          </ul>
-          <p className="mt-3">Blocked by: Classroom photography (C-03 in particular).</p>
-        </PendingNotice>
-      </Bleed>
-    </Surface>
+      <Section>
+        <ul className="space-y-10">
+          {CO_DESIGNED_COURSES.map((course) => (
+            <li key={course.title}>
+              <h2 className="font-serif text-xl">{course.title}</h2>
+              <p className="mt-1 text-sm text-sage">{course.status}</p>
+              <p className="mt-3 max-w-2xl leading-relaxed">
+                {course.description}
+              </p>
+              {course.also ? (
+                <p className="mt-2 max-w-2xl text-sm text-sage">{course.also}</p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section>
+        <p>
+          <PageLink href="/training">Back to training</PageLink>
+        </p>
+      </Section>
+    </Container>
   )
 }

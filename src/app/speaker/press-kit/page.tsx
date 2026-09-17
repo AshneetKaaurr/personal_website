@@ -1,64 +1,66 @@
-import { Frame } from '@/components/Frame'
-import { PendingNotice } from '@/components/PendingNotice'
-import { Bleed, Surface } from '@/components/Surface'
-import type { ShotRef } from '@/lib/shots'
+import {
+  Container,
+  Note,
+  PageLink,
+  PageTitle,
+  Record,
+  RecordList,
+  Section,
+} from '@/components/Page'
+import { LONG_BIO, SHORT_BIO, wordCount } from '@/content/record'
 
 export const metadata = {
   title: 'Press kit',
+  description:
+    'Bios, preferred name and title spelling, and photographs for programme chairs and journalists.',
 }
 
-const KIT: { shot: ShotRef; use: string }[] = [
-  { shot: 'P-01', use: 'Primary portrait' },
-  { shot: 'P-03', use: 'Speaking portrait' },
-  { shot: 'P-07', use: 'Full-length portrait' },
-]
-
 export default function PressKit() {
+  const longBioWords = LONG_BIO.reduce((n, p) => n + wordCount(p), 0)
+
   return (
-    <>
-      <Surface surface="print" className="py-9">
-        <Bleed>
-          <h1 className="font-display text-h1 tracking-tight">Press kit</h1>
-          <p className="mt-4 max-w-measure font-display text-body">
-            For programme chairs and journalists. Preferred name and title
-            spelling: Dr Ashneet Kaur.
-          </p>
+    <Container>
+      <PageTitle lede="For programme chairs and journalists.">Press kit</PageTitle>
 
-          <ul className="mt-7 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {KIT.map(({ shot, use }) => (
-              <li key={shot}>
-                <Frame
-                  shot={shot}
-                  sizes="(min-width: 64rem) 30vw, (min-width: 30rem) 48vw, 100vw"
-                />
-                <p className="mt-3 font-display text-body">{use}</p>
-              </li>
-            ))}
-          </ul>
+      <Section title="Preferred forms">
+        <RecordList columns={2}>
+          <Record label="Name">Dr Ashneet Kaur</Record>
+          <Record label="Short descriptor">
+            Scholar and educator in Organizational Behaviour and Human Resource
+            Management
+          </Record>
+        </RecordList>
 
-          <PendingNotice item="the rest of the press kit" owner="Client">
-            <p>What still goes here:</p>
-            <ul className="mt-2 list-disc pl-5">
-              <li className="mt-1">
-                A short bio and a long bio, both one-click copyable, with word
-                counts shown.
-              </li>
-              <li className="mt-1">
-                Print-resolution downloads of the three photographs above. The
-                files on the site are capped at 2400px on the long edge, which
-                is right for the web and too small for print.
-              </li>
-              <li className="mt-1">
-                A one-line descriptor, and the headshot credit line.
-              </li>
-            </ul>
-            <p className="mt-3">
-              Blocked by: both bios, which need her current affiliation
-              settled first, and the photographer credit.
-            </p>
-          </PendingNotice>
-        </Bleed>
-      </Surface>
-    </>
+        <Note kind="needs" item="her current title and institution" />
+      </Section>
+
+      <Section title="Short bio">
+        <p className="text-sm text-sage">{wordCount(SHORT_BIO)} words</p>
+        <p className="mt-3 max-w-2xl leading-relaxed">{SHORT_BIO}</p>
+      </Section>
+
+      <Section title="Long bio">
+        <p className="text-sm text-sage">{longBioWords} words</p>
+        <div className="mt-3 max-w-2xl space-y-4 leading-relaxed">
+          {LONG_BIO.map((paragraph) => (
+            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Photographs">
+        <Note kind="needs" item="print-resolution files and a credit line">
+          The photographs on this site are capped at 2400px on the long edge,
+          which is right for the web and too small for print. A publication will
+          ask for the originals and for the photographer credit.
+        </Note>
+      </Section>
+
+      <Section>
+        <p>
+          <PageLink href="/speaker">Back to speaker</PageLink>
+        </p>
+      </Section>
+    </Container>
   )
 }
