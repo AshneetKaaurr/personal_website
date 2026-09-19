@@ -89,17 +89,27 @@ export default function About() {
         title="The route here"
         intro="A genuine sequence, so it is numbered. Two steps overlap the studies above them on purpose: the master's was taken while she was at McKinsey, and the ATOS engagement sits inside the doctorate, which is why it runs a single month."
       >
-        <ol className="space-y-4">
-          {ROUTE_HERE.map((step, index) => (
-            <li key={step.where} className="flex gap-4">
-              <span className="w-6 shrink-0 text-sm text-sage">{index + 1}</span>
-              <span>
-                <span className="block leading-relaxed">{step.where}</span>
-                <span className="block text-sm text-sage">{step.when}</span>
-              </span>
-            </li>
-          ))}
-        </ol>
+        {/* Interactive vertical timeline */}
+        <div className="relative ml-4 md:ml-0">
+          {/* Vertical line */}
+          <div className="absolute left-3 md:left-4 top-0 bottom-0 w-px bg-gradient-to-b from-coral via-coral/30 to-transparent" />
+          
+          <ol className="space-y-0">
+            {ROUTE_HERE.map((step, index) => (
+              <li key={step.where} className="relative pl-12 md:pl-14 pb-8 last:pb-0 group">
+                {/* Node */}
+                <div className="absolute left-0 md:left-0.5 top-1 w-7 h-7 rounded-full bg-white border-2 border-coral/40 group-hover:border-coral group-hover:scale-110 transition-all duration-300 flex items-center justify-center z-10">
+                  <span className="text-[10px] font-bold text-coral">{index + 1}</span>
+                </div>
+                {/* Content */}
+                <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-4 md:p-5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] group-hover:bg-white/60 transition-all duration-300">
+                  <span className="block leading-relaxed font-medium text-dark-text">{step.where}</span>
+                  <span className="block text-sm text-sage mt-1">{step.when}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
 
         <Note kind="needs" item="confirmation that the two overlaps read correctly">
           The CV shows ATOS as April to May 2019, inside the IIM Ahmedabad

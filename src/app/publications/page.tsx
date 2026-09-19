@@ -28,7 +28,7 @@ function Authors({ authors }: { authors: string[] }) {
       {authors.map((author, i) => (
         <span key={`${author}-${i}`}>
           {i > 0 ? ', ' : ''}
-          <span className={author === 'Kaur, A.' ? 'text-dark-text' : undefined}>
+          <span className={author === 'Kaur, A.' ? 'text-coral font-medium' : undefined}>
             {author}
           </span>
         </span>
@@ -64,16 +64,28 @@ export default function Publications() {
 
         return (
           <Section key={type} title={heading}>
-            <ul className="space-y-10">
+            <div className="space-y-4">
               {records.map((paper) => (
-                <li key={paper.id}>
-                  <p className="text-sm text-sage">
-                    {paper.year}
-                    {paper.abdc ? ` — ABDC ${paper.abdc}` : ''}
-                    {' — '}
-                    {getTheme(paper.theme).title}
-                  </p>
-                  <h3 className="mt-1 font-serif text-lg leading-snug">
+                <div
+                  key={paper.id}
+                  className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300"
+                >
+                  {/* Top meta row */}
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-dark-text/5 text-xs font-medium text-dark-text">
+                      {paper.year}
+                    </span>
+                    {paper.abdc ? (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
+                        ABDC {paper.abdc}
+                      </span>
+                    ) : null}
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-sage/10 text-xs text-sage">
+                      {getTheme(paper.theme).title}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors">
                     {paper.title}
                   </h3>
                   <Authors authors={paper.authors} />
@@ -82,10 +94,10 @@ export default function Publications() {
                     {paper.volumeIssue ? `, ${paper.volumeIssue}` : ''}
                     {paper.pages ? `, ${paper.pages}` : ''}
                   </p>
-                  <p className="mt-3 leading-relaxed">{paper.summary}</p>
-                </li>
+                  <p className="mt-3 leading-relaxed text-dark-text/70">{paper.summary}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </Section>
         )
       })}

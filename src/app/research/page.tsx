@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
   Container,
   Draft,
@@ -52,24 +53,37 @@ export default function Research() {
         title="Four themes"
         intro="Each theme is shown with its papers, the recognition attached to it and the writing that came out of it, together rather than scattered across the site."
       >
-        <ul className="space-y-10">
+        <div className="grid gap-4 md:grid-cols-2">
           {THEMES.map((theme) => {
             const papers = publications.filter((p) => p.theme === theme.id)
             return (
-              <li key={theme.id}>
-                <h3 className="font-serif text-xl">
-                  <PageLink href={themeHref(theme.id)}>{theme.title}</PageLink>
-                </h3>
-                <p className="mt-2 max-w-2xl leading-relaxed">
-                  {theme.statement}
-                </p>
-                <p className="mt-2 text-sm text-sage">
-                  {papers.length} {papers.length === 1 ? 'record' : 'records'}
-                </p>
-              </li>
+              <Link
+                key={theme.id}
+                href={themeHref(theme.id)}
+                className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] hover:bg-white/70 transition-all duration-300"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="font-serif text-lg md:text-xl group-hover:text-coral transition-colors">
+                      {theme.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-dark-text/70">
+                      {theme.statement}
+                    </p>
+                  </div>
+                  <span className="mt-1 text-coral opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 text-xl flex-shrink-0">
+                    →
+                  </span>
+                </div>
+                <div className="mt-4 pt-3 border-t border-dark-text/5">
+                  <span className="text-xs font-medium uppercase tracking-wider text-sage">
+                    {papers.length} {papers.length === 1 ? 'record' : 'records'}
+                  </span>
+                </div>
+              </Link>
             )
           })}
-        </ul>
+        </div>
 
         <Note kind="approve" item="the four-theme structure and every paper assigned to a theme">
           <p>
@@ -91,23 +105,27 @@ export default function Research() {
       </Section>
 
       <Section title="Recognition">
-        <ul className="space-y-6">
+        <div className="grid gap-4 md:grid-cols-3">
           {AWARDS.map((award) => (
-            <li key={award.paper}>
-              <p className="text-sm text-sage">{award.year}</p>
-              <p className="mt-1 font-medium leading-relaxed">{award.title}</p>
-              <p className="mt-1 leading-relaxed">{award.paper}</p>
-              <p className="mt-1 text-sm text-sage">{award.detail}</p>
-            </li>
+            <div key={award.paper} className="rounded-2xl bg-gradient-to-br from-amber-50/80 to-white/60 backdrop-blur-md border border-amber-100/50 p-5 shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-amber-500 text-lg">★</span>
+                <span className="text-xs font-medium uppercase tracking-wider text-amber-600/80">{award.year}</span>
+              </div>
+              <p className="font-medium leading-relaxed text-sm">{award.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-dark-text/70">{award.paper}</p>
+              <p className="mt-2 text-xs text-sage">{award.detail}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section title="Editorial and service">
         <ul className="space-y-3">
           {SERVICE.map((item) => (
-            <li key={item} className="leading-relaxed">
-              {item}
+            <li key={item} className="flex items-start gap-3 leading-relaxed">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-coral/40 flex-shrink-0" />
+              <span className="text-dark-text/80">{item}</span>
             </li>
           ))}
         </ul>
