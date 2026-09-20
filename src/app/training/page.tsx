@@ -1,8 +1,8 @@
+import Link from 'next/link'
 import {
   Container,
   Draft,
   Note,
-  PageLink,
   PageTitle,
   Section,
 } from '@/components/Page'
@@ -13,6 +13,27 @@ export const metadata = {
   description:
     'Executive and postgraduate teaching in strategic HR, leadership and design thinking, including three co-designed courses built on film, cricket and turnaround stories.',
 }
+
+const ROUTES = [
+  {
+    href: '/training/visiting' as const,
+    title: 'Visiting appointments',
+    description: 'Courses taught as visiting faculty, in India and abroad',
+    icon: '🌍',
+  },
+  {
+    href: '/training/flagship' as const,
+    title: 'Flagship courses and programmes',
+    description: 'The eight SPJIMR programmes',
+    icon: '🎓',
+  },
+  {
+    href: '/training/new-courses' as const,
+    title: 'New innovative courses',
+    description: 'The three she co-designed',
+    icon: '✨',
+  },
+]
 
 export default function Training() {
   return (
@@ -50,48 +71,47 @@ export default function Training() {
       </Section>
 
       <Section title="Three routes in">
-        <ul className="space-y-4">
-          <li>
-            <PageLink href="/training/visiting">Visiting appointments</PageLink>
-            <span className="block text-sm text-sage">
-              Courses taught as visiting faculty, in India and abroad
-            </span>
-          </li>
-          <li>
-            <PageLink href="/training/flagship">
-              Flagship courses and programmes
-            </PageLink>
-            <span className="block text-sm text-sage">
-              The eight SPJIMR programmes
-            </span>
-          </li>
-          <li>
-            <PageLink href="/training/new-courses">
-              New innovative courses
-            </PageLink>
-            <span className="block text-sm text-sage">
-              The three she co-designed
-            </span>
-          </li>
-        </ul>
+        <div className="grid gap-4 md:grid-cols-3">
+          {ROUTES.map((route) => (
+            <Link
+              key={route.href}
+              href={route.href}
+              className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] hover:bg-white/70 transition-all duration-300 flex flex-col"
+            >
+              <span className="text-3xl mb-4">{route.icon}</span>
+              <h3 className="font-serif text-lg group-hover:text-coral transition-colors">
+                {route.title}
+              </h3>
+              <p className="mt-2 text-sm text-sage flex-1">{route.description}</p>
+              <div className="mt-4 pt-3 border-t border-dark-text/5 flex items-center gap-2 text-sm text-coral font-medium">
+                <span>Explore</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </Section>
 
       <Section
         title="The three co-designed courses"
         intro="The most distinctive thing on this site, and currently the least visible."
       >
-        <ul className="space-y-8">
+        <div className="space-y-4">
           {CO_DESIGNED_COURSES.map((course) => (
-            <li key={course.title}>
-              <h3 className="font-serif text-lg">{course.title}</h3>
-              <p className="mt-1 text-sm text-sage">{course.status}</p>
-              <p className="mt-2 leading-relaxed">{course.description}</p>
+            <div key={course.title} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <h3 className="font-serif text-lg">{course.title}</h3>
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
+                  {course.status}
+                </span>
+              </div>
+              <p className="leading-relaxed text-dark-text/80">{course.description}</p>
               {course.also ? (
                 <p className="mt-2 text-sm text-sage">{course.also}</p>
               ) : null}
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section title="What participants say">
