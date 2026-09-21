@@ -13,6 +13,8 @@ export const metadata = {
     'Executive programmes on AI and HR, design thinking, team leadership and strategic people systems. Past engagements with ICAI, Bosch India, HURL and ATOS.',
 }
 
+const THEME_ICONS = ['👥', '💡', '🤖', '⚙️', '⏱️']
+
 export default function Consulting() {
   return (
     <Container>
@@ -34,14 +36,15 @@ export default function Consulting() {
         title="Programme themes"
         intro="Drawn from the customised-programme record. Not a sequence, so not numbered."
       >
-        <ul className="space-y-8">
-          {MDP_THEMES.map((theme) => (
-            <li key={theme.title}>
-              <h3 className="font-serif text-lg">{theme.title}</h3>
-              <p className="mt-2 max-w-2xl leading-relaxed">{theme.detail}</p>
-            </li>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {MDP_THEMES.map((theme, i) => (
+            <div key={theme.title} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
+              <span className="text-2xl mb-3 block">{THEME_ICONS[i]}</span>
+              <h3 className="font-serif text-lg mb-2">{theme.title}</h3>
+              <p className="text-sm leading-relaxed text-dark-text/70">{theme.detail}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section title="How she works">
@@ -58,16 +61,16 @@ export default function Consulting() {
         title="Engagements"
         intro="Presented as work, not as logo wallpaper."
       >
-        <ul className="space-y-8">
+        <div className="grid gap-4 md:grid-cols-2">
           {ENGAGEMENTS.map((engagement) => (
-            <li key={engagement.client}>
-              <h3 className="font-serif text-lg">{engagement.client}</h3>
-              <p className="mt-2 max-w-2xl leading-relaxed">
+            <div key={engagement.client} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
+              <h3 className="font-serif text-lg text-dark-text mb-2">{engagement.client}</h3>
+              <p className="leading-relaxed text-dark-text/70 text-sm">
                 {engagement.detail}
               </p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </Section>
 
       <Section title="Talk about a programme">
