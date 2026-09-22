@@ -109,7 +109,7 @@ export default function Home() {
         </div>
 
         {/* Two columns: type left, portrait right. Stable at every width. */}
-        <div className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-1 flex-col gap-10 px-5 pt-28 pb-8 sm:px-8 lg:grid lg:grid-cols-[54fr_46fr] lg:items-center lg:gap-10 lg:px-12 lg:pt-32 lg:pb-16">
+        <div className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-1 flex-col gap-10 px-5 pt-28 pb-8 sm:px-8 lg:grid lg:grid-cols-[54fr_46fr] lg:items-center lg:gap-10 lg:px-12 lg:pt-28 lg:pb-10">
 
           {/* ---------- Left: identity, question, support, actions ------- */}
           <div className="flex flex-col items-start">
@@ -156,16 +156,13 @@ export default function Home() {
           </div>
 
           {/* ---------- Right: portrait in a glass frame, with pills ------ */}
-          <div className="relative flex min-h-[48svh] items-end justify-center lg:h-[70svh] lg:min-h-0 lg:justify-end">
-            <ScaleIn delay={0.3} className="relative h-full w-full max-w-[520px]">
-              {/* The glass frame. Kept lighter than the photograph. */}
-              <div className="absolute inset-x-0 bottom-0 top-6 rounded-[32px] border border-white/55 bg-white/25 shadow-[0_20px_70px_rgba(30,30,25,0.09)] backdrop-blur-[20px]" />
-
-              {/* The existing cutout, overflowing the frame for depth. */}
+          <div className="relative flex min-h-[50svh] items-end justify-center lg:h-[74svh] lg:min-h-0 lg:justify-end">
+            <ScaleIn delay={0.3} className="relative h-full w-full max-w-[620px]">
+              {/* The cutout, unframed: it sits straight on the background. */}
               <img
                 src="/photos/p-05-seated-no-bg.png"
                 alt="Dr Ashneet Kaur"
-                className="absolute inset-0 h-full w-full object-contain object-bottom drop-shadow-[0_24px_48px_rgba(30,30,25,0.22)]"
+                className="absolute inset-0 h-full w-full object-contain object-bottom drop-shadow-[0_28px_56px_rgba(30,30,25,0.26)]"
               />
 
               {/* Evidence. Small capsules that support the portrait. */}
