@@ -2,35 +2,40 @@ import { Container, Note, PageTitle, Section } from '@/components/Page'
 
 export const metadata = {
   title: 'Social Media',
-  description: 'Recent talks, publications and writing, with dates.',
 }
+
+const PLATFORMS = [
+  { name: 'LinkedIn', icon: 'in' },
+  { name: 'Google Scholar', icon: 'scholar' },
+  { name: 'Twitter / X', icon: 'x' }
+]
 
 export default function Social() {
   return (
     <Container>
-      <PageTitle lede="What she is working on at the moment, with dates, so you can tell whether this page is alive.">
-        Social Media
-      </PageTitle>
+      <PageTitle>Social Media</PageTitle>
 
       <Section>
-        <Note kind="needs" item="a decision between two options">
-          <p>
-            <strong>A curated collection</strong> she adds to: four to six
-            items, each with a real date, a link and one line of her framing.
-            Manual, but it is hers and the design keeps control of it. This is
-            the recommendation.
-          </p>
-          <p>
-            <strong>A LinkedIn embed.</strong> No maintenance, but it renders as
-            a third-party widget, the design loses control of it, and it reads
-            as filler.
-          </p>
-          <p>
-            Whichever ships, the page carries a visible last-updated date, and
-            the build warns when the newest item passes ninety days old. A
-            decorative feed is worse than no feed.
-          </p>
-        </Note>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl">
+          {PLATFORMS.map((platform) => (
+            <div 
+              key={platform.name}
+              className="rounded-2xl bg-white/40 backdrop-blur-md border border-white/40 p-6 flex items-center justify-between opacity-60 grayscale"
+            >
+              <span className="font-medium text-dark-text/80">{platform.name}</span>
+              <span className="text-xs font-medium uppercase tracking-wider text-sage px-2 py-1 bg-dark-text/5 rounded-full">
+                Pending
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <Note kind="needs" item="all social URLs">
+            None are provided in the CV. Until they are, this page cannot be
+            linked from the footer.
+          </Note>
+        </div>
       </Section>
     </Container>
   )
