@@ -101,34 +101,54 @@ export default function Home() {
       <section className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-light-bg">
         <HeroSlideshowBg />
 
+        {/* Subtle Research Vocabulary Background */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 font-serif uppercase tracking-widest text-dark-text leading-none select-none">
+          <span className="absolute top-[15%] left-[5%] text-[8vw] opacity-[0.02]">TRUST</span>
+          <span className="absolute top-[40%] left-[8%] text-[6vw] opacity-[0.03]">PRIVACY</span>
+          <span className="absolute bottom-[20%] left-[12%] text-[7vw] opacity-[0.02]">FAIRNESS</span>
+          <span className="absolute top-[25%] right-[10%] text-[6vw] opacity-[0.02]">CULTURE</span>
+          <span className="absolute bottom-[35%] right-[5%] text-[9vw] opacity-[0.03]">AGILITY</span>
+          <span className="absolute top-[60%] left-[40%] text-[5vw] opacity-[0.02]">LEADERSHIP</span>
+        </div>
+
         {/* Watermark, faint enough to read as paper texture. */}
-        <div className="pointer-events-none absolute top-1/2 right-0 z-0 w-full -translate-y-1/2 select-none overflow-hidden text-center opacity-[0.035]">
-          <span className="font-serif text-[22vw] leading-none tracking-tighter whitespace-nowrap">
+        <div className="pointer-events-none absolute top-1/2 right-0 z-0 w-full -translate-y-1/2 select-none overflow-hidden text-center opacity-[0.025]">
+          <span className="font-serif text-[28vw] leading-none tracking-tighter whitespace-nowrap text-dark-text">
             Ashneet
           </span>
         </div>
 
         {/* Two columns: type left, portrait right. Stable at every width. */}
-        <div className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-1 flex-col gap-10 px-5 pt-28 pb-8 sm:px-8 lg:grid lg:grid-cols-[54fr_46fr] lg:items-center lg:gap-10 lg:px-12 lg:pt-28 lg:pb-10">
+        <div className="relative z-20 mx-auto flex-1 w-full max-w-[1400px] px-5 pt-28 pb-[15rem] sm:px-8 sm:pb-[17rem] lg:px-12 lg:pt-28 lg:pb-10 flex flex-col lg:block">
 
           {/* ---------- Left: identity, question, support, actions ------- */}
-          <div className="flex flex-col items-start">
-            <FadeIn delay={0.35}>
-              <p className="font-sans text-[11px] font-medium uppercase tracking-[0.22em] text-dark-text/55">
-                Dr Ashneet Kaur
-              </p>
+          <div className="flex flex-col items-start z-30 lg:w-[58%]">
+            <FadeIn delay={0.35} className="mb-8 w-full">
+              <div className="flex flex-wrap items-center gap-4 lg:gap-6">
+                <h1 className="font-serif text-[2.75rem] sm:text-5xl lg:text-[4rem] tracking-tight text-dark-text leading-[0.9]">
+                  Dr. Ashneet Kaur
+                </h1>
+                <div className="inline-flex items-center px-4 py-2 rounded-sm border border-dark-text/10 bg-white/40 backdrop-blur-md shadow-sm">
+                  <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.15em] text-dark-text/70 leading-tight text-left">
+                    Organisational Behaviour<br/>Indian School of Business
+                  </span>
+                </div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.38} className="w-full">
+              <div className="mb-8 w-full max-w-[85%] h-px bg-dark-text/10" />
             </FadeIn>
 
             <FadeInRight delay={0.45}>
-              <h1 className="mt-5 font-serif text-[clamp(2.4rem,5vw,5.375rem)] leading-[0.94] tracking-[-0.02em] text-dark-text">
+              <h1 className="mt-2 font-serif text-[clamp(2.2rem,4.5vw,4.5rem)] leading-[0.94] tracking-[-0.02em] text-dark-text">
                 What happens to people
                 <br className="hidden sm:block" /> when the systems
                 <br className="hidden sm:block" /> around them change?
               </h1>
             </FadeInRight>
 
-            <FadeIn delay={0.6}>
-              <p className="mt-7 max-w-[46ch] font-sans text-[15px] leading-relaxed text-dark-text/70">
+            <FadeIn delay={0.6} className="w-full">
+              <p className="mt-7 w-full max-w-[34rem] font-sans text-[15px] leading-relaxed text-dark-text/70 relative z-10">
                 Scholar and educator in Organizational Behaviour and Human
                 Resource Management, working at the intersection of human
                 systems, technological change and sustainable organization
@@ -137,10 +157,10 @@ export default function Home() {
             </FadeIn>
 
             <FadeIn delay={0.75}>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-6 relative z-10">
                 <Link
                   href="#content"
-                  className="group inline-flex items-center gap-3 rounded-full bg-dark-text/90 px-6 py-3 font-sans text-[13px] font-medium tracking-wide text-white backdrop-blur-xl transition-colors hover:bg-dark-text"
+                  className="group inline-flex items-center gap-3 rounded-full bg-dark-text/90 px-6 py-3 font-sans text-[13px] font-medium tracking-wide text-white backdrop-blur-xl transition-colors hover:bg-black shadow-lg"
                 >
                   Explore the work
                   <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
@@ -148,56 +168,69 @@ export default function Home() {
                 <ContactTrigger />
               </div>
             </FadeIn>
+          </div>
+        </div>
 
-            {/* Feats bar. Also the only slideshow control, so it stays. */}
-            <FadeIn delay={0.9} className="mt-9 w-full">
-              <HeroBadge />
+        {/* ---------- Right: portrait in a glass frame, with pills ------ */}
+        {/* Placed OUTSIDE the max-w-[1400px] container so it can anchor perfectly to the right edge of the browser window */}
+        <div className="absolute right-0 bottom-0 w-full lg:w-[50vw] pointer-events-none z-10 flex items-end justify-center lg:justify-end lg:pr-6">
+          <ScaleIn delay={0.3} className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-none">
+            {/* The cutout. Its source PNG carried 710px of transparent padding
+                on the left and 306px on top, which is what read as a gap beside
+                her; that padding is trimmed out of the file now. The subject is
+                cut flush at the bottom of the PNG, so the element sits hard on
+                the hero floor and the pillar rail covers the cut. */}
+            <img
+              src="/photos/p-05-seated-no-bg.png"
+              alt="Dr Ashneet Kaur"
+              className="block h-auto w-full max-h-[62svh] lg:max-h-[74vh] object-contain object-bottom drop-shadow-[0_28px_56px_rgba(30,30,25,0.26)] pointer-events-auto"
+            />
+
+            {/* Vertical Editorial Annotation */}
+            <FadeIn delay={1.2} className="absolute right-2 top-1/2 hidden -translate-y-1/2 opacity-40 sm:block pointer-events-auto">
+              <span
+                className="font-sans text-[9px] font-medium uppercase tracking-[0.3em] whitespace-nowrap text-dark-text"
+                style={{ writingMode: 'vertical-rl' }}
+              >
+                TECHNOLOGY &middot; ORGANISATIONS &middot; PEOPLE
+              </span>
             </FadeIn>
-          </div>
 
-          {/* ---------- Right: portrait in a glass frame, with pills ------ */}
-          <div className="relative flex min-h-[50svh] items-end justify-center lg:h-[74svh] lg:min-h-0 lg:justify-end">
-            <ScaleIn delay={0.3} className="relative h-full w-full max-w-[620px]">
-              {/* The cutout, unframed: it sits straight on the background. */}
-              <img
-                src="/photos/p-05-seated-no-bg.png"
-                alt="Dr Ashneet Kaur"
-                className="absolute inset-0 h-full w-full object-contain object-bottom drop-shadow-[0_28px_56px_rgba(30,30,25,0.26)]"
-              />
+            {/* Evidence. Small capsules that support the portrait. */}
+            <FadeInRight
+              delay={0.95}
+              className="absolute left-[2%] top-[35%] hidden sm:flex flex-col items-start rounded-sm bg-white/20 p-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] backdrop-blur-md border-l border-white/40 pointer-events-auto"
+            >
+              <span className="font-serif text-3xl leading-none text-dark-text">03</span>
+              <span className="w-full h-[1px] bg-dark-text/10 my-2" />
+              <span className="font-sans text-[9px] font-medium uppercase tracking-[0.2em] text-dark-text/70 leading-tight">
+                BEST PAPER<br/>AWARDS
+              </span>
+            </FadeInRight>
 
-              {/* Evidence. Small capsules that support the portrait. */}
-              <FadeInRight
-                delay={0.95}
-                className="absolute left-0 top-[15%] flex items-baseline gap-2.5 rounded-full border border-white/60 bg-white/45 px-4 py-2 shadow-[0_8px_28px_rgba(30,30,25,0.08)] backdrop-blur-xl"
-              >
-                <span className="font-serif text-xl leading-none text-dark-text">03</span>
-                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-dark-text/60">
-                  Best-paper awards
-                </span>
-              </FadeInRight>
+            <FadeInRight
+              delay={1.05}
+              className="absolute right-[9%] top-[20%] hidden sm:flex flex-col items-end text-right bg-white/10 p-3 backdrop-blur-sm rounded-sm pointer-events-auto"
+            >
+              <span className="font-serif text-2xl text-dark-text/80 leading-none">10</span>
+              <span className="font-sans text-[9px] font-medium uppercase tracking-[0.2em] text-dark-text/60 leading-tight mt-1">
+                JOURNAL<br/>PUBLICATIONS
+              </span>
+            </FadeInRight>
 
-              <FadeInRight
-                delay={1.05}
-                className="absolute right-0 top-[38%] flex items-baseline gap-2.5 rounded-full border border-white/60 bg-white/45 px-4 py-2 shadow-[0_8px_28px_rgba(30,30,25,0.08)] backdrop-blur-xl"
-              >
-                <span className="font-serif text-xl leading-none text-dark-text">10</span>
-                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-dark-text/60">
-                  Journal publications
-                </span>
-              </FadeInRight>
-
-              {/* Research statement, across the foot of the portrait. */}
-              <FadeIn
-                delay={1.15}
-                className="absolute inset-x-2 bottom-5 rounded-[22px] border border-white/60 bg-white/50 px-5 py-3.5 shadow-[0_10px_34px_rgba(30,30,25,0.09)] backdrop-blur-xl"
-              >
-                <p className="font-sans text-[12.5px] leading-relaxed text-dark-text/75">
-                  Researching how technology changes trust, behaviour and the
-                  experience of work.
-                </p>
-              </FadeIn>
-            </ScaleIn>
-          </div>
+            {/* Research statement, attached to the portrait. */}
+            <FadeIn
+              delay={1.15}
+              className="absolute left-[1%] bottom-[8%] hidden sm:block max-w-[230px] rounded-sm border-l-2 border-coral/30 bg-white/30 p-5 shadow-[0_8px_32px_rgba(0,0,0,0.05)] backdrop-blur-xl pointer-events-auto"
+            >
+              <div className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-dark-text/80 mb-1.5">
+                RESEARCHING
+              </div>
+              <p className="font-serif text-[14px] leading-snug text-dark-text/90 italic">
+                how technology changes trust, behaviour and the experience of work.
+              </p>
+            </FadeIn>
+          </ScaleIn>
         </div>
 
         {/* Pillar rail. Slimmed so the hero still clears a 900px viewport. */}
