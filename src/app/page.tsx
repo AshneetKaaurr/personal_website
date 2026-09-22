@@ -11,6 +11,8 @@ import {
   Section,
 } from '@/components/Page'
 import { FadeIn, FadeInRight, ScaleIn } from '@/components/Motion'
+import { HeroGeometry } from '@/components/HeroGeometry'
+import { TheQuestionSection } from '@/components/TheQuestionSection'
 import { HeroSlideshowBg, HeroBadge } from '@/components/HeroSlideshow'
 import { ContactTrigger } from '@/components/ContactTrigger'
 import { byRecency, journalArticles } from '@/content/publications'
@@ -118,21 +120,29 @@ export default function Home() {
           </span>
         </div>
 
+        {/* Vertical Editorial Annotation - Pinned to true right edge */}
+        <FadeIn delay={1.2} className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 opacity-40 hidden sm:block pointer-events-auto z-40">
+          <span 
+            className="font-sans text-[14px] lg:text-[18px] font-medium uppercase tracking-[0.3em] whitespace-nowrap text-dark-text block"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            TECHNOLOGY &middot; ORGANISATIONS &middot; PEOPLE
+          </span>
+        </FadeIn>
+
         {/* Two columns: type left, portrait right. Stable at every width. */}
         <div className="relative z-20 mx-auto flex-1 w-full max-w-[1400px] px-5 pt-28 pb-[15rem] sm:px-8 sm:pb-[17rem] lg:px-12 lg:pt-28 lg:pb-10 flex flex-col lg:block">
 
           {/* ---------- Left: identity, question, support, actions ------- */}
           <div className="flex flex-col items-start z-30 lg:w-[58%]">
             <FadeIn delay={0.35} className="mb-8 w-full">
-              <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-                <h1 className="font-serif text-[2.75rem] sm:text-5xl lg:text-[4rem] tracking-tight text-dark-text leading-[0.9]">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-5">
+                <h1 className="font-serif text-[3rem] sm:text-[3.5rem] lg:text-[54px] tracking-tight text-dark-text leading-none font-normal flex items-center">
                   Dr. Ashneet Kaur
                 </h1>
-                <div className="inline-flex items-center px-4 py-2 rounded-sm border border-dark-text/10 bg-white/40 backdrop-blur-md shadow-sm">
-                  <span className="font-sans text-[9px] font-semibold uppercase tracking-[0.15em] text-dark-text/70 leading-tight text-left">
-                    Organisational Behaviour<br/>Indian School of Business
-                  </span>
-                </div>
+                <span className="inline-flex items-center px-4 py-1.5 rounded-sm bg-coral font-sans text-[11px] lg:text-[12px] font-medium uppercase tracking-[0.14em] text-white leading-tight shadow-sm md:mt-2">
+                  SCHOLAR &middot; EDUCATOR &middot; RESEARCHER
+                </span>
               </div>
             </FadeIn>
             <FadeIn delay={0.38} className="w-full">
@@ -173,8 +183,9 @@ export default function Home() {
 
         {/* ---------- Right: portrait in a glass frame, with pills ------ */}
         {/* Placed OUTSIDE the max-w-[1400px] container so it can anchor perfectly to the right edge of the browser window */}
-        <div className="absolute right-0 bottom-0 w-full lg:w-[50vw] pointer-events-none z-10 flex items-end justify-center lg:justify-end lg:pr-6">
+        <div className="absolute -right-16 bottom-0 w-full lg:w-[50vw] pointer-events-none z-10 flex items-end justify-center lg:justify-end lg:pr-0">
           <ScaleIn delay={0.3} className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-none">
+            <HeroGeometry />
             {/* The cutout. Its source PNG carried 710px of transparent padding
                 on the left and 306px on top, which is what read as a gap beside
                 her; that padding is trimmed out of the file now. The subject is
@@ -185,16 +196,6 @@ export default function Home() {
               alt="Dr Ashneet Kaur"
               className="block h-auto w-full max-h-[62svh] lg:max-h-[74vh] object-contain object-bottom drop-shadow-[0_28px_56px_rgba(30,30,25,0.26)] pointer-events-auto"
             />
-
-            {/* Vertical Editorial Annotation */}
-            <FadeIn delay={1.2} className="absolute right-2 top-1/2 hidden -translate-y-1/2 opacity-40 sm:block pointer-events-auto">
-              <span
-                className="font-sans text-[9px] font-medium uppercase tracking-[0.3em] whitespace-nowrap text-dark-text"
-                style={{ writingMode: 'vertical-rl' }}
-              >
-                TECHNOLOGY &middot; ORGANISATIONS &middot; PEOPLE
-              </span>
-            </FadeIn>
 
             {/* Evidence. Small capsules that support the portrait. */}
             <FadeInRight
@@ -210,7 +211,7 @@ export default function Home() {
 
             <FadeInRight
               delay={1.05}
-              className="absolute right-[9%] top-[20%] hidden sm:flex flex-col items-end text-right bg-white/10 p-3 backdrop-blur-sm rounded-sm pointer-events-auto"
+              className="absolute right-[10%] lg:right-[22%] top-[35%] hidden sm:flex flex-col items-end text-right bg-white/10 p-3 backdrop-blur-sm rounded-sm pointer-events-auto"
             >
               <span className="font-serif text-2xl text-dark-text/80 leading-none">10</span>
               <span className="font-sans text-[9px] font-medium uppercase tracking-[0.2em] text-dark-text/60 leading-tight mt-1">
@@ -260,6 +261,7 @@ export default function Home() {
         </FadeIn>
       </section>
 
+      <TheQuestionSection />
 
       <Container id="content">
         <Section title="Where the work has been done" intro="A foundation in research and practice, linking organisational behaviour to strategic outcomes.">
