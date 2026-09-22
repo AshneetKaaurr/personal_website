@@ -12,12 +12,15 @@ import type { Route } from 'next'
 export function Container({
   children,
   className,
+  id,
 }: {
   children: React.ReactNode
   className?: string
+  /** Anchor target, so the hero's "Explore the work" link has somewhere to go. */
+  id?: string
 }) {
   return (
-    <div className={`mx-auto w-full max-w-5xl px-6 lg:px-8 ${className ?? ''}`}>
+    <div id={id} className={`mx-auto w-full max-w-5xl px-6 lg:px-8 ${className ?? ''}`}>
       {children}
     </div>
   )

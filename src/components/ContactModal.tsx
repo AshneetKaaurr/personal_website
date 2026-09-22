@@ -87,7 +87,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                           ✓
                         </div>
                         <h3 className="font-serif text-xl mb-2 text-dark-text">Message Sent!</h3>
-                        <p className="text-sage text-sm">Thank you for reaching out. I'll get back to you shortly.</p>
+                        <p className="text-sage text-sm">Thank you for reaching out. I&apos;ll get back to you shortly.</p>
                       </div>
                     ) : (
                       <>

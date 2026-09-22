@@ -92,87 +92,139 @@ export default function Home() {
   return (
     <>
       {/* ---------------------------------------------------------------- */}
-      {/* Premium Hero — Full screen, large typography, bottom glass bar.  */}
+      {/* Hero. Layered back to front:                                     */}
+      {/*   background slideshow -> portrait -> type -> glass -> pillars    */}
+      {/* The slideshow, the portrait cutout and the feats control are all  */}
+      {/* preserved from the existing build. What changed is scale,         */}
+      {/* hierarchy and spacing, not the composition.                       */}
       {/* ---------------------------------------------------------------- */}
-      <section className="relative h-screen min-h-[800px] w-full overflow-hidden bg-light-bg">
-        {/* React-controlled Apple-Style Glassmorphism Slideshow */}
+      <section className="relative flex min-h-[100svh] w-full flex-col overflow-hidden bg-light-bg">
         <HeroSlideshowBg />
 
-        {/* Faint Watermark Text */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.03] z-0">
-          <span className="font-serif text-[25vw] leading-none whitespace-nowrap tracking-tighter">
+        {/* Watermark, faint enough to read as paper texture. */}
+        <div className="pointer-events-none absolute top-1/2 right-0 z-0 w-full -translate-y-1/2 select-none overflow-hidden text-center opacity-[0.035]">
+          <span className="font-serif text-[22vw] leading-none tracking-tighter whitespace-nowrap">
             Ashneet
           </span>
         </div>
 
-        {/* Floating Background Stats (Sits BEHIND portrait for depth) */}
-        <div className="absolute inset-y-0 right-0 w-full md:w-[320px] lg:w-[400px] flex flex-col justify-center gap-6 px-4 md:px-8 py-32 z-[5] pointer-events-none hidden md:flex">
-          <FadeInRight delay={0.6} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
-            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">3 Best-Paper Awards</h4>
-            <p className="text-sm text-dark-text/70 leading-relaxed">Recognized at the Academy of Management, EDII, and Anusandhan RDAIS for groundbreaking HR research.</p>
-          </FadeInRight>
+        {/* Two columns: type left, portrait right. Stable at every width. */}
+        <div className="relative z-20 mx-auto flex w-full max-w-[1400px] flex-1 flex-col gap-10 px-5 pt-28 pb-8 sm:px-8 lg:grid lg:grid-cols-[54fr_46fr] lg:items-center lg:gap-10 lg:px-12 lg:pt-32 lg:pb-16">
 
-          <FadeInRight delay={0.8} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
-            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">12+ Published Records</h4>
-            <p className="text-sm text-dark-text/70 leading-relaxed">A decade of rigorous research featured in top-tier global management journals.</p>
-          </FadeInRight>
+          {/* ---------- Left: identity, question, support, actions ------- */}
+          <div className="flex flex-col items-start">
+            <FadeIn delay={0.35}>
+              <p className="font-sans text-[11px] font-medium uppercase tracking-[0.22em] text-dark-text/55">
+                Dr Ashneet Kaur
+              </p>
+            </FadeIn>
 
-          <FadeInRight delay={1.0} className="text-right bg-white/50 backdrop-blur-xl p-5 rounded-3xl border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] pointer-events-auto hover:bg-white/70 transition-colors cursor-default">
-            <h4 className="font-sans font-bold text-lg xl:text-xl text-dark-text tracking-tight uppercase mb-1">Executive Consulting</h4>
-            <p className="text-sm text-dark-text/70 leading-relaxed">Strategic engagements with ICAI, Bosch India, HURL, and ATOS across international offices.</p>
-          </FadeInRight>
-        </div>
-
-        {/* Profile Cutout (Sits behind text, in front of background stats) */}
-        <FadeIn delay={0.4} className="absolute inset-0 flex items-end justify-center lg:justify-end pointer-events-none z-10 overflow-visible">
-          <img 
-            src="/photos/p-05-seated-no-bg.png" 
-            alt="Dr Ashneet Kaur" 
-            className="w-auto max-w-[200%] h-[80vh] sm:h-[85vh] md:h-[90vh] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-auto translate-y-0 md:-translate-y-12 lg:-translate-y-24 translate-x-2 sm:translate-x-4 lg:translate-x-12"
-          />
-        </FadeIn>
-
-        {/* Foreground Text Layer (Overlaps photo) */}
-        <div className="absolute inset-0 flex flex-col items-start justify-end md:justify-center px-4 md:px-8 lg:px-24 pb-44 sm:pb-32 md:pb-0 pointer-events-none z-20">
-          <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col items-start pt-24 md:pt-0">
-            <FadeInRight delay={0.6}>
-              <h1 className="font-serif text-[3.5rem] sm:text-6xl md:text-8xl lg:text-[10rem] xl:text-[11rem] leading-[0.9] md:leading-[0.85] tracking-tighter text-dark-text drop-shadow-[0_4px_32px_rgba(255,255,255,1)] mix-blend-normal pointer-events-auto">
-                Ashneet<br />Kaur
+            <FadeInRight delay={0.45}>
+              <h1 className="mt-5 font-serif text-[clamp(2.4rem,5vw,5.375rem)] leading-[0.94] tracking-[-0.02em] text-dark-text">
+                What happens to people
+                <br className="hidden sm:block" /> when the systems
+                <br className="hidden sm:block" /> around them change?
               </h1>
             </FadeInRight>
-            
-            <FadeIn delay={0.8} className="w-full mt-2 md:mt-0">
-              <HeroBadge />
+
+            <FadeIn delay={0.6}>
+              <p className="mt-7 max-w-[46ch] font-sans text-[15px] leading-relaxed text-dark-text/70">
+                Scholar and educator in Organizational Behaviour and Human
+                Resource Management, working at the intersection of human
+                systems, technological change and sustainable organization
+                design.
+              </p>
             </FadeIn>
 
-            <FadeIn delay={1.0} className="w-full mt-2 pointer-events-auto">
-              <ContactTrigger />
+            <FadeIn delay={0.75}>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  href="#content"
+                  className="group inline-flex items-center gap-3 rounded-full bg-dark-text/90 px-6 py-3 font-sans text-[13px] font-medium tracking-wide text-white backdrop-blur-xl transition-colors hover:bg-dark-text"
+                >
+                  Explore the work
+                  <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
+                </Link>
+                <ContactTrigger />
+              </div>
             </FadeIn>
+
+            {/* Feats bar. Also the only slideshow control, so it stays. */}
+            <FadeIn delay={0.9} className="mt-9 w-full">
+              <HeroBadge />
+            </FadeIn>
+          </div>
+
+          {/* ---------- Right: portrait in a glass frame, with pills ------ */}
+          <div className="relative flex min-h-[48svh] items-end justify-center lg:h-[70svh] lg:min-h-0 lg:justify-end">
+            <ScaleIn delay={0.3} className="relative h-full w-full max-w-[520px]">
+              {/* The glass frame. Kept lighter than the photograph. */}
+              <div className="absolute inset-x-0 bottom-0 top-6 rounded-[32px] border border-white/55 bg-white/25 shadow-[0_20px_70px_rgba(30,30,25,0.09)] backdrop-blur-[20px]" />
+
+              {/* The existing cutout, overflowing the frame for depth. */}
+              <img
+                src="/photos/p-05-seated-no-bg.png"
+                alt="Dr Ashneet Kaur"
+                className="absolute inset-0 h-full w-full object-contain object-bottom drop-shadow-[0_24px_48px_rgba(30,30,25,0.22)]"
+              />
+
+              {/* Evidence. Small capsules that support the portrait. */}
+              <FadeInRight
+                delay={0.95}
+                className="absolute left-0 top-[15%] flex items-baseline gap-2.5 rounded-full border border-white/60 bg-white/45 px-4 py-2 shadow-[0_8px_28px_rgba(30,30,25,0.08)] backdrop-blur-xl"
+              >
+                <span className="font-serif text-xl leading-none text-dark-text">03</span>
+                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-dark-text/60">
+                  Best-paper awards
+                </span>
+              </FadeInRight>
+
+              <FadeInRight
+                delay={1.05}
+                className="absolute right-0 top-[38%] flex items-baseline gap-2.5 rounded-full border border-white/60 bg-white/45 px-4 py-2 shadow-[0_8px_28px_rgba(30,30,25,0.08)] backdrop-blur-xl"
+              >
+                <span className="font-serif text-xl leading-none text-dark-text">10</span>
+                <span className="font-sans text-[10px] font-medium uppercase tracking-[0.14em] text-dark-text/60">
+                  Journal publications
+                </span>
+              </FadeInRight>
+
+              {/* Research statement, across the foot of the portrait. */}
+              <FadeIn
+                delay={1.15}
+                className="absolute inset-x-2 bottom-5 rounded-[22px] border border-white/60 bg-white/50 px-5 py-3.5 shadow-[0_10px_34px_rgba(30,30,25,0.09)] backdrop-blur-xl"
+              >
+                <p className="font-sans text-[12.5px] leading-relaxed text-dark-text/75">
+                  Researching how technology changes trust, behaviour and the
+                  experience of work.
+                </p>
+              </FadeIn>
+            </ScaleIn>
           </div>
         </div>
 
-        {/* Bottom Glassmorphism Bar */}
-        <FadeIn delay={1.2} className="absolute bottom-0 left-0 w-full z-30 glass-dark py-4 md:py-6 px-4 md:px-12 lg:px-24 flex flex-col md:flex-row items-center gap-6 md:gap-12">
-          <div className="flex-shrink-0 w-full md:w-auto text-center md:text-left">
-            <Link href="#content" className="font-serif text-white text-lg md:text-xl tracking-wide flex items-center justify-center md:justify-start gap-4 group">
-              explore <span className="group-hover:translate-x-2 transition-transform duration-300">›</span>
-            </Link>
-          </div>
-          
-          <div className="flex-1 w-full flex gap-4 md:gap-8 overflow-x-auto no-scrollbar pb-2 md:pb-0 items-center justify-start md:justify-between mask-edges">
-            {PILLARS.slice(0, 4).map(({ href, label, shot }) => (
-              <Link key={href} href={href} className="flex items-center gap-4 group min-w-[200px]">
-                <div className="w-12 h-12 rounded-full overflow-hidden relative border border-white/20 group-hover:border-coral transition-colors flex-shrink-0">
-                  <Frame shot={shot} sizes="48px" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                <span className="font-serif text-sm text-white/70 leading-tight group-hover:text-white transition-colors">
+        {/* Pillar rail. Slimmed so the hero still clears a 900px viewport. */}
+        <FadeIn delay={1.25} className="relative z-30 w-full border-t border-white/40 bg-white/35 backdrop-blur-2xl">
+          <div className="mx-auto flex w-full max-w-[1400px] items-center gap-6 px-5 py-3 sm:px-8 lg:px-12">
+            <div className="no-scrollbar flex flex-1 items-center gap-7 overflow-x-auto">
+              {PILLARS.slice(0, 4).map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="group flex shrink-0 items-center gap-2 font-sans text-[12px] tracking-wide text-dark-text/60 transition-colors hover:text-dark-text"
+                >
                   {label}
-                  <span className="block text-xs text-white/40 mt-1">section ›</span>
-                </span>
-              </Link>
-            ))}
-            <Link href="/about" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-dark-text hover:bg-coral hover:text-white transition-colors flex-shrink-0">
-              <span className="text-sm tracking-widest font-sans font-medium">all</span>
+                  <span className="text-dark-text/30 transition-transform group-hover:translate-x-0.5">
+                    &rsaquo;
+                  </span>
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/about"
+              className="shrink-0 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-dark-text/50 transition-colors hover:text-coral"
+            >
+              All
             </Link>
           </div>
         </FadeIn>

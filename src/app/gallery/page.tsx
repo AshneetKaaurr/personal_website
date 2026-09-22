@@ -14,9 +14,11 @@ export default function Gallery() {
   const validShots = SHOTS.filter(shot => getPhoto(shot.ref) !== null)
   
   // Current active photo object
-  const activePhoto = activePhotoIndex !== null 
-    ? getPhoto(validShots[activePhotoIndex].ref) 
-    : null
+  // tsconfig sets noUncheckedIndexedAccess, so the lookup is guarded rather
+  // than asserted: an index past the end yields null, same as no photo.
+  const activeShot =
+    activePhotoIndex !== null ? validShots[activePhotoIndex] : undefined
+  const activePhoto = activeShot ? getPhoto(activeShot.ref) : null
 
   const handleNext = () => {
     if (activePhotoIndex !== null && activePhotoIndex < validShots.length - 1) {

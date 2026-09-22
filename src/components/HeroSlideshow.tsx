@@ -46,10 +46,14 @@ export function HeroSlideshowBg() {
           className="absolute inset-0 w-full h-full object-cover origin-center"
         />
       </AnimatePresence>
-      {/* Light Apple frosted glass overlay so text is readable and images are visible */}
-      <div className="absolute inset-0 bg-white/60 backdrop-blur-sm" />
-      {/* A subtle white gradient to ensure text readability at the bottom */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/40 to-transparent" />
+      {/* The photographs have to stay perceptible: this is atmosphere, not
+          texture under a wash. A warm ivory veil at ~38% plus a stronger blur
+          keeps them legible as photographs while the type stays readable. */}
+      <div className="absolute inset-0 bg-light-bg/[0.38] backdrop-blur-xl" />
+      {/* Readability only where the type actually sits: a soft gradient from the
+          left, and a light lift at the very bottom for the pillar rail. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-light-bg/70 via-light-bg/25 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-light-bg/80 to-transparent" />
     </div>
   )
 }
@@ -71,10 +75,10 @@ export function HeroBadge() {
   }, [])
 
   return (
-    <div className="mt-6 md:mt-8 flex flex-row items-center gap-3 md:gap-6 bg-white/80 backdrop-blur-2xl p-3 md:p-6 rounded-3xl md:rounded-[2rem] shadow-[0_16px_40px_rgba(0,0,0,0.1)] border border-white/60 pointer-events-auto w-full max-w-4xl">
-      <div className="flex items-center gap-3 md:gap-4 flex-1">
-        <div className="w-2 md:w-8 h-px bg-coral shrink-0"></div>
-        <div className="relative min-h-[70px] md:min-h-0 md:h-[48px] w-full overflow-hidden flex items-center">
+    <div className="flex flex-row items-center gap-3 md:gap-5 bg-white/40 backdrop-blur-2xl px-4 md:px-5 py-3 rounded-full shadow-[0_8px_30px_rgba(30,30,25,0.07)] border border-white/55 pointer-events-auto w-full max-w-xl">
+      <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+        <div className="w-5 h-px bg-coral shrink-0"></div>
+        <div className="relative h-[42px] md:h-[38px] w-full overflow-hidden flex items-center">
           <AnimatePresence mode="wait">
             <motion.p
               key={index}
@@ -82,7 +86,7 @@ export function HeroBadge() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
-              className="absolute inset-x-0 font-sans text-sm md:text-lg text-dark-text font-medium leading-snug md:leading-snug pr-2"
+              className="absolute inset-x-0 font-sans text-[12.5px] md:text-[13px] text-dark-text/75 leading-snug pr-2"
             >
               {FEATS[index]}
             </motion.p>
@@ -90,20 +94,20 @@ export function HeroBadge() {
         </div>
       </div>
       
-      <div className="flex items-center gap-2 md:gap-4 shrink-0 pl-3 md:pl-4 border-l border-dark-text/10">
+      <div className="flex items-center gap-1 shrink-0 pl-3 border-l border-dark-text/10">
         <button 
           onClick={() => window.dispatchEvent(new Event('hero-prev'))}
-          className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full hover:bg-black/5 hover:text-coral transition-colors"
+          className="flex items-center justify-center w-7 h-7 rounded-full text-dark-text/50 hover:bg-white/60 hover:text-coral transition-colors"
           aria-label="Previous"
         >
-          <span className="text-2xl pb-1">‹</span>
+          <span className="text-lg pb-0.5">‹</span>
         </button>
         <button 
           onClick={() => window.dispatchEvent(new Event('hero-next'))}
-          className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full hover:bg-black/5 hover:text-coral transition-colors"
+          className="flex items-center justify-center w-7 h-7 rounded-full text-dark-text/50 hover:bg-white/60 hover:text-coral transition-colors"
           aria-label="Next"
         >
-          <span className="text-2xl pb-1">›</span>
+          <span className="text-lg pb-0.5">›</span>
         </button>
       </div>
     </div>

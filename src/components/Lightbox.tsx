@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Photo } from '@/content/photos'
@@ -15,10 +15,7 @@ interface LightboxProps {
 }
 
 export function Lightbox({ photo, onClose, onNext, onPrev, hasNext, hasPrev }: LightboxProps) {
-  const [isClient, setIsClient] = useState(false)
-
   useEffect(() => {
-    setIsClient(true)
     if (photo) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -40,8 +37,6 @@ export function Lightbox({ photo, onClose, onNext, onPrev, hasNext, hasPrev }: L
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [photo, onClose, onNext, onPrev, hasNext, hasPrev])
-
-  if (!isClient) return null
 
   return (
     <AnimatePresence>
