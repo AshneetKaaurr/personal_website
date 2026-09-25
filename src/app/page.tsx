@@ -113,12 +113,7 @@ export default function Home() {
           <span className="absolute top-[60%] left-[40%] text-[5vw] opacity-[0.02]">LEADERSHIP</span>
         </div>
 
-        {/* Watermark, faint enough to read as paper texture. */}
-        <div className="pointer-events-none absolute top-1/2 right-0 z-0 w-full -translate-y-1/2 select-none overflow-hidden text-center opacity-[0.025]">
-          <span className="font-serif text-[28vw] leading-none tracking-tighter whitespace-nowrap text-dark-text">
-            Ashneet
-          </span>
-        </div>
+
 
         {/* Vertical Editorial Annotation - Pinned to true right edge */}
         <FadeIn delay={1.2} className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 opacity-40 hidden sm:block pointer-events-auto z-40">
@@ -140,9 +135,6 @@ export default function Home() {
                 <h1 className="font-serif text-[3rem] sm:text-[3.5rem] lg:text-[54px] tracking-tight text-dark-text leading-none font-normal flex items-center">
                   Dr. Ashneet Kaur
                 </h1>
-                <span className="inline-flex items-center px-4 py-1.5 rounded-sm bg-coral font-sans text-[11px] lg:text-[12px] font-medium uppercase tracking-[0.14em] text-white leading-tight shadow-sm md:mt-2">
-                  SCHOLAR &middot; EDUCATOR &middot; RESEARCHER
-                </span>
               </div>
             </FadeIn>
             <FadeIn delay={0.38} className="w-full">
