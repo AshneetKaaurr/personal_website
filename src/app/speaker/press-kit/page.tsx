@@ -1,6 +1,5 @@
 import {
   Container,
-  Note,
   PageLink,
   PageTitle,
   Record,
@@ -48,11 +47,14 @@ export default function PressKit() {
       </Section>
 
       <Section title="Photographs">
-        <Note kind="needs" item="Could you send the original photo files, and the photographer&rsquo;s name?">
-          The versions on this site are sized for screens and will look poor in
-          print. A magazine or conference programme will ask for the originals,
-          and for a credit line if one is owed.
-        </Note>
+        <p className="max-w-2xl leading-relaxed text-dark-text/70">
+          The photographs on this site are sized for screens. For print
+          resolution, or for a different frame from the same sessions, write to
+          the address on the contact page and I will send originals.
+        </p>
+        <p className="mt-6">
+          <PageLink href="/gallery">See the photographs</PageLink>
+        </p>
       </Section>
 
       <Section>

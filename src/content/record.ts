@@ -485,7 +485,43 @@ export function wordCount(text: string): number {
 // Contact
 // ---------------------------------------------------------------------------
 
-export const EMAIL = 'Ashneet_kaur@isb.edu'
+export const EMAIL = 'ashneetkaaurr@gmail.com'
+
+export const SCHOLAR_URL =
+  'https://scholar.google.com/citations?user=SnCfTF4AAAAJ&hl=en'
+export const LINKEDIN_URL = 'https://www.linkedin.com/in/ashneet-kaur-k95/'
+
+/**
+ * How an engagement runs.
+ *
+ * Drawn from the three documented engagements rather than invented: ICAI was an
+ * analysis of process and leadership inside an existing structure, Bosch moved
+ * from analysis into designing systems for learning and for diversity across
+ * verticals, and HURL ran on interviews and questionnaires with findings the
+ * client accepted. The same four beats appear in all three.
+ */
+export const METHOD: { step: string; detail: string }[] = [
+  {
+    step: 'Listen first',
+    detail:
+      'Interviews and questionnaires across the levels that actually touch the system, not only the people who commissioned the work. At ATOS that meant more than fifty stakeholders across three countries.',
+  },
+  {
+    step: 'Find where the system bends',
+    detail:
+      'Analysis of where process, leadership and structure pull against one another, and which of those gaps is doing the most damage.',
+  },
+  {
+    step: 'Design what fits the organisation',
+    detail:
+      'Systems built for the organisation that will run them, rather than a model lifted from somewhere else. At Bosch that meant structures for becoming a learning organisation and for diversity across verticals.',
+  },
+  {
+    step: 'Hand it over so it survives',
+    detail:
+      'Findings presented so the people who stay can act on them. The HRM work at HURL was taken up by the client rather than filed.',
+  },
+]
 
 export interface EnquiryType {
   type: string

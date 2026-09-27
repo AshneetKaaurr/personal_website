@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 
 import {
   Container,
-  Note,
   PageLink,
   PageTitle,
   Section,
@@ -96,7 +95,6 @@ export default async function ThemePage({
       ) : null}
 
       <Section>
-        <Note kind="approve" item="Does this description fit, and are these the right papers under it?" />
         <p className="mt-6">
           <PageLink href="/research">Back to research</PageLink>
         </p>

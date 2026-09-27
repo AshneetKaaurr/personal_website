@@ -1,6 +1,5 @@
 import {
   Container,
-  Note,
   PageTitle,
   Record,
   RecordList,
@@ -83,12 +82,6 @@ export default function BoardAndAdvisory() {
           </div>
         </div>
 
-        <Note kind="approve" item="Are you happy with how these four are worded?">
-          Each one comes from your CV, but they are claims about your own
-          judgement, so the wording should be yours. Nothing on this page says
-          anything about the company itself &mdash; only your role, the statute
-          and the dates.
-        </Note>
       </Section>
     </Container>
   )

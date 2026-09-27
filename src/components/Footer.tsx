@@ -1,12 +1,24 @@
 import Link from 'next/link'
 
 import { FOOTER_NAV, PRIMARY_NAV } from '@/lib/nav'
-import { EMAIL } from '@/content/record'
+import { EMAIL, LINKEDIN_URL, SCHOLAR_URL } from '@/content/record'
 
 export function Footer() {
   return (
-    <footer className="mt-20 bg-dark-text text-white/80">
-      <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8">
+    <footer className="relative bg-dark-bg/80 backdrop-blur-2xl text-white/80 border-t border-white/10 pt-40 pb-4 overflow-hidden">
+      {/* Background image or subtle gradient for the frosted glass to have something to blur against */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-dark-text/80 to-dark-text overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/photos/p-05-seated.jpg')] opacity-20 mix-blend-overlay object-cover" />
+      </div>
+
+      {/* Massive typography watermark */}
+      <div className="absolute bottom-[-10%] left-0 right-0 flex justify-center pointer-events-none select-none overflow-hidden -z-10">
+        <span className="font-serif text-[28vw] leading-[0.75] text-white opacity-[0.03] tracking-tighter">
+          ASHNEET
+        </span>
+      </div>
+
+      <div className="mx-auto w-full max-w-6xl px-6 py-16 lg:px-8 relative z-10">
         <div className="grid gap-12 md:grid-cols-4">
           {/* Brand */}
           <div className="md:col-span-1">
@@ -64,7 +76,7 @@ export function Footer() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/ashneet-kaur-k95/"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-coral hover:text-white transition-all"
@@ -73,7 +85,7 @@ export function Footer() {
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
               <a
-                href="https://scholar.google.com/citations?user=SnCfTF4AAAAJ&hl=en"
+                href={SCHOLAR_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-coral hover:text-white transition-all"

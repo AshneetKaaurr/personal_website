@@ -66,11 +66,6 @@ export default function Privacy() {
           </div>
         </Prose>
 
-        <Note kind="approve" item="Have a read of this and tell me if you are happy with it.">
-          It is deliberately plain rather than legalistic. It has to describe
-          exactly what the site really does, so if we ever change how visitors
-          are counted or how the contact form works, this page changes with it.
-        </Note>
       </Section>
     </Container>
   )

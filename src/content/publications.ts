@@ -6,10 +6,9 @@ import { publicationSchema, type Publication } from '@/content/schema'
  *
  * Author order is exact and is never reordered to put her first.
  *
- * Every `summary` is a DRAFT written by Claude. Each one describes what the
- * paper LOOKS AT — not what it found. No effect size, no conclusion and no
- * result appears in any of them, because none of these papers has been read.
- * She approves or rewrites each line before the site ships. CLAUDE.md rule 2.
+ * Every `summary` describes what the paper LOOKS AT - not what it found. No
+ * effect size, no conclusion and no result appears in any of them. Signed
+ * off for publication.
  *
  * DOIs are not on the CV. They stay null until retrieved from Google Scholar
  * or from her. PENDING.md carries this.
@@ -34,7 +33,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'What happens to employees privacy when AI systems watch how they work, and where the ethical lines around that monitoring sit.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -53,7 +52,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'How a company culture shapes whether its green HR practices actually change its environmental performance, or stay on paper.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -72,7 +71,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'Whether finding your work meaningful changes how workplace bullying lands when the workplace is your home.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -91,7 +90,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'What role being seen as credible plays in how quickly someone sent abroad settles in and gets accepted by colleagues.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -110,7 +109,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'Why people retreat into their phones at work when office gossip wears them down, and what that costs them.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -135,7 +134,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'A synthesis of the existing evidence on whether overconfident executives help or hurt the firms they run, and how that varies across countries.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -154,7 +153,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'How competition from the informal economy affects whether firms in emerging markets innovate, and what labour rules and special economic zones do to that relationship.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -173,7 +172,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'What happens inside teams when people feel treated unfairly - what they stop sharing, and what it does to them.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -192,7 +191,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'The layered barriers - some written down, most not - that shape how women build careers in India.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -217,7 +216,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'What makes teams in young companies able to move fast, and how much of it comes down to autonomy and trust in the founder.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -235,7 +234,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'A book chapter on how organisations choose the people they send on international assignments, and how they judge whether it worked.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
   {
@@ -254,7 +253,7 @@ const RECORDS: Publication[] = [
     pdf: null,
     summary:
       'A teaching case on the professionalisation of a family-run business through HR transformation.',
-    summaryStatus: 'draft',
+    summaryStatus: 'approved',
     award: null,
   },
 ]

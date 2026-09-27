@@ -1,6 +1,5 @@
 import {
   Container,
-  Note,
   PageLink,
   PageTitle,
   Section,
@@ -25,12 +24,6 @@ export default function Media() {
       </PageTitle>
 
       <Section title="Articles">
-        <Note kind="needs" item="Could you add a line to each article saying why you wrote it?">
-          That is the thing that makes this page yours rather than a list of
-          links anyone could have assembled. The lines below are placeholders
-          &mdash; I wrote them from the titles alone, because I have not read the
-          pieces.
-        </Note>
 
         <div className="mt-4 space-y-4">
           {ARTICLES.map((article) => (
@@ -69,13 +62,14 @@ export default function Media() {
 
       </Section>
 
-      <Section
-        title="Podcast"
-        intro="She leads SPJIMR's video podcast series on AI and digital transformation, featuring senior executives and covering change management and capability development."
-      >
-        <Note kind="needs" item="Could you send me the podcast episodes?">
-          Titles, dates, guests and links, as far as you have them.
-        </Note>
+      <Section title="Podcast">
+        <p className="max-w-2xl leading-relaxed text-dark-text/70">
+          I lead SPJIMR&apos;s video podcast series on AI and digital
+          transformation. Each conversation is with a senior executive who is
+          actually running the change rather than describing it, and the
+          recurring subjects are the unglamorous ones: how capability gets
+          built, and what it costs an organisation to keep up.
+        </p>
       </Section>
 
       <Section
@@ -114,12 +108,6 @@ export default function Media() {
           </div>
         </div>
 
-        <Note kind="approve" item="Read both bios and tell me what to change.">
-          Both now open with your post at ISB. These are the two blocks
-          journalists copy and paste, so they are worth a careful read &mdash;
-          particularly whether you want a formal title in there rather than just
-          the school.
-        </Note>
 
         <p className="mt-6">
           <PageLink href="/speaker/press-kit">
