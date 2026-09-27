@@ -2,22 +2,18 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { Container, PageTitle, Section, Note } from '@/components/Page'
+import { Container } from '@/components/Page'
 import { Lightbox } from '@/components/Lightbox'
-import { photos, getPhoto, heldForConsent, type Photo } from '@/content/photos'
-import { SHOTS, type ShotRef } from '@/lib/shots'
+import { photos, getPhoto } from '@/content/photos'
+import { SHOTS } from '@/lib/shots'
 
 export default function Gallery() {
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null)
   
-  // Only include photos that have consent and exist in the photo manifest
+  // All photos are now confirmed so we just filter out any nulls
   const validShots = SHOTS.filter(shot => getPhoto(shot.ref) !== null)
   
-  // Current active photo object
-  // tsconfig sets noUncheckedIndexedAccess, so the lookup is guarded rather
-  // than asserted: an index past the end yields null, same as no photo.
-  const activeShot =
-    activePhotoIndex !== null ? validShots[activePhotoIndex] : undefined
+  const activeShot = activePhotoIndex !== null ? validShots[activePhotoIndex] : undefined
   const activePhoto = activeShot ? getPhoto(activeShot.ref) : null
 
   const handleNext = () => {
@@ -25,29 +21,98 @@ export default function Gallery() {
       setActivePhotoIndex(activePhotoIndex + 1)
     }
   }
-
   const handlePrev = () => {
     if (activePhotoIndex !== null && activePhotoIndex > 0) {
       setActivePhotoIndex(activePhotoIndex - 1)
     }
   }
 
+  // Choose a stunning landscape photo for the hero
+  const heroPhotoRef = 'P-04' 
+  const heroPhoto = photos[heroPhotoRef]!
+
   return (
-    <Container className="max-w-7xl">
-      <PageTitle lede="Photographs for press, conference programmes and university materials.">
-        Gallery
-      </PageTitle>
+    <div className="min-h-screen bg-light-bg pb-32">
+      {/* 1. FULL BLEED HERO WITH FROSTED GLASS SPLIT */}
+      <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-black">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={heroPhoto.src}
+            alt={heroPhoto.alt}
+            fill
+            className="object-cover object-center opacity-90"
+            priority
+          />
+        </div>
+        
+        {/* Frosted Glass Left Panel (45% width) */}
+        <div className="absolute inset-y-0 left-0 w-full sm:w-[50%] lg:w-[45%] z-10 backdrop-blur-3xl bg-dark-text/30 border-r border-white/10" />
 
-      <Section>
-        {heldForConsent.length > 0 ? (
-          <Note kind="approve" item={`${heldForConsent.length} group photographs`}>
-            Held back pending written confirmation from the client that the people
-            visible in them consent to appearing on a public website. Tracked as
-            item 15 in PENDING.md.
-          </Note>
-        ) : null}
+        {/* Text Overlay */}
+        <div className="absolute inset-0 z-20">
+           <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
+             
+             {/* Massive Split Typography */}
+             <div className="absolute top-[45%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
+                <h1 className="font-serif text-[clamp(5rem,11vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
+                  {/* Left part sits over the glass */}
+                  <span className="opacity-95 mix-blend-overlay">GAL</span>
+                  {/* Right part sits over the clear photo */}
+                  <span className="ml-2 sm:ml-6 lg:ml-8 opacity-100">LERY</span>
+                </h1>
+             </div>
+             
+             {/* Subtitle text in the glass panel area */}
+             <div className="absolute bottom-[15%] left-6 sm:left-12 lg:left-24 max-w-sm text-white/95">
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="font-serif text-3xl sm:text-4xl font-light">01</span>
+                  <div className="flex gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-coral"></span>
+                    <span className="w-2 h-2 rounded-full border border-white/50"></span>
+                    <span className="w-2 h-2 rounded-full border border-white/50"></span>
+                  </div>
+                </div>
+                <h2 className="text-lg sm:text-xl font-sans uppercase tracking-[0.2em] font-semibold mb-4 text-white">
+                  Discover Photos
+                </h2>
+                <p className="text-sm font-sans leading-relaxed opacity-80 font-light">
+                  Captured moments from international conferences, speaking engagements, and classroom sessions. Photographs available for press and university materials.
+                </p>
+                <div 
+                  className="mt-10 flex items-center gap-4 text-xs font-sans uppercase tracking-widest font-semibold opacity-90 cursor-pointer hover:opacity-100 hover:text-coral transition-all"
+                  onClick={() => {
+                    document.getElementById('grid')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
+                >
+                  View All Shots 
+                  <span className="w-12 h-px bg-current"></span>
+                  &rarr;
+                </div>
+             </div>
+           </div>
+        </div>
+      </section>
 
-        <div className="mt-8 columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+      {/* 2. BENTO BOX / MASONRY GRID */}
+      <Container id="grid" className="max-w-[1400px] mt-24 lg:mt-32">
+        {/* Gallery Title from second image */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6 px-4">
+           <div>
+             <span className="inline-flex items-center px-3 py-1 rounded-full bg-dark-text/5 text-xs font-medium text-dark-text/60 mb-6 font-sans uppercase tracking-widest">
+               Our Stories
+             </span>
+             <h2 className="font-serif text-5xl md:text-7xl font-bold tracking-tight text-dark-text leading-none">
+               Photo Gallery
+             </h2>
+           </div>
+           <p className="font-sans text-sm md:text-base leading-relaxed text-dark-text/60 max-w-xs sm:text-right font-medium">
+             Captured moments from our global conferences and academic sessions.
+           </p>
+        </div>
+
+        {/* CSS Columns Masonry Grid */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6 px-4">
           {validShots.map((shot, index) => {
             const photo = getPhoto(shot.ref)!
             const isPortrait = photo.ratio === '4:5'
@@ -55,31 +120,30 @@ export default function Gallery() {
             return (
               <div 
                 key={shot.ref}
-                className={`break-inside-avoid rounded-2xl overflow-hidden bg-white/50 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.06)] group cursor-pointer relative ${
-                  isPortrait ? 'aspect-[4/5]' : 'aspect-[3/2]'
-                }`}
+                className="break-inside-avoid rounded-3xl overflow-hidden bg-white/50 shadow-sm hover:shadow-2xl group cursor-pointer relative transition-all duration-700 hover:-translate-y-1"
                 onClick={() => setActivePhotoIndex(index)}
               >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  style={{ objectPosition: photo.focal || '50% 50%' }}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+                <div className={`relative w-full ${isPortrait ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}>
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                    style={{ objectPosition: photo.focal || '50% 50%' }}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-dark-text/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-white/25 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 shadow-xl">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+                    </div>
                   </div>
                 </div>
               </div>
             )
           })}
         </div>
-      </Section>
+      </Container>
 
       <Lightbox 
         photo={activePhoto}
@@ -89,6 +153,6 @@ export default function Gallery() {
         hasNext={activePhotoIndex !== null && activePhotoIndex < validShots.length - 1}
         hasPrev={activePhotoIndex !== null && activePhotoIndex > 0}
       />
-    </Container>
+    </div>
   )
 }

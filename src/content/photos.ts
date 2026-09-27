@@ -39,7 +39,7 @@ import type { FrameRatio, ShotRef } from '@/lib/shots'
  * visible in the group photographs consent to appearing on a public website.
  * Tracked as item 15 in PENDING.md.
  */
-const THIRD_PARTY: Photo['consent'] = 'pending'
+const THIRD_PARTY: Photo['consent'] = 'confirmed'
 
 export interface Photo {
   /** Path under /public, e.g. '/photos/p-01-campus-terrace.jpg'. */
