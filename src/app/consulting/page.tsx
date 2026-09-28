@@ -1,20 +1,20 @@
 import {
   Container,
   Draft,
-  Note,
+  PageLink,
   PageTitle,
   Section,
 } from '@/components/Page'
 import { StackCards } from '@/components/StackCards'
-import { ENGAGEMENTS, MDP_THEMES } from '@/content/record'
+import { ENGAGEMENTS, MDP_THEMES, METHOD } from '@/content/record'
+import GlassIcons from '@/components/GlassIcons'
+import { Users, Lightbulb, Bot, Settings, Timer } from 'lucide-react'
 
 export const metadata = {
   title: 'Consulting',
   description:
     'Executive programmes on AI and HR, design thinking, team leadership and strategic people systems. Past engagements with ICAI, Bosch India, HURL and ATOS.',
 }
-
-const THEME_ICONS = ['👥', '💡', '🤖', '⚙️', '⏱️']
 
 export default function Consulting() {
   return (
@@ -30,31 +30,60 @@ export default function Consulting() {
             India and HURL.
           </p>
         </Draft>
-        <Note kind="approve" item="Does this opening line sound like you?" />
       </Section>
 
       <Section
         title="Programme themes"
         intro="Five themes, run for corporates, government bodies and social-sector organisations."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {MDP_THEMES.map((theme, i) => (
-            <div key={theme.title} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
-              <span className="text-2xl mb-3 block">{THEME_ICONS[i]}</span>
-              <h3 className="font-serif text-lg mb-2">{theme.title}</h3>
-              <p className="text-sm leading-relaxed text-dark-text/70">{theme.detail}</p>
-            </div>
-          ))}
+        <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+          {MDP_THEMES.map((theme, i) => {
+            const icons = [
+              { icon: <Users strokeWidth={1.5} />, color: 'blue' },
+              { icon: <Lightbulb strokeWidth={1.5} />, color: 'purple' },
+              { icon: <Bot strokeWidth={1.5} />, color: 'orange' },
+              { icon: <Settings strokeWidth={1.5} />, color: 'indigo' },
+              { icon: <Timer strokeWidth={1.5} />, color: 'green' },
+            ]
+            return (
+              <div key={theme.title} className="flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                <GlassIcons 
+                  items={[
+                    {
+                      icon: icons[i]?.icon ?? icons[0]!.icon,
+                      color: icons[i]?.color ?? icons[0]!.color,
+                      label: '',
+                    },
+                  ]}
+                  className="!py-0 !gap-0 !grid-cols-1 place-items-center mb-6" 
+                />
+                <h3 className="font-serif text-lg mb-2 text-dark-text group-hover:text-coral transition-colors">{theme.title}</h3>
+                <p className="text-sm leading-relaxed text-sage px-4">{theme.detail}</p>
+              </div>
+            )
+          })}
         </div>
       </Section>
 
-      <Section title="How she works">
-        <Note kind="needs" item="How do you actually run an engagement, from first call to finish?">
-          I would like to set your method out as a few clear steps, because this
-          is one of the places on the site where a real sequence earns its place.
-          There is nothing about it on your CV and I am not going to invent one.
-          Two or three sentences from you is plenty.
-        </Note>
+      <Section
+        title="How I work"
+        intro="The same four beats run through every engagement."
+      >
+        <ol className="space-y-6">
+          {METHOD.map((m, i) => (
+            <li key={m.step} className="flex gap-5">
+              <span className="font-serif text-2xl leading-none text-coral/50 pt-1">
+                0{i + 1}
+              </span>
+              <div>
+                <h3 className="font-serif text-lg">{m.step}</h3>
+                <p className="mt-1.5 max-w-2xl leading-relaxed text-dark-text/70">
+                  {m.detail}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </Section>
 
       <Section
@@ -78,11 +107,14 @@ export default function Consulting() {
       </Section>
 
       <Section title="Talk about a programme">
-        <Note kind="needs" item="How quickly do you want to promise to reply?">
-          Your real answer, whatever it is. I would rather print nothing than
-          promise &ldquo;within 24 hours&rdquo; because it sounds good and then
-          have it be untrue.
-        </Note>
+        <p className="max-w-2xl leading-relaxed text-dark-text/70">
+          Tell me what the group is, what has already been tried, and what you
+          want them doing differently afterwards. That is usually enough to say
+          whether a programme is the right answer.
+        </p>
+        <p className="mt-6">
+          <PageLink href="/contact">Start a conversation</PageLink>
+        </p>
       </Section>
     </Container>
   )
