@@ -54,12 +54,12 @@ const HEADLINE = [
  * in a straight line; what it does to people is not.
  */
 const DIMENSIONS = [
-  { word: 'Trust', serif: true, pos: 'left-[6%] top-[0%]' },
-  { word: 'Privacy', serif: false, pos: 'left-[54%] top-[15%]' },
-  { word: 'Fairness', serif: true, pos: 'left-[0%] top-[33%]' },
-  { word: 'Culture', serif: false, pos: 'left-[58%] top-[49%]' },
-  { word: 'Autonomy', serif: true, pos: 'left-[14%] top-[65%]' },
-  { word: 'Well-being', serif: false, pos: 'left-[48%] top-[84%]' },
+  { word: 'Trust', pos: 'left-[6%] top-[0%]' },
+  { word: 'Privacy', pos: 'left-[60%] top-[10%]' },
+  { word: 'Fairness', pos: 'left-[0%] top-[35%]' },
+  { word: 'Culture', pos: 'left-[55%] top-[45%]' },
+  { word: 'Autonomy', pos: 'left-[10%] top-[70%]' },
+  { word: 'Well-being', pos: 'left-[55%] top-[80%]' },
 ]
 
 /** Faint editorial annotations. They sit at 4% and lift barely on scroll. */
@@ -108,6 +108,41 @@ function DrawnRect({
         strokeWidth={1}
         vectorEffect="non-scaling-stroke"
         initial={draw ? { pathLength: 0 } : false}
+        whileInView={draw ? { pathLength: 1 } : undefined}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration, ease: EASE, delay }}
+      />
+    </svg>
+  )
+}
+
+function DrawnCircle({
+  delay = 0,
+  duration = 1.6,
+  className = 'text-dark-text/25',
+  draw = true,
+}: {
+  delay?: number
+  duration?: number
+  className?: string
+  draw?: boolean
+}) {
+  return (
+    <svg
+      className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}
+      viewBox="0 0 100 100"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+    >
+      <motion.circle
+        cx="50"
+        cy="50"
+        r="49"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1}
+        vectorEffect="non-scaling-stroke"
+        initial={draw ? { pathLength: 0, rotate: -90, originX: 0.5, originY: 0.5 } : { rotate: -90, originX: 0.5, originY: 0.5 }}
         whileInView={draw ? { pathLength: 1 } : undefined}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration, ease: EASE, delay }}
@@ -181,20 +216,16 @@ export function TheQuestionSection() {
       ref={sectionRef}
       className="relative flex w-full flex-col overflow-hidden bg-light-bg pt-28 pb-24 lg:pt-36 lg:pb-32"
     >
-      {/* Photographic ground, carried down from the hero and quietened. */}
-      <motion.div
-        style={{ opacity: textureOpacity }}
-        className="pointer-events-none absolute inset-0 z-0"
-        aria-hidden="true"
-      >
+      {/* Photographic ground with frost effect */}
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-30">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/photos/p-05-seated.jpg"
+          src="/photos/question.jpg"
           alt=""
-          className="h-full w-full scale-110 object-cover blur-2xl"
+          className="h-full w-full object-cover grayscale"
         />
-      </motion.div>
-      <div className="pointer-events-none absolute inset-0 z-0 bg-light-bg/80" />
+      </div>
+      <div className="pointer-events-none absolute inset-0 z-0 bg-light-bg/40 backdrop-blur-md" />
 
       {/* Blend up into the hero so the seam does not read as an edge. */}
       <div className="pointer-events-none absolute top-0 left-0 z-10 h-[24vh] w-full -translate-y-full bg-gradient-to-b from-transparent to-light-bg" />
@@ -252,12 +283,15 @@ export function TheQuestionSection() {
             variants={STAGGER}
             className="flex flex-col items-start"
           >
-            <motion.span
+            <motion.div
               variants={FADE_UP}
-              className="mb-9 font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-dark-text/50 lg:text-[11px]"
+              className="mb-10 flex w-full items-center gap-4"
             >
-              02 / The Question
-            </motion.span>
+              <span className="h-px flex-1 bg-dark-text/10" />
+              <span className="font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-dark-text/50 lg:text-[11px] text-right">
+                The Question / 02
+              </span>
+            </motion.div>
 
             <h2 className="font-serif text-[clamp(1.9rem,3.5vw,3.15rem)] leading-[1.12] tracking-tight text-dark-text">
               {HEADLINE.map((line) => (
@@ -331,30 +365,33 @@ export function TheQuestionSection() {
                 }
                 className="relative my-6 hidden h-[248px] w-full sm:block"
               >
-                {DIMENSIONS.map((d) => (
-                  <motion.span
+                {DIMENSIONS.map((d, i) => (
+                  <motion.div
                     key={d.word}
                     variants={
                       reduced
                         ? undefined
                         : {
-                            hidden: { opacity: 0, y: 12, filter: 'blur(7px)' },
+                            hidden: { opacity: 0, scale: 0.5 },
                             visible: {
                               opacity: 1,
-                              y: 0,
-                              filter: 'blur(0px)',
-                              transition: { duration: 1.2, ease: EASE },
+                              scale: 1,
+                              transition: { duration: 0.8, ease: EASE },
                             },
                           }
                     }
-                    className={`absolute whitespace-nowrap ${d.pos} ${
-                      d.serif
-                        ? 'font-serif text-[22px] italic text-dark-text/70'
-                        : 'font-sans text-[11px] font-medium uppercase tracking-[0.22em] text-dark-text/55'
-                    }`}
+                    className={`absolute ${d.pos}`}
                   >
-                    {d.word}
-                  </motion.span>
+                    <motion.div
+                      animate={reduced ? undefined : { y: [0, -12, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+                      className="flex items-center justify-center w-[90px] h-[90px] rounded-full bg-coral/90 shadow-[0_8px_32px_rgba(255,127,80,0.3)] backdrop-blur-md"
+                    >
+                      <span className="font-sans text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-sm">
+                        {d.word}
+                      </span>
+                    </motion.div>
+                  </motion.div>
                 ))}
               </motion.div>
 
@@ -370,30 +407,33 @@ export function TheQuestionSection() {
                 }
                 className="my-8 flex flex-wrap justify-center gap-x-6 gap-y-3 sm:hidden"
               >
-                {DIMENSIONS.map((d) => (
-                  <motion.span
+                {DIMENSIONS.map((d, i) => (
+                  <motion.div
                     key={d.word}
                     variants={
                       reduced
                         ? undefined
                         : {
-                            hidden: { opacity: 0, y: 10, filter: 'blur(6px)' },
+                            hidden: { opacity: 0, scale: 0.5 },
                             visible: {
                               opacity: 1,
-                              y: 0,
-                              filter: 'blur(0px)',
-                              transition: { duration: 1, ease: EASE },
+                              scale: 1,
+                              transition: { duration: 0.8, ease: EASE },
                             },
                           }
                     }
-                    className={
-                      d.serif
-                        ? 'font-serif text-[19px] italic text-dark-text/70'
-                        : 'font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-dark-text/55'
-                    }
+                    className="relative"
                   >
-                    {d.word}
-                  </motion.span>
+                    <motion.div
+                      animate={reduced ? undefined : { y: [0, -8, 0] }}
+                      transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.4 }}
+                      className="flex items-center justify-center w-[80px] h-[80px] rounded-full bg-coral/90 shadow-[0_8px_32px_rgba(255,127,80,0.3)] backdrop-blur-md"
+                    >
+                      <span className="font-sans text-[9px] font-bold uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-sm">
+                        {d.word}
+                      </span>
+                    </motion.div>
+                  </motion.div>
                 ))}
               </motion.div>
 

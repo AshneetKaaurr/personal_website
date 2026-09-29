@@ -15,6 +15,7 @@ import {
   VISITING,
 } from '@/content/record'
 import { THEMES, themeHref } from '@/content/themes'
+import { StackCards } from '@/components/StackCards'
 
 /**
  * Landing page sections, 03 onward.
@@ -73,6 +74,7 @@ function SectionShell({
   children,
   id,
   className,
+  imageSrc,
 }: {
   index: string
   label: string
@@ -81,6 +83,7 @@ function SectionShell({
   children: React.ReactNode
   id?: string
   className?: string
+  imageSrc?: string
 }) {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
@@ -95,8 +98,23 @@ function SectionShell({
     <section
       ref={ref}
       id={id}
-      className={`relative w-full overflow-hidden bg-light-bg py-20 lg:py-28 ${className ?? ''}`}
+      className={`relative w-full bg-light-bg py-20 lg:py-28 ${className ?? ''}`}
     >
+      {/* Background Image with frost effect */}
+      {imageSrc && (
+        <>
+          <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imageSrc}
+              alt=""
+              className="w-full h-full object-cover grayscale"
+            />
+          </div>
+          <div className="absolute inset-0 z-0 pointer-events-none bg-light-bg/40 backdrop-blur-md" />
+        </>
+      )}
+
       {/* The word sitting behind the type, at the hero's own opacity. */}
       <span
         aria-hidden="true"
@@ -106,7 +124,7 @@ function SectionShell({
       </span>
 
       {/* Architectural geometry, in the hero's vocabulary. */}
-      <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 hidden md:block z-0" aria-hidden="true">
         <motion.div
           style={{ y: slow }}
           className="absolute top-[12%] right-[5%] h-[64%] w-[38%] border border-dark-text/[0.07]"
@@ -124,10 +142,10 @@ function SectionShell({
       <div className="relative z-20 mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12">
         <Reveal>
           <div className="mb-10 flex items-center gap-4">
-            <span className="font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-dark-text/50 lg:text-[11px]">
-              {index} / {label}
-            </span>
             <span className="h-px flex-1 bg-dark-text/10" />
+            <span className="font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-dark-text/50 lg:text-[11px] text-right">
+              {label} / {index}
+            </span>
           </div>
         </Reveal>
         {children}
@@ -162,7 +180,7 @@ const CARD =
 
 export function ResearchSection() {
   return (
-    <SectionShell index="03" label="Research" word="Research" id="content">
+    <SectionShell index="03" label="Research" word="Research" id="content" imageSrc="/photos/research.jpg">
       <div className="grid gap-10 lg:grid-cols-[42fr_58fr] lg:items-end lg:gap-14">
         <div>
           <SectionTitle>Four ways I follow the question</SectionTitle>
@@ -237,7 +255,7 @@ export function ResearchSection() {
 
 export function TeachingSection() {
   return (
-    <SectionShell index="04" label="Teaching" word="Teaching">
+    <SectionShell index="04" label="Teaching" word="Teaching" imageSrc="/photos/teaching.jpg">
       <div className="grid gap-10 lg:grid-cols-[42fr_58fr] lg:items-end lg:gap-14">
         <div>
           <SectionTitle>I teach through things people already argue about</SectionTitle>
@@ -267,34 +285,25 @@ export function TeachingSection() {
         </Reveal>
       </div>
 
-      <div className="mt-12 space-y-4">
-        {CO_DESIGNED_COURSES.map((course, i) => (
-          <Reveal key={course.title} delay={0.08 * i}>
-            <article className={`flex flex-col gap-4 p-7 sm:flex-row sm:items-start sm:gap-8 lg:p-8 ${CARD}`}>
-              <span className="font-serif text-[15px] text-coral/70 sm:pt-1.5">
-                0{i + 1}
-              </span>
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                  <h3 className="font-serif text-[21px] leading-snug text-dark-text lg:text-[24px]">
-                    {course.title}
-                  </h3>
-                  <span className="rounded-full bg-coral/10 px-2.5 py-0.5 font-sans text-[10.5px] font-medium text-coral">
-                    {course.status}
-                  </span>
+      <div className="mt-12">
+        <StackCards 
+          cards={CO_DESIGNED_COURSES.map((course, i) => {
+            const images = ['/photos/netflix.jpg', '/photos/cricket.jpg', '/photos/mumbai.jpg']
+            return {
+              id: course.title,
+              title: course.title,
+              subtitle: course.status,
+              content: (
+                <div className="space-y-4">
+                  <p className="mt-3 max-w-[58ch] font-sans text-[14.5px] leading-relaxed text-dark-text/65">{course.description}</p>
+                  {course.also && <p className="mt-2 max-w-[58ch] font-sans text-[13px] leading-relaxed text-dark-text/45">{course.also}</p>}
                 </div>
-                <p className="mt-3 max-w-[58ch] font-sans text-[14.5px] leading-relaxed text-dark-text/65">
-                  {course.description}
-                </p>
-                {course.also ? (
-                  <p className="mt-2 max-w-[58ch] font-sans text-[13px] leading-relaxed text-dark-text/45">
-                    {course.also}
-                  </p>
-                ) : null}
-              </div>
-            </article>
-          </Reveal>
-        ))}
+              ),
+              imageSrc: images[i],
+              imageAlt: course.title
+            }
+          })}
+        />
       </div>
 
       <Reveal delay={0.2}>
@@ -322,7 +331,7 @@ export function SelectedWorkSection() {
   const recent = [...journalArticles].sort(byRecency).slice(0, 3)
 
   return (
-    <SectionShell index="05" label="Selected work" word="Papers">
+    <SectionShell index="05" label="Selected work" word="Papers" imageSrc="/photos/works.jpg">
       <div className="grid gap-10 lg:grid-cols-[42fr_58fr] lg:items-end lg:gap-14">
         <div>
           <SectionTitle>The most recent of it</SectionTitle>
@@ -617,7 +626,7 @@ const ROUTES: { href: Route; label: string; note: string }[] = [
 
 export function ClosingSection() {
   return (
-    <SectionShell index="08" label="Working together" word="Contact">
+    <SectionShell index="08" label="Working together" word="Contact" imageSrc="/photos/closing.jpg">
       <div className="grid gap-12 lg:grid-cols-[42fr_58fr] lg:gap-14">
         <div>
           <SectionTitle>Tell me which of these it is</SectionTitle>

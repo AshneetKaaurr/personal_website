@@ -17,26 +17,26 @@ export function StackCards({ cards }: { cards: StackCardData[] }) {
   return (
     <div className="w-full relative pb-24">
       {cards.map((card, index) => {
-        // We calculate a slight scale down for older cards, though
-        // basic sticky is often enough. The GIF shows them just sliding over.
+        const hasImage = !!card.imageSrc
         return (
           <div
             key={card.id}
-            className="sticky top-32 w-full min-h-[60vh] md:min-h-[70vh] bg-white rounded-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.05)] border border-dark-text/5 flex flex-col-reverse md:flex-row overflow-hidden mb-8 md:mb-16"
+            className="sticky top-32 w-full min-h-[55vh] md:min-h-[65vh] bg-white/50 backdrop-blur-lg rounded-[2rem] shadow-[0_-8px_32px_rgba(0,0,0,0.08)] border border-white/60 flex flex-col-reverse md:flex-row overflow-hidden mb-8 md:mb-16"
             style={{ 
               zIndex: index,
-              // Optional: slightly stagger the top so they look like a deck, 
-              // but plain top-32 makes them perfectly cover each other.
               top: `calc(120px + ${index * 12}px)`
             }}
           >
             {/* Left side: Text Content */}
-            <div className="w-full md:w-[55%] p-8 sm:p-12 lg:p-20 flex flex-col justify-center bg-[#fdfdfc]">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-dark-text tracking-tight mb-4">
+            <div className={`w-full ${hasImage ? 'md:w-[55%]' : 'md:w-full'} p-8 sm:p-12 lg:p-16 xl:p-20 flex flex-col justify-center bg-transparent`}>
+              <span className="text-coral/40 font-serif text-5xl md:text-6xl font-bold mb-4">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-dark-text tracking-tight mb-4 leading-tight">
                 {card.title}
               </h2>
               {card.subtitle && (
-                <div className="text-coral text-sm uppercase tracking-[0.2em] font-bold mb-8">
+                <div className="text-coral text-sm uppercase tracking-[0.2em] font-bold mb-6">
                   {card.subtitle}
                 </div>
               )}
@@ -46,14 +46,15 @@ export function StackCards({ cards }: { cards: StackCardData[] }) {
             </div>
 
             {/* Right side: image, when there is one. */}
-            {card.imageSrc ? (
-              <div className="w-full md:w-[45%] relative min-h-[350px] md:min-h-auto">
+            {hasImage ? (
+              <div className="w-full md:w-[45%] relative min-h-[300px]">
                 <Image
-                  src={card.imageSrc}
+                  src={card.imageSrc!}
                   alt={card.imageAlt || card.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 45vw"
+                  priority={index === 0}
                 />
               </div>
             ) : null}

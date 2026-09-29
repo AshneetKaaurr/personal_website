@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Route } from 'next'
 
 import { Frame } from '@/components/Frame'
@@ -6,7 +7,6 @@ import { FadeIn, FadeInRight, ScaleIn } from '@/components/Motion'
 import { HeroGeometry } from '@/components/HeroGeometry'
 import { TheQuestionSection } from '@/components/TheQuestionSection'
 import {
-  ClosingSection,
   ReachSection,
   RecordSection,
   ResearchSection,
@@ -183,9 +183,12 @@ export default function Home() {
                 her; that padding is trimmed out of the file now. The subject is
                 cut flush at the bottom of the PNG, so the element sits hard on
                 the hero floor and the pillar rail covers the cut. */}
-            <img
+            <Image
               src="/photos/p-05-seated-no-bg.png"
               alt="Dr Ashneet Kaur"
+              width={720}
+              height={1080}
+              priority
               className="block h-auto w-full max-h-[62svh] lg:max-h-[74vh] object-contain object-bottom drop-shadow-[0_28px_56px_rgba(30,30,25,0.26)] pointer-events-auto"
             />
 
@@ -260,7 +263,6 @@ export default function Home() {
       <SelectedWorkSection />
       <ReachSection />
       <RecordSection />
-      <ClosingSection />
     </>
   )
 }
