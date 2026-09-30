@@ -2,12 +2,13 @@ import Link from 'next/link'
 import {
   Container,
   Draft,
-  Note,
   PageTitle,
   Section,
 } from '@/components/Page'
 import { StackCards } from '@/components/StackCards'
 import { CO_DESIGNED_COURSES } from '@/content/record'
+import GlassIcons from '@/components/GlassIcons'
+import { Globe, GraduationCap, Sparkles } from 'lucide-react'
 
 export const metadata = {
   title: 'Training',
@@ -20,19 +21,22 @@ const ROUTES = [
     href: '/training/visiting' as const,
     title: 'Visiting appointments',
     description: 'Courses taught as visiting faculty, in India and abroad',
-    icon: '🌍',
+    icon: <Globe strokeWidth={1.5} />,
+    color: 'blue'
   },
   {
     href: '/training/flagship' as const,
     title: 'Flagship courses and programmes',
     description: 'The eight SPJIMR programmes',
-    icon: '🎓',
+    icon: <GraduationCap strokeWidth={1.5} />,
+    color: 'purple'
   },
   {
     href: '/training/new-courses' as const,
     title: 'New innovative courses',
     description: 'The three she co-designed',
-    icon: '✨',
+    icon: <Sparkles strokeWidth={1.5} />,
+    color: 'orange'
   },
 ]
 
@@ -68,23 +72,25 @@ export default function Training() {
           </p>
         </Draft>
 
-        <Note kind="approve" item="Does this sound like how you would describe your own teaching?" />
       </Section>
 
       <Section title="Three routes in">
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {ROUTES.map((route) => (
             <Link
               key={route.href}
               href={route.href}
-              className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] hover:bg-white/70 transition-all duration-300 flex flex-col"
+              className="flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300"
             >
-              <span className="text-3xl mb-4">{route.icon}</span>
+              <GlassIcons 
+                items={[{ icon: route.icon, color: route.color, label: '' }]}
+                className="!py-0 !gap-0 !grid-cols-1 place-items-center mb-6" 
+              />
               <h3 className="font-serif text-lg group-hover:text-coral transition-colors">
                 {route.title}
               </h3>
-              <p className="mt-2 text-sm text-sage flex-1">{route.description}</p>
-              <div className="mt-4 pt-3 border-t border-dark-text/5 flex items-center gap-2 text-sm text-coral font-medium">
+              <p className="mt-2 text-sm text-sage px-4">{route.description}</p>
+              <div className="mt-4 pt-3 border-t border-dark-text/5 flex items-center gap-2 text-sm text-coral font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                 <span>Explore</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
@@ -99,7 +105,7 @@ export default function Training() {
       >
         <StackCards 
           cards={CO_DESIGNED_COURSES.map((course, i) => {
-            const images = ['/photos/c-02-lecture-theatre.jpg', '/photos/e-01-stage.jpg', '/photos/c-03-global-cohort.jpg']
+            const images = ['/photos/netflix.jpg', '/photos/cricket.jpg', '/photos/mumbai.jpg']
             return {
               id: course.title,
               title: course.title,
@@ -117,13 +123,6 @@ export default function Training() {
         />
       </Section>
 
-      <Section title="What participants say">
-        <Note kind="needs" item="Could you send two student quotes and two from executive programmes?">
-          What participants say is the strongest thing a teaching page can carry,
-          and there is none on the site at the moment. They will sit properly on
-          the page, not tucked away at the bottom.
-        </Note>
-      </Section>
     </Container>
   )
 }

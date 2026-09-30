@@ -2,19 +2,60 @@ import Link from 'next/link'
 import {
   Container,
   Draft,
-  Note,
   PageLink,
   PageTitle,
   Section,
 } from '@/components/Page'
 import { publications } from '@/content/publications'
-import { AWARDS, SERVICE } from '@/content/record'
+import {
+  AWARDS,
+  SERVICE,
+  AOM,
+  EGOS,
+  OTHER_CONFERENCES,
+  SCHOLAR_URL,
+  type Appearance,
+} from '@/content/record'
 import { THEMES, themeHref } from '@/content/themes'
+import GlassIcons from '@/components/GlassIcons'
+import { Shield, Scale, Network, Rocket } from 'lucide-react'
 
 export const metadata = {
   title: 'Research',
   description:
     'Research on AI and employee privacy, sustainable HR systems, careers and new ventures. Twelve published records, three best-paper awards.',
+}
+
+/** One conference row. Moved here with the conference data itself. */
+function Stages({ items }: { items: Appearance[] }) {
+  return (
+    <div className="space-y-3">
+      {items.map((item) => (
+        <div
+          key={`${item.event}-${item.when}`}
+          className="flex items-start gap-4 rounded-2xl border border-white/50 bg-white/40 p-4 shadow-[0_2px_8px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300 hover:bg-white/60 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
+        >
+          <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-coral/60" />
+          <div className="flex-1">
+            <span className="font-medium leading-relaxed">{item.event}</span>
+            <span className="mt-1 flex flex-wrap items-center gap-2">
+              {item.place ? (
+                <span className="inline-flex items-center rounded-full bg-dark-text/5 px-2 py-0.5 text-xs text-sage">
+                  {item.place}
+                </span>
+              ) : null}
+              <span className="text-xs text-sage">{item.when}</span>
+              {item.upcoming ? (
+                <span className="inline-flex items-center rounded-full bg-coral/10 px-2 py-0.5 text-xs font-medium text-coral">
+                  upcoming
+                </span>
+              ) : null}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default function Research() {
@@ -46,61 +87,52 @@ export default function Research() {
           </p>
         </Draft>
 
-        <Note kind="approve" item="Does this read like your own description of the work?" />
       </Section>
 
       <Section
         title="Four themes"
         intro="Each theme is shown with its papers, the recognition attached to it and the writing that came out of it, together rather than scattered across the site."
       >
-        <div className="grid gap-4 md:grid-cols-2">
-          {THEMES.map((theme) => {
+        <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+          {THEMES.map((theme, index) => {
             const papers = publications.filter((p) => p.theme === theme.id)
+            const icons = [
+              { icon: <Shield strokeWidth={1.5} />, color: 'blue' },
+              { icon: <Scale strokeWidth={1.5} />, color: 'purple' },
+              { icon: <Network strokeWidth={1.5} />, color: 'indigo' },
+              { icon: <Rocket strokeWidth={1.5} />, color: 'orange' },
+            ]
             return (
               <Link
                 key={theme.id}
                 href={themeHref(theme.id)}
-                className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_16px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] hover:bg-white/70 transition-all duration-300"
+                className="flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white/40 backdrop-blur-md border border-white/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/60"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="font-serif text-lg md:text-xl group-hover:text-coral transition-colors">
-                      {theme.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-dark-text/70">
-                      {theme.statement}
-                    </p>
-                  </div>
-                  <span className="mt-1 text-coral opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200 text-xl flex-shrink-0">
-                    →
-                  </span>
-                </div>
-                <div className="mt-4 pt-3 border-t border-dark-text/5">
-                  <span className="text-xs font-medium uppercase tracking-wider text-sage">
-                    {papers.length} {papers.length === 1 ? 'record' : 'records'}
-                  </span>
+                <GlassIcons 
+                  items={[
+                    {
+                      icon: icons[index]?.icon ?? icons[0]!.icon,
+                      color: icons[index]?.color ?? icons[0]!.color,
+                      label: '',
+                    },
+                  ]}
+                  className="!py-0 !gap-0 !grid-cols-1 place-items-center mb-6" 
+                />
+                <h3 className="font-serif text-lg group-hover:text-coral transition-colors">
+                  {theme.title}
+                </h3>
+                <p className="mt-2 text-sm text-sage px-2 leading-relaxed">
+                  {theme.statement}
+                </p>
+                <div className="mt-4 pt-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-sage opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>{papers.length} {papers.length === 1 ? 'record' : 'records'}</span>
+                  <span className="text-coral group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </Link>
             )
           })}
         </div>
 
-        <Note kind="approve" item="I have grouped your work into four themes. Does that split feel right to you?">
-          <p>
-            We had talked about three. I added a fourth for founders and
-            ventures, because that is where two of your three best-paper awards
-            sit, along with the agility paper, the Product Entrepreneurship Lab,
-            Start Your Business, FiNovate, BCERC and the AOM Entrepreneurship
-            editorship. Under three themes that whole strand of your work
-            disappears, which seemed wrong.
-          </p>
-          <p>
-            One I am unsure about: the meta-analysis on executive overconfidence
-            is really corporate governance, and it does not sit comfortably in
-            any of the four. It is under Founders, ventures and growth for now.
-            Tell me where you would rather it went.
-          </p>
-        </Note>
       </Section>
 
       <Section title="Recognition">
@@ -120,33 +152,75 @@ export default function Research() {
       </Section>
 
       <Section title="Editorial and service">
-        <ul className="space-y-3">
+        <ul className="grid gap-3 sm:grid-cols-2">
           {SERVICE.map((item) => (
-            <li key={item} className="flex items-start gap-3 leading-relaxed">
-              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-coral/40 flex-shrink-0" />
-              <span className="text-dark-text/80">{item}</span>
+            <li key={item} className="flex items-center gap-4 leading-relaxed p-4 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-coral/60 flex-shrink-0" />
+              <span className="text-dark-text/80 text-sm font-medium">{item}</span>
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section title="Work in progress">
-        <Note kind="needs" item="Are your three award papers under review somewhere?">
-          Both 2023 award papers and the 2025 Anusandhan one are not in your
-          published list, so I assume they are still in progress. If they can be
-          shown as under review, send me the titles and where, and I will add
-          them.
-        </Note>
+      <Section
+        title="Recent conference papers"
+        intro="Presented and recognised, ahead of publication."
+      >
+        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {AWARDS.map((a) => (
+            <li key={a.paper} className="p-5 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:bg-white/60 transition-all duration-300">
+              <p className="font-serif text-lg leading-snug text-dark-text">{a.paper}</p>
+              <p className="mt-3 text-sm font-medium text-sage">
+                {a.title}, <span className="text-coral">{a.year}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section
+        title="Academy of Management"
+        intro="Six annual meetings across six years, 2021 to 2026."
+      >
+        {/* Visual timeline strip */}
+        <div className="mb-8 flex items-center gap-1 overflow-x-auto no-scrollbar pb-2">
+          {AOM.slice().reverse().map((item) => (
+            <div
+              key={item.when}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${
+                item.upcoming
+                  ? 'bg-coral/10 text-coral border border-coral/20'
+                  : 'bg-dark-text/5 text-dark-text/70'
+              }`}
+            >
+              {item.when.split(' ')[1] || item.when}
+            </div>
+          ))}
+        </div>
+        <Stages items={AOM} />
+      </Section>
+
+      <Section title="EGOS Colloquium">
+        <Stages items={EGOS} />
+      </Section>
+
+      <Section title="Other conferences and workshops">
+        <Stages items={OTHER_CONFERENCES} />
       </Section>
 
       <Section>
         <p>
           <PageLink href="/publications">All publications</PageLink>
+          <span className="mx-3 text-sage">&middot;</span>
+          <a
+            href={SCHOLAR_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="underline underline-offset-4 decoration-coral/30 hover:text-coral hover:decoration-coral transition-colors"
+          >
+            Google Scholar
+          </a>
         </p>
-        <Note kind="needs" item="Could you send me your Google Scholar and LinkedIn links?">
-          They are linked from your CV but the addresses do not come out of the
-          PDF cleanly, and I would rather have them from you than guess.
-        </Note>
       </Section>
     </Container>
   )
