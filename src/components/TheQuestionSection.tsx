@@ -462,31 +462,6 @@ export function TheQuestionSection() {
           </motion.h3>
         </motion.div>
 
-        {/* ---------------- Handover to Research ---------------- */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={STAGGER}
-          className="mt-20 flex flex-col items-center border-t border-dark-text/10 pt-10 text-center lg:mt-24"
-        >
-          <motion.span
-            variants={FADE_UP}
-            className="font-sans text-[10px] font-medium uppercase tracking-[0.18em] text-dark-text/40"
-          >
-            03 / Research
-          </motion.span>
-          <motion.a
-            variants={FADE_UP}
-            href="#content"
-            className="group mt-4 inline-flex items-center gap-3 font-serif text-[22px] text-dark-text/80 transition-colors hover:text-coral sm:text-[26px]"
-          >
-            Four ways I follow the question
-            <span className="transition-transform duration-500 group-hover:translate-x-1.5">
-              &rarr;
-            </span>
-          </motion.a>
-        </motion.div>
       </div>
     </section>
   )

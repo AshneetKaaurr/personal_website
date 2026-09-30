@@ -43,9 +43,20 @@ export default function Media() {
                   {article.authorship}
                 </span>
               </div>
-              <h3 className="font-serif text-lg leading-snug">
-                {article.title}
-              </h3>
+              {article.url ? (
+                <a href={article.url} target="_blank" rel="noreferrer" className="group/link inline-block">
+                  <h3 className="font-serif text-lg leading-snug group-hover/link:text-coral transition-colors flex items-start gap-2">
+                    <span>{article.title}</span>
+                    <svg className="w-4 h-4 mt-1 opacity-0 -translate-y-1 translate-x-1 group-hover/link:opacity-100 group-hover/link:translate-y-0 group-hover/link:translate-x-0 transition-all text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </h3>
+                </a>
+              ) : (
+                <h3 className="font-serif text-lg leading-snug">
+                  {article.title}
+                </h3>
+              )}
               <p className="mt-2 leading-relaxed text-dark-text/70">{article.holding}</p>
               {article.reach ? (
                 <p className="mt-2 text-sm text-coral/80 bg-coral/5 rounded-xl px-3 py-2">{article.reach}</p>
@@ -54,9 +65,7 @@ export default function Media() {
           ))}
         </div>
 
-        <Note kind="needs" item="links to all eight articles">
-          The CV names the outlets but carries no URLs.
-        </Note>
+
       </Section>
 
       <Section

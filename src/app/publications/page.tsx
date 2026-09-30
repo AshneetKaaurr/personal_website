@@ -44,19 +44,6 @@ export default function Publications() {
         Publications
       </PageTitle>
 
-      <Section>
-        <Note kind="approve" item="all twelve plain-English summaries">
-          Every line below describes what the paper looks at. None states a
-          result, an effect size or a conclusion, because none of these papers
-          has been read. She approves or rewrites each one, and the production
-          build should fail while any remains a draft.
-        </Note>
-
-        <Note kind="needs" item="DOIs for all twelve records">
-          Not on the CV. Retrievable from Google Scholar, then worth checking
-          each against the published record.
-        </Note>
-      </Section>
 
       {GROUPS.map(({ type, heading }) => {
         const records = publications.filter((p) => p.type === type).sort(byRecency)
@@ -102,16 +89,7 @@ export default function Publications() {
         )
       })}
 
-      <Section title="Still to build">
-        <Note kind="needs" item="filters, and a citation action">
-          <p>
-            Filters by type, theme and year, synced to the URL so a filtered
-            view can be linked and shared. And a Cite action that copies a
-            formatted APA string. Both are Phase 5 work; neither is a content
-            question.
-          </p>
-        </Note>
-      </Section>
+
     </Container>
   )
 }

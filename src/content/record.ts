@@ -137,6 +137,7 @@ export interface Article {
   holding: string
   /** Verifiable third-party reach, where the CV records it. */
   reach?: string
+  url?: string
 }
 
 export const ARTICLES: Article[] = [
@@ -146,6 +147,7 @@ export const ARTICLES: Article[] = [
     year: '2026',
     authorship: 'Co-authored',
     holding: 'On what automation is doing to entry-level work.',
+    url: 'https://hr.economictimes.indiatimes.com/news/trends/the-vanishing-first-job-in-the-age-of-ai/129745856',
   },
   {
     title: 'Pause before you judge: The social tax we all pay',
@@ -153,6 +155,7 @@ export const ARTICLES: Article[] = [
     year: '2025',
     authorship: 'Authored',
     holding: 'The only piece on this list she wrote alone.',
+    url: 'https://reputationtoday.in/author/ashneet-kaur/',
   },
   {
     title:
@@ -161,6 +164,7 @@ export const ARTICLES: Article[] = [
     year: '2025',
     authorship: 'Co-authored',
     holding: 'On technology and audiences for the Indian performing arts.',
+    url: 'https://www.forbesindia.com/article/bharatiya-vidya-bhavan039s-spjimr/technology-meets-tradition-a-new-era-of-audience-engagement-with-indian-performing-arts/95651/1',
   },
   {
     title: "Partnerships and Resourcefulness: A Venture's Ultimate Growth Hack",
@@ -170,6 +174,7 @@ export const ARTICLES: Article[] = [
     holding: 'On how partnerships and resourcefulness carry a young venture.',
     reach:
       'More than 5,900 downloads and close to 2,822 site views as of September 2025 — the most-read of more than thirty articles published there since March 2024.',
+    url: 'https://mpibyspjimr.org/articles/partnerships-resourcefulness-a-ventures-ultimate-growth-hack',
   },
   {
     title: 'Navigating the Green Shift: The Role of Sustainable Leadership',
