@@ -2,17 +2,17 @@ import Link from 'next/link'
 import type { Route } from 'next'
 
 import { Frame } from '@/components/Frame'
-import {
-  Container,
-  Note,
-  PageLink,
-  Record,
-  RecordList,
-  Section,
-} from '@/components/Page'
 import { FadeIn, FadeInRight, ScaleIn } from '@/components/Motion'
 import { HeroGeometry } from '@/components/HeroGeometry'
 import { TheQuestionSection } from '@/components/TheQuestionSection'
+import {
+  ClosingSection,
+  ReachSection,
+  RecordSection,
+  ResearchSection,
+  SelectedWorkSection,
+  TeachingSection,
+} from '@/components/HomeSections'
 import { HeroSlideshowBg, HeroBadge } from '@/components/HeroSlideshow'
 import { ContactTrigger } from '@/components/ContactTrigger'
 import { byRecency, journalArticles } from '@/content/publications'
@@ -263,72 +263,12 @@ export default function Home() {
 
       <TheQuestionSection />
 
-      <Container id="content">
-        <Section title="Where the work has been done" intro="A foundation in research and practice, linking organisational behaviour to strategic outcomes.">
-          <RecordList columns={3}>
-            <Record label="Doctorate">
-              PhD in Human Resource Management, IIM Ahmedabad, 2018 to 2023
-            </Record>
-            <Record label="Faculty">
-              Assistant Professor, Organisation and Leadership Studies, SPJIMR
-              Mumbai, April 2023 to March 2026
-            </Record>
-            <Record label="Board">
-              Independent Director, Punjab Communications Limited, April 2026 to
-              present
-            </Record>
-            <Record label="Certification">
-              SHRM Senior Certified Professional, August 2024 to August 2027
-            </Record>
-            <Record label="Faculty development">
-              Wharton Global Faculty Development Programme, 2025
-            </Record>
-            <Record label="Recognition">
-              Three best-paper awards: Academy of Management 2023, EDII 2023,
-              Anusandhan RDAIS 2025
-            </Record>
-          </RecordList>
-
-          <Note kind="needs" item="her current role and institution">
-            The CV header carries an isb.edu address, but the teaching record
-            ends at SPJIMR in March 2026 and lists no ISB appointment. Nothing
-            on this site names a current employer until she confirms one. This
-            is the single highest-value answer outstanding: it blocks both bios,
-            About, the press kit and every page&apos;s metadata.
-          </Note>
-        </Section>
-
-        <Section title="Recent research" intro="Latest published work from a decade of research.">
-          <ul className="grid gap-6 md:grid-cols-3">
-            {recentPapers.map((paper) => (
-              <li 
-                key={paper.id}
-                className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300 flex flex-col"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-dark-text/5 text-xs font-medium text-dark-text">
-                    {paper.year}
-                  </span>
-                  {paper.abdc ? (
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
-                      ABDC {paper.abdc}
-                    </span>
-                  ) : null}
-                </div>
-                <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors mb-2">
-                  {paper.title}
-                </h3>
-                <p className="text-sm text-sage mb-3">{paper.venue}</p>
-                <p className="leading-relaxed text-dark-text/70 text-sm flex-1">{paper.summary}</p>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 flex justify-end">
-            <PageLink href="/publications">View all publications</PageLink>
-          </div>
-        </Section>
-      </Container>
+      <ResearchSection />
+      <TeachingSection />
+      <SelectedWorkSection />
+      <ReachSection />
+      <RecordSection />
+      <ClosingSection />
     </>
   )
 }
