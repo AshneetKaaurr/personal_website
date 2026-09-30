@@ -5,6 +5,7 @@ import {
   PageTitle,
   Section,
 } from '@/components/Page'
+import { StackCards } from '@/components/StackCards'
 import { ENGAGEMENTS, MDP_THEMES } from '@/content/record'
 
 export const metadata = {
@@ -60,16 +61,20 @@ export default function Consulting() {
         title="Engagements"
         intro="Presented as work, not as logo wallpaper."
       >
-        <div className="grid gap-4 md:grid-cols-2">
-          {ENGAGEMENTS.map((engagement) => (
-            <div key={engagement.client} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
-              <h3 className="font-serif text-lg text-dark-text mb-2">{engagement.client}</h3>
-              <p className="leading-relaxed text-dark-text/70 text-sm">
-                {engagement.detail}
-              </p>
-            </div>
-          ))}
-        </div>
+        <StackCards 
+          cards={ENGAGEMENTS.map((engagement, i) => {
+            const images = ['/photos/m-01-boardroom-group.jpg', '/photos/m-02-office-visit.jpg', '/photos/c-01-boardroom-session.jpg', '/photos/s-05-hric-backdrop.jpg']
+            return {
+              id: engagement.client,
+              title: engagement.client,
+              content: (
+                <p>{engagement.detail}</p>
+              ),
+              imageSrc: images[i % images.length],
+              imageAlt: engagement.client
+            }
+          })}
+        />
       </Section>
 
       <Section title="Talk about a programme">

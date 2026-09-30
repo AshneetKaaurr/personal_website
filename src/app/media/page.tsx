@@ -115,10 +115,10 @@ export default function Media() {
         </div>
 
         <Note kind="approve" item="Read both bios and tell me what to change.">
-          Neither one says where you are now, because I did not want to guess.
-          Both read correctly either way, and there is a place for your current
-          title the moment you give me one. These are the two blocks journalists
-          will copy and paste, so they are worth a careful read.
+          Both now open with your post at ISB. These are the two blocks
+          journalists copy and paste, so they are worth a careful read &mdash;
+          particularly whether you want a formal title in there rather than just
+          the school.
         </Note>
 
         <p className="mt-6">

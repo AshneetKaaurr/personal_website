@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Route } from 'next'
 import Image from 'next/image'
 import { photos, type Photo } from '@/content/photos'
+import { HeroGeometry } from '@/components/HeroGeometry'
 
 const customPhotos: Record<string, Photo> = {
   'RESEARCH': { src: '/photos/research.jpg', alt: 'Research', ratio: '3:2', width: 2400, height: 1600, consent: 'confirmed' },
@@ -65,14 +66,16 @@ export function PageTitle({
   const heroPhoto = getPhotoForTitle(titleStr)
 
   return (
-    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 h-[65vh] min-h-[600px] mb-20 overflow-hidden bg-black flex items-center">
+    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 h-[75vh] min-h-[650px] mb-20 overflow-hidden bg-black flex items-center">
+      <HeroGeometry theme="dark" />
+
       <div className="absolute inset-0 z-0">
         <Image
           src={heroPhoto.src}
           alt={heroPhoto.alt}
           fill
-          className="object-cover opacity-85"
-          style={{ objectPosition: '85% 50%' }}
+          className="object-cover opacity-85 scale-[1.15] translate-x-[8%] md:translate-x-[12%]"
+          style={{ objectPosition: '100% 40%' }}
           priority
         />
       </div>
@@ -82,7 +85,7 @@ export function PageTitle({
       <div className="absolute inset-0 z-20">
          <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
            
-           <div className="absolute top-[58%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
+           <div className="absolute top-[50%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
               <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
                 <span className="opacity-95 mix-blend-overlay">{titleLeft}</span>
                 <span className="ml-0 sm:ml-2 opacity-100">{titleRight}</span>

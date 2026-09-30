@@ -31,7 +31,6 @@ export default function PressKit() {
           </Record>
         </RecordList>
 
-        <Note kind="needs" item="What title and institution should journalists print?" />
       </Section>
 
       <Section title="Short bio">

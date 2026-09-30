@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Container } from '@/components/Page'
 import { Lightbox } from '@/components/Lightbox'
+import { HeroGeometry } from '@/components/HeroGeometry'
 import { photos, getPhoto } from '@/content/photos'
 import { SHOTS } from '@/lib/shots'
 
@@ -34,15 +35,17 @@ export default function Gallery() {
   return (
     <div className="min-h-screen bg-light-bg pb-32">
       {/* 1. FULL BLEED HERO WITH FROSTED GLASS SPLIT */}
-      <section className="relative w-full h-[65vh] min-h-[600px] overflow-hidden bg-black">
+      <section className="relative w-full h-[75vh] min-h-[650px] overflow-hidden bg-black">
+        <HeroGeometry theme="dark" />
+
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
             src={heroPhoto.src}
             alt={heroPhoto.alt}
             fill
-            className="object-cover opacity-85"
-            style={{ objectPosition: '85% 50%' }}
+            className="object-cover opacity-85 scale-[1.15] translate-x-[8%] md:translate-x-[12%]"
+            style={{ objectPosition: '100% 40%' }}
             priority
           />
         </div>
@@ -55,7 +58,7 @@ export default function Gallery() {
            <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
              
              {/* Massive Split Typography */}
-             <div className="absolute top-[58%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
+             <div className="absolute top-[50%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
                 <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
                   {/* Left part sits over the glass */}
                   <span className="opacity-95 mix-blend-overlay">GAL</span>
@@ -67,7 +70,6 @@ export default function Gallery() {
              {/* Subtitle text in the glass panel area */}
              <div className="absolute bottom-10 left-6 sm:left-12 lg:left-24 max-w-sm text-white/95 pr-6">
                 <div className="flex items-center gap-4 mb-6">
-                  <span className="font-serif text-3xl sm:text-4xl font-light">01</span>
                   <div className="flex gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-coral"></span>
                     <span className="w-2 h-2 rounded-full border border-white/50"></span>

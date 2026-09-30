@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: '%s — Dr Ashneet Kaur',
   },
   description:
-    'Scholar and educator in Organizational Behaviour and HRM, working at the intersection of human systems, technological change and sustainable organization design.',
+    'Faculty in Organisational Behaviour at the Indian School of Business. Research on AI, trust and fairness at work; executive teaching through cinema, cricket and turnaround stories.',
   openGraph: {
     type: 'profile',
     siteName: 'Dr Ashneet Kaur',

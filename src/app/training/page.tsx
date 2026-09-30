@@ -6,6 +6,7 @@ import {
   PageTitle,
   Section,
 } from '@/components/Page'
+import { StackCards } from '@/components/StackCards'
 import { CO_DESIGNED_COURSES } from '@/content/record'
 
 export const metadata = {
@@ -96,22 +97,24 @@ export default function Training() {
         title="The three co-designed courses"
         intro="The most distinctive thing on this site, and currently the least visible."
       >
-        <div className="space-y-4">
-          {CO_DESIGNED_COURSES.map((course) => (
-            <div key={course.title} className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300">
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <h3 className="font-serif text-lg">{course.title}</h3>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
-                  {course.status}
-                </span>
-              </div>
-              <p className="leading-relaxed text-dark-text/80">{course.description}</p>
-              {course.also ? (
-                <p className="mt-2 text-sm text-sage">{course.also}</p>
-              ) : null}
-            </div>
-          ))}
-        </div>
+        <StackCards 
+          cards={CO_DESIGNED_COURSES.map((course, i) => {
+            const images = ['/photos/c-02-lecture-theatre.jpg', '/photos/e-01-stage.jpg', '/photos/c-03-global-cohort.jpg']
+            return {
+              id: course.title,
+              title: course.title,
+              subtitle: course.status,
+              content: (
+                <div className="space-y-4">
+                  <p>{course.description}</p>
+                  {course.also && <p className="text-sm font-medium">{course.also}</p>}
+                </div>
+              ),
+              imageSrc: images[i],
+              imageAlt: course.title
+            }
+          })}
+        />
       </Section>
 
       <Section title="What participants say">

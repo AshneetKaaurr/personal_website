@@ -456,6 +456,10 @@ export const ROUTE_HERE: Step[] = [
     where: 'Independent Director, Punjab Communications Limited',
     when: 'April 2026 to present',
   },
+  {
+    where: 'Faculty in Organisational Behaviour, Indian School of Business',
+    when: 'Present',
+  },
 ]
 
 // ---------------------------------------------------------------------------
@@ -463,12 +467,12 @@ export const ROUTE_HERE: Step[] = [
 // ---------------------------------------------------------------------------
 
 export const SHORT_BIO =
-  'Dr Ashneet Kaur is a scholar and educator in organisational behaviour and human resource management. She researches what AI-driven systems do to privacy, trust and fairness at work, and teaches leadership through cinema, cricket and turnaround stories. She holds a doctorate from IIM Ahmedabad and sits on the board of Punjab Communications Limited as an independent director.'
+  'Dr Ashneet Kaur is faculty in Organisational Behaviour at the Indian School of Business. She researches what AI-driven systems do to privacy, trust and fairness at work, and teaches leadership through cinema, cricket and turnaround stories. She holds a doctorate from IIM Ahmedabad and sits on the board of Punjab Communications Limited as an independent director.'
 
 export const LONG_BIO = [
-  'Dr Ashneet Kaur is a scholar and educator in organisational behaviour and human resource management, working where human systems meet technological change. Her research examines how AI-driven systems affect employee engagement, trust and culture, and the ethical and emotional consequences of algorithmic decision-making in HR.',
+  'Dr Ashneet Kaur is faculty in Organisational Behaviour at the Indian School of Business, working where human systems meet technological change. Her research examines how AI-driven systems affect employee engagement, trust and culture, and the ethical and emotional consequences of algorithmic decision-making in HR.',
   'She has published ten journal papers, including work in Communications of the Association for Information Systems, Organization & Environment, Personnel Review and the Asia Pacific Journal of Management, along with a book chapter with Oxford University Press and a teaching case in the Journal of Organizational Behavior Education. Her work has won three best-paper awards, including in the Human Resource Division of the Academy of Management in 2023.',
-  'She taught at SPJIMR Mumbai from 2023 to 2026 across eight programmes, and has held visiting appointments at the University of Pécs, Great Lakes Chennai and Masters Union. She co-designed three courses that teach leadership through film, strategy through Indian cricket, and resilience through Indian turnaround stories.',
+  'Before joining ISB she taught at SPJIMR Mumbai from 2023 to 2026 across eight programmes, and has held visiting appointments at the University of Pécs, Great Lakes Chennai and Masters Union. She co-designed three courses that teach leadership through film, strategy through Indian cricket, and resilience through Indian turnaround stories.',
   'Before her doctorate at IIM Ahmedabad she worked at McKinsey & Company, Deloitte and ATOS, and founded two ventures. She is an independent director of Punjab Communications Limited.',
 ]
 

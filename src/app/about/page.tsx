@@ -55,12 +55,13 @@ export default function About() {
           </p>
 
           <p>
-            I took my doctorate in Human Resource Management at IIM Ahmedabad,
-            and I have taught since at SPJIMR Mumbai across eight programmes,
-            from the two-year flagship to the doctoral fellowship, and as
-            visiting faculty at the University of Pécs, Great Lakes Chennai and
-            Masters Union. In April 2026 I joined the board of Punjab
-            Communications Limited as an independent director.
+            I took my doctorate in Human Resource Management at IIM Ahmedabad.
+            I taught at SPJIMR Mumbai across eight programmes, from the two-year
+            flagship to the doctoral fellowship, and as visiting faculty at the
+            University of Pécs, Great Lakes Chennai and Masters Union. I am now
+            faculty in Organisational Behaviour at the Indian School of
+            Business. In April 2026 I joined the board of Punjab Communications
+            Limited as an independent director.
           </p>
 
           <p>
@@ -81,11 +82,6 @@ export default function About() {
           your voice, not mine.
         </Note>
 
-        <Note kind="needs" item="Could you give me one line about where you are now?">
-          It would open or close this piece. I have left it out for the moment
-          because your CV runs to SPJIMR in March 2026 while your email address
-          is ISB, and I did not want to print the wrong one.
-        </Note>
       </Section>
 
       <Section

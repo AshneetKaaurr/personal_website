@@ -533,8 +533,12 @@ const RECORD: { label: string; value: string }[] = [
   },
   {
     label: 'Faculty',
+    value: 'Organisational Behaviour, Indian School of Business',
+  },
+  {
+    label: 'Previously',
     value:
-      'Assistant Professor, Organisation and Leadership Studies, SPJIMR Mumbai, April 2023 to March 2026',
+      'Assistant Professor, Organisation and Leadership Studies, SPJIMR Mumbai, 2023 to 2026',
   },
   {
     label: 'Board',
