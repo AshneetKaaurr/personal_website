@@ -25,10 +25,11 @@ export default function Media() {
       </PageTitle>
 
       <Section title="Articles">
-        <Note kind="needs" item="her framing note on each piece — why she wrote it">
-          That note is what makes this page hers rather than a link list. The
-          lines below describe each piece from its title and outlet only, as a
-          holding draft.
+        <Note kind="needs" item="Could you add a line to each article saying why you wrote it?">
+          That is the thing that makes this page yours rather than a list of
+          links anyone could have assembled. The lines below are placeholders
+          &mdash; I wrote them from the titles alone, because I have not read the
+          pieces.
         </Note>
 
         <div className="mt-4 space-y-4">
@@ -72,14 +73,14 @@ export default function Media() {
         title="Podcast"
         intro="She leads SPJIMR's video podcast series on AI and digital transformation, featuring senior executives and covering change management and capability development."
       >
-        <Note kind="needs" item="the episode list">
-          Episodes with dates, guests and links.
+        <Note kind="needs" item="Could you send me the podcast episodes?">
+          Titles, dates, guests and links, as far as you have them.
         </Note>
       </Section>
 
       <Section
         title="Bios"
-        intro="Both written in the third person, for other people to paste. This is the page a journalist on deadline lands on."
+        intro="Both written in the third person, ready to copy. This is the page a journalist on deadline lands on."
       >
         <div className="space-y-6">
           <div className="rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)]">
@@ -113,10 +114,11 @@ export default function Media() {
           </div>
         </div>
 
-        <Note kind="approve" item="both bios">
-          Neither names a current institution, because the CV does not state
-          one. Both are written to read correctly either way, with a slot for
-          the current title once she supplies it.
+        <Note kind="approve" item="Read both bios and tell me what to change.">
+          Neither one says where you are now, because I did not want to guess.
+          Both read correctly either way, and there is a place for your current
+          title the moment you give me one. These are the two blocks journalists
+          will copy and paste, so they are worth a careful read.
         </Note>
 
         <p className="mt-6">

@@ -29,12 +29,12 @@ export default function Consulting() {
             India and HURL.
           </p>
         </Draft>
-        <Note kind="approve" item="the opening line above" />
+        <Note kind="approve" item="Does this opening line sound like you?" />
       </Section>
 
       <Section
         title="Programme themes"
-        intro="Drawn from the customised-programme record. Not a sequence, so not numbered."
+        intro="Five themes, run for corporates, government bodies and social-sector organisations."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {MDP_THEMES.map((theme, i) => (
@@ -48,12 +48,11 @@ export default function Consulting() {
       </Section>
 
       <Section title="How she works">
-        <Note kind="needs" item="her actual method, in her words">
-          BUILD-PLAN.md proposes a four-step sequence — diagnostic, design,
-          delivery, follow-through — but that appears nowhere in the CV and must
-          not ship as her method until she describes her real process. This is
-          one of the few places on the site where a genuine sequence would
-          justify numbering, so it is worth asking for.
+        <Note kind="needs" item="How do you actually run an engagement, from first call to finish?">
+          I would like to set your method out as a few clear steps, because this
+          is one of the places on the site where a real sequence earns its place.
+          There is nothing about it on your CV and I am not going to invent one.
+          Two or three sentences from you is plenty.
         </Note>
       </Section>
 
@@ -74,9 +73,10 @@ export default function Consulting() {
       </Section>
 
       <Section title="Talk about a programme">
-        <Note kind="needs" item="an honest response-time commitment">
-          Nothing here should say &quot;within 24 hours&quot; because it reads
-          well.
+        <Note kind="needs" item="How quickly do you want to promise to reply?">
+          Your real answer, whatever it is. I would rather print nothing than
+          promise &ldquo;within 24 hours&rdquo; because it sounds good and then
+          have it be untrue.
         </Note>
       </Section>
     </Container>

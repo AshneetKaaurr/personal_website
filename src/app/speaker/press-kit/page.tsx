@@ -31,7 +31,7 @@ export default function PressKit() {
           </Record>
         </RecordList>
 
-        <Note kind="needs" item="her current title and institution" />
+        <Note kind="needs" item="What title and institution should journalists print?" />
       </Section>
 
       <Section title="Short bio">
@@ -49,10 +49,10 @@ export default function PressKit() {
       </Section>
 
       <Section title="Photographs">
-        <Note kind="needs" item="print-resolution files and a credit line">
-          The photographs on this site are capped at 2400px on the long edge,
-          which is right for the web and too small for print. A publication will
-          ask for the originals and for the photographer credit.
+        <Note kind="needs" item="Could you send the original photo files, and the photographer&rsquo;s name?">
+          The versions on this site are sized for screens and will look poor in
+          print. A magazine or conference programme will ask for the originals,
+          and for a credit line if one is owed.
         </Note>
       </Section>
 

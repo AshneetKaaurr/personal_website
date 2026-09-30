@@ -38,7 +38,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN" className={`${outfit.variable} ${inter.variable}`}>
-      <body className="bg-light-bg text-dark-text font-sans antialiased selection:bg-coral selection:text-white">
+      <body className="bg-light-bg text-dark-text font-sans antialiased selection:bg-coral selection:text-white overflow-x-hidden">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-dark-text"

@@ -67,7 +67,7 @@ export default function Training() {
           </p>
         </Draft>
 
-        <Note kind="approve" item="the teaching philosophy above" />
+        <Note kind="approve" item="Does this sound like how you would describe your own teaching?" />
       </Section>
 
       <Section title="Three routes in">
@@ -115,10 +115,10 @@ export default function Training() {
       </Section>
 
       <Section title="What participants say">
-        <Note kind="needs" item="two student and two MDP testimonials">
-          Given real placement on this page, not a footnote. Student feedback is
-          the strongest evidence a teaching page can carry and there is
-          currently none on the site.
+        <Note kind="needs" item="Could you send two student quotes and two from executive programmes?">
+          What participants say is the strongest thing a teaching page can carry,
+          and there is none on the site at the moment. They will sit properly on
+          the page, not tucked away at the bottom.
         </Note>
       </Section>
     </Container>

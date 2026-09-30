@@ -46,7 +46,7 @@ export default function Research() {
           </p>
         </Draft>
 
-        <Note kind="approve" item="the programme statement above" />
+        <Note kind="approve" item="Does this read like your own description of the work?" />
       </Section>
 
       <Section
@@ -85,21 +85,20 @@ export default function Research() {
           })}
         </div>
 
-        <Note kind="approve" item="the four-theme structure and every paper assigned to a theme">
+        <Note kind="approve" item="I have grouped your work into four themes. Does that split feel right to you?">
           <p>
-            BUILD-PLAN.md assumed three themes. Four are proposed because two of
-            her three best-paper awards are on new ventures and founders, and
-            with the agility paper, the Product Entrepreneurship Lab, Start Your
-            Business, FiNovate, BCERC, the Academy of Management Entrepreneurship
-            Division editorship and two ventures she founded herself,
-            entrepreneurship is not a sideline in this record. Under a
-            three-theme structure it disappears.
+            We had talked about three. I added a fourth for founders and
+            ventures, because that is where two of your three best-paper awards
+            sit, along with the agility paper, the Product Entrepreneurship Lab,
+            Start Your Business, FiNovate, BCERC and the AOM Entrepreneurship
+            editorship. Under three themes that whole strand of your work
+            disappears, which seemed wrong.
           </p>
           <p>
-            One honest weak point: the meta-analysis on executive overconfidence
-            is corporate governance rather than entrepreneurship, and is the
-            poorest fit of the twelve under any structure. It sits in Founders,
-            ventures and growth for now.
+            One I am unsure about: the meta-analysis on executive overconfidence
+            is really corporate governance, and it does not sit comfortably in
+            any of the four. It is under Founders, ventures and growth for now.
+            Tell me where you would rather it went.
           </p>
         </Note>
       </Section>
@@ -132,11 +131,11 @@ export default function Research() {
       </Section>
 
       <Section title="Work in progress">
-        <Note kind="needs" item="the working-paper titles">
-          Three of her award-winning conference papers do not appear in the
-          published list, which suggests they are under review: both 2023 award
-          papers and the 2025 Anusandhan paper. Worth confirming whether those
-          can be listed as under review, and where.
+        <Note kind="needs" item="Are your three award papers under review somewhere?">
+          Both 2023 award papers and the 2025 Anusandhan one are not in your
+          published list, so I assume they are still in progress. If they can be
+          shown as under review, send me the titles and where, and I will add
+          them.
         </Note>
       </Section>
 
@@ -144,8 +143,9 @@ export default function Research() {
         <p>
           <PageLink href="/publications">All publications</PageLink>
         </p>
-        <Note kind="needs" item="her Google Scholar URL">
-          Linked from the CV, but the address has to be extracted.
+        <Note kind="needs" item="Could you send me your Google Scholar and LinkedIn links?">
+          They are linked from your CV but the addresses do not come out of the
+          PDF cleanly, and I would rather have them from you than guess.
         </Note>
       </Section>
     </Container>

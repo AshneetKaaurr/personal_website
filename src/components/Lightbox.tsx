@@ -101,17 +101,6 @@ export function Lightbox({ photo, onClose, onNext, onPrev, hasNext, hasPrev }: L
               />
             </motion.div>
             
-            {/* Caption Area */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-              <p className="text-white/90 text-center max-w-3xl mx-auto leading-relaxed">
-                {photo.alt}
-              </p>
-              {photo.caption && (
-                <p className="text-white/60 text-center text-sm mt-2 font-medium">
-                  {photo.caption}
-                </p>
-              )}
-            </div>
           </div>
         </motion.div>
       )}

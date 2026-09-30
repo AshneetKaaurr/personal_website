@@ -1,5 +1,28 @@
 import Link from 'next/link'
 import type { Route } from 'next'
+import Image from 'next/image'
+import { photos, type Photo } from '@/content/photos'
+
+const customPhotos: Record<string, Photo> = {
+  'RESEARCH': { src: '/photos/research.jpg', alt: 'Research', ratio: '3:2', width: 2400, height: 1600, consent: 'confirmed' },
+  'TRAINING': { src: '/photos/training.jpg', alt: 'Training', ratio: '3:2', width: 2400, height: 1600, consent: 'confirmed' },
+  'CONSULTING': { src: '/photos/consulting.jpg', alt: 'Consulting', ratio: '3:2', width: 2400, height: 1600, consent: 'confirmed' },
+}
+
+const titleToPhotoMap: Record<string, keyof typeof photos> = {
+  'ABOUT': 'P-05',
+  'SPEAKER': 'P-03',
+  'CONTACT': 'P-06',
+  'SOCIAL': 'P-07',
+  'MEDIA': 'P-04',
+  'PUBLICATIONS': 'P-03'
+}
+
+function getPhotoForTitle(title: string): Photo {
+  if (customPhotos[title]) return customPhotos[title]
+  const ref = titleToPhotoMap[title] || 'P-01'
+  return photos[ref]!
+}
 
 /**
  * Premium page primitives.
@@ -26,7 +49,7 @@ export function Container({
   )
 }
 
-/** The page opener: one h1, and an optional standfirst with coral accent. */
+/** The page opener: full bleed frosted glass hero */
 export function PageTitle({
   children,
   lede,
@@ -34,18 +57,58 @@ export function PageTitle({
   children: React.ReactNode
   lede?: React.ReactNode
 }) {
+  const titleStr = typeof children === 'string' ? children.toUpperCase() : 'PAGE'
+  const mid = Math.ceil(titleStr.length / 2)
+  const titleLeft = titleStr.slice(0, mid)
+  const titleRight = titleStr.slice(mid)
+  
+  const heroPhoto = getPhotoForTitle(titleStr)
+
   return (
-    <header className="pb-12 pt-20 md:pt-28">
-      <h1 className="font-serif text-4xl leading-tight md:text-5xl lg:text-6xl tracking-tight">
-        {children}
-      </h1>
-      <div className="mt-4 w-12 h-[3px] bg-coral rounded-full" />
-      {lede ? (
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-sage">
-          {lede}
-        </p>
-      ) : null}
-    </header>
+    <div className="w-[100vw] relative left-1/2 -translate-x-1/2 h-[65vh] min-h-[600px] mb-20 overflow-hidden bg-black flex items-center">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={heroPhoto.src}
+          alt={heroPhoto.alt}
+          fill
+          className="object-cover opacity-85"
+          style={{ objectPosition: '85% 50%' }}
+          priority
+        />
+      </div>
+      
+      <div className="absolute inset-y-0 left-0 w-[55%] sm:w-[50%] lg:w-[45%] z-10 backdrop-blur-3xl bg-dark-text/30 border-r border-white/10" />
+
+      <div className="absolute inset-0 z-20">
+         <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
+           
+           <div className="absolute top-[58%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
+              <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
+                <span className="opacity-95 mix-blend-overlay">{titleLeft}</span>
+                <span className="ml-0 sm:ml-2 opacity-100">{titleRight}</span>
+              </h1>
+           </div>
+           
+           <div className="absolute bottom-10 left-6 sm:left-12 lg:left-24 max-w-sm text-white/95 pr-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-coral"></span>
+                  <span className="w-2 h-2 rounded-full border border-white/50"></span>
+                  <span className="w-2 h-2 rounded-full border border-white/50"></span>
+                </div>
+              </div>
+              <h2 className="text-lg sm:text-xl font-sans uppercase tracking-[0.2em] font-semibold mb-4 text-white">
+                {titleStr}
+              </h2>
+              {lede ? (
+                <p className="text-sm font-sans leading-relaxed opacity-80 font-light">
+                  {lede}
+                </p>
+              ) : null}
+           </div>
+         </div>
+      </div>
+    </div>
   )
 }
 
@@ -96,13 +159,19 @@ export function Draft({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * An outstanding item, shown on the page rather than hidden in a tracker.
+ * A note left on the page for Dr Kaur to answer while she reviews the site.
  *
- * 'approve' — copy is written and needs her sign-off.
- * 'needs'   — a fact nobody has; it must not be guessed at.
+ * These are addressed to her directly, in the second person, because she is the
+ * one reading them. Write them the way you would write a message to a client:
+ * say what you need, say why, and stop. No third-person commentary about her,
+ * and no references to CVs, build plans or internal files - she has no reason
+ * to care what those are.
  *
- * Both are visible on purpose. CLAUDE.md forbids lorem ipsum and forbids
- * inventing a fact to fill a gap, so a gap is stated as a gap.
+ * 'approve' - copy is drafted and she should change anything that is not hers.
+ * 'needs'   - something only she has, which nobody should invent.
+ *
+ * They are on the page rather than in a tracker so a single pass through the
+ * site collects every answer.
  */
 export function Note({
   kind,
@@ -120,11 +189,14 @@ export function Note({
           <span className="w-2 h-2 rounded-full bg-coral" />
         </span>
         <div>
-          <p className="text-sm font-medium text-coral">
-            {kind === 'approve' ? 'Needs her approval' : 'Not in the CV'} — {item}
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-coral">
+            {kind === 'approve' ? 'For you to check' : 'Over to you'}
+          </p>
+          <p className="mt-2 text-[15px] leading-relaxed text-dark-text/85">
+            {item}
           </p>
           {children ? (
-            <div className="mt-2 space-y-2 text-sm leading-relaxed text-sage">
+            <div className="mt-2.5 space-y-2 text-sm leading-relaxed text-sage">
               {children}
             </div>
           ) : null}

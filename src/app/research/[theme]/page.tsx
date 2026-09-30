@@ -96,7 +96,7 @@ export default async function ThemePage({
       ) : null}
 
       <Section>
-        <Note kind="approve" item="the theme statement and the papers assigned to it" />
+        <Note kind="approve" item="Does this description fit, and are these the right papers under it?" />
         <p className="mt-6">
           <PageLink href="/research">Back to research</PageLink>
         </p>

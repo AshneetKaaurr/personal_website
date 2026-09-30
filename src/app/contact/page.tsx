@@ -27,9 +27,9 @@ export default function Contact() {
           ))}
         </div>
 
-        <Note kind="needs" item="a real response time against each type">
-          Nothing here should say &quot;within 24 hours&quot; because it reads
-          well. Her real numbers, or no number at all.
+        <Note kind="needs" item="How quickly do you want to promise to reply to each of these?">
+          Your real numbers, or none at all. A promise on the page that you
+          cannot keep in practice does more harm than leaving it off.
         </Note>
       </Section>
 

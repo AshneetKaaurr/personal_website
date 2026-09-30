@@ -32,11 +32,12 @@ export function PhotoPlaceholder({ shot, className }: PhotoPlaceholderProps) {
     >
       <div className="flex h-full w-full flex-col justify-between border-2 border-dashed border-sage/50 bg-sage/10 p-4">
         <p className="text-sm text-dark-text">
-          Photograph pending — {ref}. {description}.
+          Photo still to come: {description.toLowerCase()}.
         </p>
         <p className="text-sm text-sage">
-          {ratio}
-          {launchCritical ? ', required to launch' : ''}
+          {launchCritical
+            ? 'One of the ones we really need before this goes live.'
+            : 'Send it over whenever you have it.'}
         </p>
       </div>
       <span className="sr-only">

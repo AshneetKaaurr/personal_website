@@ -75,19 +75,22 @@ export default function About() {
           </p>
         </Draft>
 
-        <Note kind="approve" item="the bio above">
-          Drafted in her voice from the CV profile summary. She approves or
-          rewrites it.
+        <Note kind="approve" item="Read the bio above and tell me whether it sounds like you.">
+          I drafted it from the profile summary on your CV. Change anything that
+          does not sound like something you would say &mdash; it is meant to be
+          your voice, not mine.
         </Note>
 
-        <Note kind="needs" item="one sentence stating her current role">
-          To open or close the piece, once the affiliation question is settled.
+        <Note kind="needs" item="Could you give me one line about where you are now?">
+          It would open or close this piece. I have left it out for the moment
+          because your CV runs to SPJIMR in March 2026 while your email address
+          is ISB, and I did not want to print the wrong one.
         </Note>
       </Section>
 
       <Section
         title="The route here"
-        intro="A genuine sequence, so it is numbered. Two steps overlap the studies above them on purpose: the master's was taken while she was at McKinsey, and the ATOS engagement sits inside the doctorate, which is why it runs a single month."
+        intro="Two of these overlap on purpose. The master's was taken while working at McKinsey, and the ATOS engagement sits inside the doctorate, which is why it runs a single month."
       >
         {/* Interactive vertical timeline */}
         <div className="relative ml-4 md:ml-0">
@@ -111,10 +114,11 @@ export default function About() {
           </ol>
         </div>
 
-        <Note kind="needs" item="confirmation that the two overlaps read correctly">
-          The CV shows ATOS as April to May 2019, inside the IIM Ahmedabad
-          doctorate, and the M.Com as June 2017, during McKinsey. Presented here
-          as deliberate rather than as errors. One line from her confirms it.
+        <Note kind="needs" item="Two dates overlap. Have I read them the right way?">
+          ATOS runs April to May 2019, which falls inside your doctorate, and the
+          M.Com is dated June 2017, while you were at McKinsey. I have shown both
+          as deliberate rather than as mistakes. Tell me if that is wrong and I
+          will change it.
         </Note>
       </Section>
 

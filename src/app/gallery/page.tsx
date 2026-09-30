@@ -34,14 +34,15 @@ export default function Gallery() {
   return (
     <div className="min-h-screen bg-light-bg pb-32">
       {/* 1. FULL BLEED HERO WITH FROSTED GLASS SPLIT */}
-      <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-black">
+      <section className="relative w-full h-[65vh] min-h-[600px] overflow-hidden bg-black">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
             src={heroPhoto.src}
             alt={heroPhoto.alt}
             fill
-            className="object-cover object-center opacity-90"
+            className="object-cover opacity-85"
+            style={{ objectPosition: '85% 50%' }}
             priority
           />
         </div>
@@ -54,17 +55,17 @@ export default function Gallery() {
            <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
              
              {/* Massive Split Typography */}
-             <div className="absolute top-[45%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
-                <h1 className="font-serif text-[clamp(5rem,11vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
+             <div className="absolute top-[58%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
+                <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
                   {/* Left part sits over the glass */}
                   <span className="opacity-95 mix-blend-overlay">GAL</span>
                   {/* Right part sits over the clear photo */}
-                  <span className="ml-2 sm:ml-6 lg:ml-8 opacity-100">LERY</span>
+                  <span className="ml-0 sm:ml-2 opacity-100">LERY</span>
                 </h1>
              </div>
              
              {/* Subtitle text in the glass panel area */}
-             <div className="absolute bottom-[15%] left-6 sm:left-12 lg:left-24 max-w-sm text-white/95">
+             <div className="absolute bottom-10 left-6 sm:left-12 lg:left-24 max-w-sm text-white/95 pr-6">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="font-serif text-3xl sm:text-4xl font-light">01</span>
                   <div className="flex gap-1.5">
@@ -112,7 +113,7 @@ export default function Gallery() {
         </div>
 
         {/* CSS Columns Masonry Grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6 px-4">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-3 space-y-3">
           {validShots.map((shot, index) => {
             const photo = getPhoto(shot.ref)!
             const isPortrait = photo.ratio === '4:5'
@@ -120,7 +121,7 @@ export default function Gallery() {
             return (
               <div 
                 key={shot.ref}
-                className="break-inside-avoid rounded-3xl overflow-hidden bg-white/50 shadow-sm hover:shadow-2xl group cursor-pointer relative transition-all duration-700 hover:-translate-y-1"
+                className="break-inside-avoid rounded-xl overflow-hidden bg-dark-text/5 group cursor-pointer relative transition-all duration-700"
                 onClick={() => setActivePhotoIndex(index)}
               >
                 <div className={`relative w-full ${isPortrait ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}>

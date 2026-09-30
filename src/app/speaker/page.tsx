@@ -70,15 +70,16 @@ export default function Speaker() {
           ))}
         </div>
 
-        <Note kind="approve" item="all six topic lines">
-          Drafted from her published work rather than invented, but they are her
-          talks and they should be her words.
+        <Note kind="approve" item="These are draft talk titles. Rewrite them however you like.">
+          I wrote them from your published work so they would at least be
+          accurate, but they are your talks and a programme chair will print them
+          as you phrase them.
         </Note>
       </Section>
 
       <Section
         title="Academy of Management"
-        intro="Six annual meetings across six years. That is the headline of this page, not a bullet in a list."
+        intro="Six annual meetings across six years, 2021 to 2026."
       >
         {/* Visual timeline strip */}
         <div className="mb-8 flex items-center gap-1 overflow-x-auto no-scrollbar pb-2">

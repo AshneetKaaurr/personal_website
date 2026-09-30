@@ -66,10 +66,10 @@ export default function Privacy() {
           </div>
         </Prose>
 
-        <Note kind="approve" item="this notice">
-          A plain-English privacy notice. Requires review if the technical
-          implementation changes (for instance, if Vercel Analytics is dropped for
-          Google Analytics, which requires a consent banner under GDPR).
+        <Note kind="approve" item="Have a read of this and tell me if you are happy with it.">
+          It is deliberately plain rather than legalistic. It has to describe
+          exactly what the site really does, so if we ever change how visitors
+          are counted or how the contact form works, this page changes with it.
         </Note>
       </Section>
     </Container>
