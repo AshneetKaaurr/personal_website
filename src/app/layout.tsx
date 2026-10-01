@@ -3,6 +3,8 @@ import { Inter, Outfit } from 'next/font/google'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
+import { ContactCard } from '@/components/ContactCard'
+import { GlobalBackground } from '@/components/GlobalBackground'
 import './globals.css'
 
 const outfit = Outfit({
@@ -45,8 +47,10 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <GlobalBackground />
         <Header />
-        <main id="main">{children}</main>
+        <main id="main" className="pb-12">{children}</main>
+        <ContactCard />
         <Footer />
       </body>
     </html>

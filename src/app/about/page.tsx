@@ -1,13 +1,30 @@
 import {
   Container,
-  Draft,
-  Note,
   PageTitle,
+  Section,
   Record,
   RecordList,
-  Section,
 } from '@/components/Page'
 import { ROUTE_HERE } from '@/content/record'
+import { GraduationCap, Briefcase, Landmark, Building2, Users, MonitorPlay, LineChart, Shield } from 'lucide-react'
+
+function InstituteBadge({ icon: Icon, imageSrc, name, role }: { icon: any, imageSrc?: string, name: string, role?: string }) {
+  return (
+    <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:bg-white/60 transition-all duration-300 group">
+      <div className="p-1.5 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-all duration-300 text-dark-text/60 flex items-center justify-center overflow-hidden w-11 h-11 shrink-0">
+        {imageSrc ? (
+          <img src={imageSrc} alt={name} className="w-full h-full object-contain mix-blend-multiply" />
+        ) : (
+          <Icon size={18} strokeWidth={2} className="group-hover:text-coral transition-colors duration-300" />
+        )}
+      </div>
+      <div className="flex flex-col">
+        <span className="text-sm font-bold text-dark-text leading-tight">{name}</span>
+        {role && <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-coral mt-1 leading-tight">{role}</span>}
+      </div>
+    </div>
+  )
+}
 
 export const metadata = {
   title: 'About',
@@ -21,66 +38,100 @@ export default function About() {
       <PageTitle>About</PageTitle>
 
       <Section>
-        <Draft>
-          <p>I work on what happens to people when the systems around them change.</p>
+        <div className="grid lg:grid-cols-[1fr_320px] gap-16 items-start mt-8">
+          <div className="prose prose-lg prose-slate text-dark-text/80 leading-relaxed font-sans max-w-none space-y-6 lg:text-[1.1rem]">
+            <p className="text-2xl font-serif text-coral leading-snug mb-8">
+              I work on what happens to people when the systems around them change.
+            </p>
 
-          <p>
-            My research sits where organisational behaviour meets technology:
-            how AI-driven systems affect employee engagement, trust and the way
-            a culture evolves, and what algorithmic decision-making does to
-            privacy, fairness and well-being. I work mostly in fast-growing,
-            digitally enabled and sustainability-focused firms, because that is
-            where these questions arrive first and get answered worst.
-          </p>
+            <p>
+              My research sits where organisational behaviour meets technology:
+              how AI-driven systems affect employee engagement, trust and the way
+              a culture evolves, and what algorithmic decision-making does to
+              privacy, fairness and well-being. I work mostly in fast-growing,
+              digitally enabled and sustainability-focused firms, because that is
+              where these questions arrive first and get answered worst.
+            </p>
 
-          <p>
-            I came to research through practice, not around it. I founded my
-            first venture, College Ki Knowledge, while I was still an
-            undergraduate at Shri Ram College of Commerce, and co-founded a
-            second, Start-up Pal, before I graduated. I audited US clients at
-            Deloitte, then spent two years at McKinsey on the Strategy Analytics
-            team, running knowledge sessions for partners and experts. I
-            finished a master&apos;s at the Delhi School of Economics while I was
-            there. At ATOS I built a human resource retention strategy across
-            the UK, France and India offices and interviewed more than fifty
-            stakeholders to do it.
-          </p>
+            <p>
+              I came to research through practice, not around it. I founded my
+              first venture, College Ki Knowledge, while I was still an
+              undergraduate at Shri Ram College of Commerce, and co-founded a
+              second, Start-up Pal, before I graduated. I audited US clients at
+              Deloitte, then spent two years at McKinsey on the Strategy Analytics
+              team, running knowledge sessions for partners and experts. I
+              finished a master&apos;s at the Delhi School of Economics while I was
+              there. At ATOS I built a human resource retention strategy across
+              the UK, France and India offices and interviewed more than fifty
+              stakeholders to do it.
+            </p>
 
-          <p>
-            So when I teach strategic HR to executives, I am teaching work I
-            have done. That matters more than it sounds. The gap between an HR
-            system on paper and an HR system as experienced by the person inside
-            it is the gap most of my research lives in, and I first saw it from
-            the inside.
-          </p>
+            <p>
+              So when I teach strategic HR to executives, I am teaching work I
+              have done. That matters more than it sounds. The gap between an HR
+              system on paper and an HR system as experienced by the person inside
+              it is the gap most of my research lives in, and I first saw it from
+              the inside.
+            </p>
 
-          <p>
-            I took my doctorate in Human Resource Management at IIM Ahmedabad.
-            I taught at SPJIMR Mumbai across eight programmes, from the two-year
-            flagship to the doctoral fellowship, and as visiting faculty at the
-            University of Pécs, Great Lakes Chennai and Masters Union. I am now
-            faculty in Organisational Behaviour at the Indian School of
-            Business. In April 2026 I joined the board of Punjab Communications
-            Limited as an independent director.
-          </p>
+            <p>
+              I took my doctorate in Human Resource Management at IIM Ahmedabad.
+              I taught at SPJIMR Mumbai across eight programmes, from the two-year
+              flagship to the doctoral fellowship, and as visiting faculty at the
+              University of Pécs, Great Lakes Chennai and Masters Union. I am now
+              faculty in Organisational Behaviour at the Indian School of
+              Business. In April 2026 I joined the board of Punjab Communications
+              Limited as an independent director.
+            </p>
 
-          <p>
-            In the classroom I use design thinking, rapid prototyping,
-            cinema-based leadership education and gamified teaching. I
-            co-designed three courses on that principle: one that teaches
-            leadership through film, one that reads strategy off Indian cricket,
-            and one built on Indian turnaround stories. The point is not
-            novelty. It is that people remember an argument they have watched
-            play out, and they will argue with a character in a way they will
-            not argue with a framework.
-          </p>
-        </Draft>
+            <p>
+              In the classroom I use design thinking, rapid prototyping,
+              cinema-based leadership education and gamified teaching. I
+              co-designed three courses on that principle: one that teaches
+              leadership through film, one that reads strategy off Indian cricket,
+              and one built on Indian turnaround stories. The point is not
+              novelty. It is that people remember an argument they have watched
+              play out, and they will argue with a character in a way they will
+              not argue with a framework.
+            </p>
+          </div>
+          
+          <div className="sticky top-32 space-y-10 bg-white/30 backdrop-blur-xl p-8 rounded-[2rem] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+            <div>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
+                <Landmark size={14} /> Education
+              </h3>
+              <div className="space-y-3">
+                <InstituteBadge imageSrc="/photos/iima.png" icon={Landmark} name="IIM Ahmedabad" role="Doctorate" />
+                <InstituteBadge imageSrc="/photos/Delhi_school_economics.jpeg" icon={GraduationCap} name="Delhi School of Economics" role="Master's" />
+                <InstituteBadge imageSrc="/photos/SRCC.png" icon={GraduationCap} name="Shri Ram College of Commerce" role="Undergrad" />
+              </div>
+            </div>
 
-        <Note kind="approve" item="Read the bio above and tell me whether it sounds like you.">
-          I drafted it from the profile summary on your CV. Change anything that
-          does not sound like something you would say &mdash; it is meant to be
-          your voice, not mine.
-        </Note>
+            <div>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
+                <Briefcase size={14} /> Practice
+              </h3>
+              <div className="space-y-3">
+                <InstituteBadge imageSrc="/photos/McKinsey..webp" icon={LineChart} name="McKinsey & Co." role="Strategy Analytics" />
+                <InstituteBadge imageSrc="/photos/Deloitte.webp" icon={Shield} name="Deloitte" role="Audit" />
+                <InstituteBadge imageSrc="/photos/Atos_logo.png" icon={Building2} name="ATOS" role="HR Strategy" />
+                <InstituteBadge imageSrc="/photos/PunjabCommun.webp" icon={Building2} name="Puncom" role="Board Director" />
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
+                <Users size={14} /> Faculty
+              </h3>
+              <div className="space-y-3">
+                <InstituteBadge imageSrc="/photos/ISB.jpg" icon={Users} name="ISB" role="Current Faculty" />
+                <InstituteBadge imageSrc="/photos/spjimr.png" icon={Users} name="SPJIMR Mumbai" role="Past Faculty" />
+              </div>
+            </div>
+          </div>
+        </div>
+
 
       </Section>
 
@@ -110,12 +161,6 @@ export default function About() {
           </ol>
         </div>
 
-        <Note kind="needs" item="Two dates overlap. Have I read them the right way?">
-          ATOS runs April to May 2019, which falls inside your doctorate, and the
-          M.Com is dated June 2017, while you were at McKinsey. I have shown both
-          as deliberate rather than as mistakes. Tell me if that is wrong and I
-          will change it.
-        </Note>
       </Section>
 
       <Section title="Credentials">

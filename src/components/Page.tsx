@@ -3,6 +3,7 @@ import type { Route } from 'next'
 import Image from 'next/image'
 import { photos, type Photo } from '@/content/photos'
 import { HeroGeometry } from '@/components/HeroGeometry'
+import { ScrollDownIndicator } from '@/components/ScrollDownIndicator'
 
 const customPhotos: Record<string, Photo> = {
   'RESEARCH': { src: '/photos/research.jpg', alt: 'Research', ratio: '3:2', width: 2400, height: 1600, consent: 'confirmed' },
@@ -59,9 +60,15 @@ export function PageTitle({
   lede?: React.ReactNode
 }) {
   const titleStr = typeof children === 'string' ? children.toUpperCase() : 'PAGE'
-  const mid = Math.ceil(titleStr.length / 2)
-  const titleLeft = titleStr.slice(0, mid)
-  const titleRight = titleStr.slice(mid)
+  let titleLeft = ''
+  let titleRight = ''
+  if (titleStr.includes(' ')) {
+    titleLeft = titleStr
+  } else {
+    const mid = Math.ceil(titleStr.length / 2)
+    titleLeft = titleStr.slice(0, mid)
+    titleRight = titleStr.slice(mid)
+  }
   
   const heroPhoto = getPhotoForTitle(titleStr)
 
@@ -86,9 +93,9 @@ export function PageTitle({
          <div className="w-full h-full relative max-w-[1600px] mx-auto px-6 sm:px-12 lg:px-24">
            
            <div className="absolute top-[50%] -translate-y-1/2 left-6 sm:left-12 lg:left-24 flex items-center pointer-events-none">
-              <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none flex items-center drop-shadow-2xl">
+              <h1 className="font-serif text-[clamp(4.5rem,10vw,14rem)] font-bold tracking-tighter text-white leading-none drop-shadow-2xl flex flex-wrap items-center">
                 <span className="opacity-95 mix-blend-overlay">{titleLeft}</span>
-                <span className="ml-0 sm:ml-2 opacity-100">{titleRight}</span>
+                {titleRight && <span className="ml-0 sm:ml-2 opacity-100">{titleRight}</span>}
               </h1>
            </div>
            
@@ -111,6 +118,7 @@ export function PageTitle({
            </div>
          </div>
       </div>
+      <ScrollDownIndicator />
     </div>
   )
 }
@@ -152,10 +160,9 @@ export function Prose({ children }: { children: React.ReactNode }) {
   )
 }
 
-/** Quoted copy awaiting her sign-off — styled as an elegant blockquote card. */
 export function Draft({ children }: { children: React.ReactNode }) {
   return (
-    <div className="max-w-2xl space-y-5 border-l-[3px] border-coral/40 pl-6 leading-relaxed text-dark-text/90 bg-gradient-to-r from-coral/[0.03] to-transparent py-4 rounded-r-xl">
+    <div className="max-w-3xl space-y-5 border-l-[4px] border-coral/60 p-8 leading-relaxed text-dark-text/90 bg-white/40 backdrop-blur-md rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] border-y border-r border-white/60">
       {children}
     </div>
   )
