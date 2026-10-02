@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Container } from '@/components/Page'
 import { Lightbox } from '@/components/Lightbox'
 import { HeroGeometry } from '@/components/HeroGeometry'
+import { ScrollDownIndicator } from '@/components/ScrollDownIndicator'
 import { photos, getPhoto } from '@/content/photos'
 import { SHOTS } from '@/lib/shots'
 
@@ -95,6 +96,7 @@ export default function Gallery() {
              </div>
            </div>
         </div>
+        <ScrollDownIndicator />
       </section>
 
       {/* 2. BENTO BOX / MASONRY GRID */}
