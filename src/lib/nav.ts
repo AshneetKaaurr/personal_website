@@ -24,7 +24,6 @@ export const PRIMARY_NAV: NavItem[] = [
 export const FOOTER_NAV: NavItem[] = [
   { href: '/publications', label: 'Publications' },
   { href: '/media', label: 'Media Articles' },
-  { href: '/gallery', label: 'Gallery' },
   { href: '/social', label: 'Social Media' },
   { href: '/board-and-advisory', label: 'Board and Advisory' },
   { href: '/contact', label: 'Contact' },

@@ -72,9 +72,25 @@ export default function Publications() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors">
-                    {paper.title}
-                  </h3>
+                  {paper.url ? (
+                    <a
+                      href={paper.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/title inline-block"
+                    >
+                      <h3 className="font-serif text-lg leading-snug group-hover/title:text-coral transition-colors inline">
+                        {paper.title}
+                      </h3>
+                      <span className="inline-block ml-1.5 text-coral text-sm opacity-70 group-hover/title:opacity-100 transition-opacity">
+                        ↗
+                      </span>
+                    </a>
+                  ) : (
+                    <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors">
+                      {paper.title}
+                    </h3>
+                  )}
                   <Authors authors={paper.authors} />
                   <p className="mt-1 text-sm text-sage">
                     {paper.venue}
@@ -82,6 +98,34 @@ export default function Publications() {
                     {paper.pages ? `, ${paper.pages}` : ''}
                   </p>
                   <p className="mt-3 leading-relaxed text-dark-text/70">{paper.summary}</p>
+                  {paper.extraLinks && paper.extraLinks.length > 0 ? (
+                    <div className="mt-4 pt-3 border-t border-dark-text/5 flex flex-wrap items-center gap-4">
+                      {paper.extraLinks.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
+                        >
+                          <span>{link.label}</span>
+                          <span aria-hidden="true">&rarr;</span>
+                        </a>
+                      ))}
+                    </div>
+                  ) : paper.url ? (
+                    <div className="mt-4 pt-3 border-t border-dark-text/5">
+                      <a
+                        href={paper.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
+                      >
+                        <span>View Publication</span>
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </div>

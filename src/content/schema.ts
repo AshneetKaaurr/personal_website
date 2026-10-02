@@ -44,6 +44,10 @@ export const publicationSchema = z.object({
   /** Not on the CV. Retrieve from Google Scholar or the client. */
   doi: z.string().nullable(),
   pdf: z.string().nullable(),
+  url: z.string().nullable().optional(),
+  extraLinks: z
+    .array(z.object({ label: z.string(), url: z.string() }))
+    .optional(),
   /**
    * The plain-English line. Describes what the paper LOOKS AT. Never a finding,
    * an effect size or a conclusion that has not been read in the paper itself.

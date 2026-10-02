@@ -53,7 +53,7 @@ export default function PressKit() {
           the address on the contact page and I will send originals.
         </p>
         <p className="mt-6">
-          <PageLink href="/gallery">See the photographs</PageLink>
+          <PageLink href="/contact">Get in touch</PageLink>
         </p>
       </Section>
 

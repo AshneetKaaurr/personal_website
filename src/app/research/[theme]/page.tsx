@@ -55,13 +55,57 @@ export default async function ThemePage({
                 {paper.year}
                 {paper.abdc ? ` — ABDC ${paper.abdc}` : ''}
               </p>
-              <h3 className="mt-1 font-serif text-lg leading-snug">
-                {paper.title}
-              </h3>
+              {paper.url ? (
+                <a
+                  href={paper.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/title inline-block mt-1"
+                >
+                  <h3 className="font-serif text-lg leading-snug group-hover/title:text-coral transition-colors inline">
+                    {paper.title}
+                  </h3>
+                  <span className="inline-block ml-1.5 text-coral text-sm opacity-70 group-hover/title:opacity-100 transition-opacity">
+                    ↗
+                  </span>
+                </a>
+              ) : (
+                <h3 className="mt-1 font-serif text-lg leading-snug">
+                  {paper.title}
+                </h3>
+              )}
               <p className="mt-1 text-sm text-sage">
                 {paper.authors.join('; ')}. {paper.venue}.
               </p>
               <p className="mt-2 leading-relaxed">{paper.summary}</p>
+              {paper.extraLinks && paper.extraLinks.length > 0 ? (
+                <div className="mt-3 flex flex-wrap items-center gap-4">
+                  {paper.extraLinks.map((link) => (
+                    <a
+                      key={link.url}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
+                    >
+                      <span>{link.label}</span>
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  ))}
+                </div>
+              ) : paper.url ? (
+                <div className="mt-3">
+                  <a
+                    href={paper.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
+                  >
+                    <span>View Publication</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              ) : null}
             </li>
           ))}
         </ul>

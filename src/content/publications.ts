@@ -31,6 +31,7 @@ const RECORDS: Publication[] = [
     pages: '24',
     doi: null,
     pdf: null,
+    url: 'https://aisel.aisnet.org/cais/vol55/iss1/24/',
     summary:
       'What happens to employees privacy when AI systems watch how they work, and where the ethical lines around that monitoring sit.',
     summaryStatus: 'approved',
@@ -48,8 +49,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: '37(1)',
     pages: '32-56',
-    doi: null,
+    doi: '10.1177/10860266231217280',
     pdf: null,
+    url: 'https://doi.org/10.1177/10860266231217280',
     summary:
       'How a company culture shapes whether its green HR practices actually change its environmental performance, or stay on paper.',
     summaryStatus: 'approved',
@@ -67,8 +69,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: '53(7)',
     pages: '1710-1728',
-    doi: null,
+    doi: '10.1108/PR-02-2023-0121',
     pdf: null,
+    url: 'https://doi.org/10.1108/PR-02-2023-0121',
     summary:
       'Whether finding your work meaningful changes how workplace bullying lands when the workplace is your home.',
     summaryStatus: 'approved',
@@ -86,8 +89,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1108/JGM-10-2023-0073',
     pdf: null,
+    url: 'https://doi.org/10.1108/JGM-10-2023-0073',
     summary:
       'What role being seen as credible plays in how quickly someone sent abroad settles in and gets accepted by colleagues.',
     summaryStatus: 'approved',
@@ -105,8 +109,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1108/EBHRM-12-2023-0344',
     pdf: null,
+    url: 'https://doi.org/10.1108/EBHRM-12-2023-0344',
     summary:
       'Why people retreat into their phones at work when office gossip wears them down, and what that costs them.',
     summaryStatus: 'approved',
@@ -130,8 +135,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1108/CCSM-03-2024-0065',
     pdf: null,
+    url: 'https://doi.org/10.1108/CCSM-03-2024-0065',
     summary:
       'A synthesis of the existing evidence on whether overconfident executives help or hurt the firms they run, and how that varies across countries.',
     summaryStatus: 'approved',
@@ -149,8 +155,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1016/j.iimb.2025.100638',
     pdf: null,
+    url: 'https://doi.org/10.1016/j.iimb.2025.100638',
     summary:
       'How competition from the informal economy affects whether firms in emerging markets innovate, and what labour rules and special economic zones do to that relationship.',
     summaryStatus: 'approved',
@@ -170,6 +177,17 @@ const RECORDS: Publication[] = [
     pages: null,
     doi: null,
     pdf: null,
+    url: 'https://mdi.ac.in/research/the-hidden-toll-of-unfair-workplaces-examining-the-mediating-role-of-workplace-loneliness',
+    extraLinks: [
+      {
+        label: 'Journal Version',
+        url: 'https://mdi.ac.in/research/the-hidden-toll-of-unfair-workplaces-examining-the-mediating-role-of-workplace-loneliness',
+      },
+      {
+        label: 'Conference Version (ISB)',
+        url: 'https://www.isb.edu/faculty-and-research/research-directory/the-lonely-road-of-injustice-how-perceived-unfairness-influences-knowledge-hiding-and-well-being/',
+      },
+    ],
     summary:
       'What happens inside teams when people feel treated unfairly - what they stop sharing, and what it does to them.',
     summaryStatus: 'approved',
@@ -187,8 +205,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1007/s10490-025-10109-2',
     pdf: null,
+    url: 'https://doi.org/10.1007/s10490-025-10109-2',
     summary:
       'The layered barriers - some written down, most not - that shape how women build careers in India.',
     summaryStatus: 'approved',
@@ -212,8 +231,9 @@ const RECORDS: Publication[] = [
     type: 'journal',
     volumeIssue: null,
     pages: null,
-    doi: null,
+    doi: '10.1108/EBHRM-05-2025-0203',
     pdf: null,
+    url: 'https://doi.org/10.1108/EBHRM-05-2025-0203',
     summary:
       'What makes teams in young companies able to move fast, and how much of it comes down to autonomy and trust in the founder.',
     summaryStatus: 'approved',
@@ -232,6 +252,7 @@ const RECORDS: Publication[] = [
     pages: null,
     doi: null,
     pdf: null,
+    url: 'https://www.oxfordbibliographies.com',
     summary:
       'A book chapter on how organisations choose the people they send on international assignments, and how they judge whether it worked.',
     summaryStatus: 'approved',
@@ -251,6 +272,7 @@ const RECORDS: Publication[] = [
     pages: null,
     doi: null,
     pdf: null,
+    url: 'https://www.neilsonjournals.com/JOBE/JOBEpromos/AMRG17p.pdf',
     summary:
       'A teaching case on the professionalisation of a family-run business through HR transformation.',
     summaryStatus: 'approved',
