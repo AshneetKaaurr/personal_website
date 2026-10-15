@@ -35,3 +35,8 @@ next-env.d.ts
 .vercel
 *.tsbuildinfo
 .eslintcache
+
+# Source CV carries a personal phone number; kept local only
+docs/*.pdf
+/*.pdf
+
