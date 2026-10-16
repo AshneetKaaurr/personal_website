@@ -9,41 +9,36 @@ import { z } from 'zod'
  */
 
 /**
- * Four themes, not three.
- *
- * BUILD-PLAN.md assumed three. The CV supports four: two of her three
- * best-paper awards are on new ventures and founders, and with the agility
- * paper, the Product Entrepreneurship Lab, Start Your Business, FiNovate,
- * BCERC, the AOM Entrepreneurship Division editorship and two ventures she
- * founded herself, entrepreneurship is not a sideline in this record. Under a
- * three-theme structure it disappears. See SITE-COPY.md.
- *
- * Proposed, not confirmed by her. PENDING.md carries it.
+ * Research themes, derived from her CV research statement and the published
+ * record. A publication can sit in more than one. See src/content/research.ts.
  */
 export const themeSchema = z.enum([
-  'algorithms-at-work',
-  'sustainable-people-systems',
+  'ai-and-work',
+  'sustainable-hrm',
+  'fairness-and-wellbeing',
   'careers-and-mobility',
-  'founders-ventures-growth',
+  'ventures-and-governance',
 ])
 
-export type Theme = z.infer<typeof themeSchema>
+export type ThemeId = z.infer<typeof themeSchema>
 
 export const publicationSchema = z.object({
   id: z.string(),
   title: z.string(),
-  /** Exact author order from the CV. Never reordered to put her first. */
-  authors: z.array(z.string()).min(1),
+  /**
+   * Exact author order from the CV. Never reordered to put her first. Empty
+   * only for conference papers whose author list the CV does not give.
+   */
+  authors: z.array(z.string()),
   venue: z.string(),
   year: z.number().int(),
   abdc: z.enum(['A*', 'A', 'B', 'C']).nullable(),
-  theme: themeSchema,
-  type: z.enum(['journal', 'book-chapter', 'case', 'working-paper']),
+  type: z.enum(['journal', 'book-chapter', 'case', 'conference']),
+  themes: z.array(themeSchema).min(1),
   volumeIssue: z.string().nullable(),
   pages: z.string().nullable(),
   /** Not on the CV. Retrieve from Google Scholar or the client. */
   doi: z.string().nullable(),
-  pdf: z.string().nullable(),
   url: z.string().nullable().optional(),
   extraLinks: z
     .array(z.object({ label: z.string(), url: z.string() }))
@@ -53,9 +48,15 @@ export const publicationSchema = z.object({
    * an effect size or a conclusion that has not been read in the paper itself.
    */
   summary: z.string(),
-  /** Gate: a draft summary fails the production build. CLAUDE.md hard rule 2. */
-  summaryStatus: z.enum(['draft', 'approved']),
-  award: z.string().nullable(),
+  /**
+   * Google Scholar count per paper, July 2026, as gathered for the content
+   * map. G3: replace with her own profile figures once checked.
+   */
+  citations: z.number().int().nullable(),
+  /** A short plain title for cards. Never a finding. */
+  shortTitle: z.string(),
+  /** Recognition the paper received, as worded on the CV. */
+  award: z.string().optional(),
 })
 
 export type Publication = z.infer<typeof publicationSchema>
