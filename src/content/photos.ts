@@ -58,10 +58,6 @@ export interface Photo {
    * a judgement per photograph, which is why it is not automated.
    */
   focal?: string
-  /** Photographer credit, where one is owed. Shown on the press kit. */
-  credit?: string
-  /** Where and when, for gallery captions. */
-  caption?: string
   /**
    * 'none-required' — she is the only identifiable person.
    * 'confirmed'     — client has confirmed consent in writing.
@@ -96,7 +92,6 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
     ratio: '3:2',
     width: 1600,
     height: 1066,
-    caption: 'Speaking at a conference session',
     consent: 'none-required',
   },
   'P-04': {
@@ -117,6 +112,8 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
   },
   'P-06': {
     src: '/photos/p-06-glass.jpg',
+    // Her, not the reflection, when the frame crops to portrait.
+    focal: '74% 40%',
     alt: 'Standing with her arms folded beside a full-height glass partition that carries her reflection, in a pale blue sari.',
     ratio: '3:2',
     width: 1600,
@@ -151,7 +148,6 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
     width: 923,
     height: 1328,
     focal: '50% 45%',
-    caption: '86th Annual Meeting of the Academy of Management, Philadelphia',
     consent: 'none-required',
   },
   'S-05': {
@@ -161,7 +157,6 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
     width: 960,
     height: 1280,
     focal: '50% 45%',
-    caption: 'HRIC 2026',
     consent: 'none-required',
   },
   'E-05': {
@@ -171,7 +166,6 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
     width: 1800,
     height: 2400,
     focal: '50% 45%',
-    caption: 'Copenhagen Business School',
     consent: 'none-required',
   },
 
@@ -230,6 +224,15 @@ export const photos: Partial<Record<ShotRef, Photo>> = {
     focal: '50% 50%',
     consent: THIRD_PARTY,
   },
+  'S-06': {
+    src: '/photos/s-06-microphone.jpeg',
+    alt: 'Speaking into a handheld microphone in a cream sari, gesturing with her free hand as she makes a point, a lectern and laptop beside her.',
+    ratio: '3:2',
+    width: 1280,
+    height: 853,
+    focal: '60% 35%',
+    consent: 'none-required',
+  },
   'M-01': {
     src: '/photos/m-01-boardroom-group.jpg',
     alt: 'Group photograph at the end of a session, participants standing shoulder to shoulder behind a polished U-shaped seminar table.',
@@ -287,6 +290,3 @@ export function getPhoto(ref: ShotRef): Photo | null {
 }
 
 /** Photographs supplied but held back pending written consent. */
-export const heldForConsent = Object.entries(photos)
-  .filter(([, photo]) => photo.consent === 'pending')
-  .map(([ref]) => ref)

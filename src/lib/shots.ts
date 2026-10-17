@@ -166,6 +166,13 @@ export const SHOTS = [
     usedOn: ['Speaker', 'Gallery'],
     launchCritical: false,
   },
+  {
+    ref: 'S-06',
+    ratio: '3:2',
+    description: 'Speaking with a handheld microphone beside a lectern',
+    usedOn: ['Speaking', 'Gallery'],
+    launchCritical: false,
+  },
 
   // -- Executive rooms ------------------------------------------------------
   {
