@@ -15,32 +15,29 @@ export interface StackCardData {
 
 export function StackCards({ cards }: { cards: StackCardData[] }) {
   return (
-    <div className="w-full relative pb-24">
+    <div className="w-full relative pb-8">
       {cards.map((card, index) => {
         const hasImage = !!card.imageSrc
         return (
           <div
             key={card.id}
-            className="sticky top-32 w-full min-h-[55vh] md:min-h-[65vh] bg-white/50 backdrop-blur-lg rounded-[2rem] shadow-[0_-8px_32px_rgba(0,0,0,0.08)] border border-white/60 flex flex-col-reverse md:flex-row overflow-hidden mb-8 md:mb-16"
+            className="sticky top-32 w-full bg-white/55 backdrop-blur-2xl backdrop-saturate-[1.8] rounded-2xl shadow-[0_-8px_32px_rgba(30,30,25,0.07)] border border-white/60 flex flex-col-reverse md:flex-row overflow-hidden mb-6 md:mb-10"
             style={{ 
               zIndex: index,
               top: `calc(120px + ${index * 12}px)`
             }}
           >
             {/* Left side: Text Content */}
-            <div className={`w-full ${hasImage ? 'md:w-[55%]' : 'md:w-full'} p-8 sm:p-12 lg:p-16 xl:p-20 flex flex-col justify-center bg-transparent`}>
-              <span className="text-coral/40 font-serif text-5xl md:text-6xl font-bold mb-4">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-dark-text tracking-tight mb-4 leading-tight">
-                {card.title}
-              </h2>
+            <div className={`w-full ${hasImage ? 'md:w-[55%]' : 'md:w-full'} p-7 sm:p-10 lg:p-12 flex flex-col justify-center bg-transparent`}>
               {card.subtitle && (
-                <div className="text-coral text-sm uppercase tracking-[0.2em] font-bold mb-6">
+                <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.18em] text-coral">
                   {card.subtitle}
-                </div>
+                </p>
               )}
-              <div className="prose prose-lg prose-slate text-dark-text/80 leading-relaxed font-sans max-w-xl">
+              <h3 className="mb-4 max-w-[30ch] font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.15] tracking-tight text-dark-text [text-wrap:balance]">
+                {card.title}
+              </h3>
+              <div className="max-w-[60ch] space-y-3 font-sans text-[15px] leading-relaxed text-dark-text/80">
                 {card.content}
               </div>
             </div>
