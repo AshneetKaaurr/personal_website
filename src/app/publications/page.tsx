@@ -1,139 +1,85 @@
-import {
-  Container,
-  Note,
-  PageTitle,
-  Section,
-} from '@/components/Page'
-import { byRecency, publications } from '@/content/publications'
-import { getTheme } from '@/content/themes'
-import type { Publication } from '@/content/schema'
+import { ClosingCta, StatBand } from '@/components/Blocks'
+import { JsonLd, scholarlyArticlesLd } from '@/components/JsonLd'
+import { PageHero } from '@/components/PageHero'
+import { PublicationExplorer } from '@/components/PublicationExplorer'
+import { SectionShell } from '@/components/Shell'
+import { Button, SectionHead } from '@/components/ui'
+import { journalArticles, publications, totalCitations } from '@/content/publications'
+import { ARTICLES, AWARDS } from '@/content/record'
+import { THEMES } from '@/content/research'
+import { HER_NAME_IN_AUTHORS } from '@/content/schema'
+import { SCHOLAR_URL } from '@/content/site'
+import { pageMeta } from '@/lib/meta'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Publications',
   description:
-    'Ten journal papers, an Oxford University Press book chapter and a teaching case, each with a plain-English line on what it examines.',
-}
-
-const GROUPS: { type: Publication['type']; heading: string }[] = [
-  { type: 'journal', heading: 'Journal papers' },
-  { type: 'book-chapter', heading: 'Book chapter' },
-  { type: 'case', heading: 'Teaching case' },
-  { type: 'working-paper', heading: 'Working papers' },
-]
-
-/** Her name in the author list is the one that should read as hers. */
-function Authors({ authors }: { authors: string[] }) {
-  return (
-    <p className="mt-1 text-sm text-sage">
-      {authors.map((author, i) => (
-        <span key={`${author}-${i}`}>
-          {i > 0 ? ', ' : ''}
-          <span className={author === 'Kaur, A.' ? 'text-coral font-medium' : undefined}>
-            {author}
-          </span>
-        </span>
-      ))}
-    </p>
-  )
-}
+    'The complete publication record of Dr Ashneet Kaur: peer-reviewed journal articles, a book chapter, a teaching case, award-winning conference papers and practitioner articles, filterable by type, theme and year.',
+  path: '/publications/',
+  image: '/photos/w-01-desk.jpg',
+})
 
 export default function Publications() {
+  const abdcA = journalArticles.filter((p) => p.abdc === 'A').length
+  const lead = journalArticles.filter((p) => p.authors[0] === HER_NAME_IN_AUTHORS).length
+  const count = (t: string) => publications.filter((p) => p.type === t).length
+
   return (
-    <Container>
-      <PageTitle lede="Ten journal papers, a book chapter with Oxford University Press, and a teaching case. Each carries one plain-English line describing what the paper examines — written for someone deciding whether to read it, not for a reviewer.">
-        Publications
-      </PageTitle>
+    <>
+      <JsonLd data={scholarlyArticlesLd()} />
 
+      <PageHero
+        word="Papers"
+        title="The full publication record."
+        lede={
+          <p>
+            {journalArticles.length} peer-reviewed journal articles, {count('book-chapter')} book
+            chapter, {count('case')} teaching case, {count('conference')} award-winning conference
+            papers and {ARTICLES.length} articles for practitioners. Filter by type, research theme or
+            year.
+          </p>
+        }
+        actions={<Button variant="light" href={SCHOLAR_URL} external>Google Scholar profile</Button>}
+      />
 
-      {GROUPS.map(({ type, heading }) => {
-        const records = publications.filter((p) => p.type === type).sort(byRecency)
-        if (records.length === 0) return null
+      <SectionShell label="In numbers">
+        <SectionHead
+          title="The record at a glance."
+          lede="Counts are calculated from the list below. Citation figures are per-paper Google Scholar counts as of July 2026."
+        />
+        <div className="mt-12">
+          <StatBand
+            stats={[
+              { value: String(journalArticles.length), label: 'Peer-reviewed journal articles', sub: `${lead} as lead author` },
+              { value: String(abdcA), label: 'In ABDC-A ranked journals', sub: 'Communications of the AIS, Organization & Environment, Personnel Review, IJCM, APJM' },
+              { value: String(totalCitations), label: 'Citations to the journal articles', sub: 'Sum of per-paper Google Scholar counts, July 2026' },
+              { value: String(AWARDS.length), label: 'Best Paper Awards', sub: 'AOM 2023, EDII 2023 and Anusandhan RDAIS 2025' },
+            ]}
+          />
+        </div>
+      </SectionShell>
 
-        return (
-          <Section key={type} title={heading}>
-            <div className="space-y-4">
-              {records.map((paper) => (
-                <div
-                  key={paper.id}
-                  className="group rounded-2xl bg-white/50 backdrop-blur-md border border-white/50 p-5 md:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/70 transition-all duration-300"
-                >
-                  {/* Top meta row */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-dark-text/5 text-xs font-medium text-dark-text">
-                      {paper.year}
-                    </span>
-                    {paper.abdc ? (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-coral/10 text-xs font-medium text-coral">
-                        ABDC {paper.abdc}
-                      </span>
-                    ) : null}
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-sage/10 text-xs text-sage">
-                      {getTheme(paper.theme).title}
-                    </span>
-                  </div>
+      <SectionShell label="All publications" id="list">
+        <SectionHead
+          title="Every publication, newest first."
+          lede="Authors appear in published order, with Dr Kaur’s name in bold. Each summary describes what the work examines."
+        />
+        <div className="mt-10">
+          <PublicationExplorer
+            publications={publications}
+            articles={ARTICLES}
+            themes={THEMES.map((t) => ({ id: t.id, title: t.title }))}
+          />
+        </div>
+      </SectionShell>
 
-                  {paper.url ? (
-                    <a
-                      href={paper.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/title inline-block"
-                    >
-                      <h3 className="font-serif text-lg leading-snug group-hover/title:text-coral transition-colors inline">
-                        {paper.title}
-                      </h3>
-                      <span className="inline-block ml-1.5 text-coral text-sm opacity-70 group-hover/title:opacity-100 transition-opacity">
-                        ↗
-                      </span>
-                    </a>
-                  ) : (
-                    <h3 className="font-serif text-lg leading-snug group-hover:text-coral transition-colors">
-                      {paper.title}
-                    </h3>
-                  )}
-                  <Authors authors={paper.authors} />
-                  <p className="mt-1 text-sm text-sage">
-                    {paper.venue}
-                    {paper.volumeIssue ? `, ${paper.volumeIssue}` : ''}
-                    {paper.pages ? `, ${paper.pages}` : ''}
-                  </p>
-                  <p className="mt-3 leading-relaxed text-dark-text/70">{paper.summary}</p>
-                  {paper.extraLinks && paper.extraLinks.length > 0 ? (
-                    <div className="mt-4 pt-3 border-t border-dark-text/5 flex flex-wrap items-center gap-4">
-                      {paper.extraLinks.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
-                        >
-                          <span>{link.label}</span>
-                          <span aria-hidden="true">&rarr;</span>
-                        </a>
-                      ))}
-                    </div>
-                  ) : paper.url ? (
-                    <div className="mt-4 pt-3 border-t border-dark-text/5">
-                      <a
-                        href={paper.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-coral hover:text-dark-text transition-colors"
-                      >
-                        <span>View Publication</span>
-                        <span aria-hidden="true">&rarr;</span>
-                      </a>
-                    </div>
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </Section>
-        )
-      })}
-
-
-    </Container>
+      <ClosingCta
+        eyebrow="Research"
+        title="Interested in the research behind these papers?"
+        body="Research collaborations, access to a paper, or a session built on the findings: write and say which."
+        primary={{ label: 'Start a conversation', href: '#contact' }}
+        secondary={{ label: 'Explore the research themes', href: '/research' }}
+      />
+    </>
   )
 }

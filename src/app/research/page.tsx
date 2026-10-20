@@ -1,227 +1,181 @@
 import Link from 'next/link'
-import {
-  Container,
-  Draft,
-  PageLink,
-  PageTitle,
-  Section,
-} from '@/components/Page'
-import { publications } from '@/content/publications'
-import {
-  AWARDS,
-  SERVICE,
-  AOM,
-  EGOS,
-  OTHER_CONFERENCES,
-  SCHOLAR_URL,
-  type Appearance,
-} from '@/content/record'
-import { THEMES, themeHref } from '@/content/themes'
-import GlassIcons from '@/components/GlassIcons'
-import { Shield, Scale, Network, Rocket } from 'lucide-react'
 
-export const metadata = {
+import { ClosingCta, StatBand } from '@/components/Blocks'
+import { PageHero } from '@/components/PageHero'
+import { PaperCards, ThemeCards } from '@/components/Research'
+import { Reveal, SectionShell } from '@/components/Shell'
+import { Bullets, Button, CARD_STATIC, Chips, SectionHead } from '@/components/ui'
+import { byCitations, byTheme, getPublication, journalArticles, publications, totalCitations } from '@/content/publications'
+import { AWARDS } from '@/content/record'
+import { THEMES, themeHref } from '@/content/research'
+import { HER_NAME_IN_AUTHORS } from '@/content/schema'
+import { LINKEDIN_URL, SCHOLAR_URL } from '@/content/site'
+import { pageMeta } from '@/lib/meta'
+
+export const metadata = pageMeta({
   title: 'Research',
   description:
-    'Research on AI and employee privacy, sustainable HR systems, careers and new ventures. Twelve published records, three best-paper awards.',
-}
-
-/** One conference row. Moved here with the conference data itself. */
-function Stages({ items }: { items: Appearance[] }) {
-  return (
-    <div className="space-y-3">
-      {items.map((item) => (
-        <div
-          key={`${item.event}-${item.when}`}
-          className="flex items-start gap-4 rounded-2xl border border-white/50 bg-white/40 p-4 shadow-[0_2px_8px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300 hover:bg-white/60 hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
-        >
-          <div className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-coral/60" />
-          <div className="flex-1">
-            <span className="font-medium leading-relaxed">{item.event}</span>
-            <span className="mt-1 flex flex-wrap items-center gap-2">
-              {item.place ? (
-                <span className="inline-flex items-center rounded-full bg-dark-text/5 px-2 py-0.5 text-xs text-sage">
-                  {item.place}
-                </span>
-              ) : null}
-              <span className="text-xs text-sage">{item.when}</span>
-              {item.upcoming ? (
-                <span className="inline-flex items-center rounded-full bg-coral/10 px-2 py-0.5 text-xs font-medium text-coral">
-                  upcoming
-                </span>
-              ) : null}
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+    'Dr Ashneet Kaur’s research on AI, privacy and trust at work; green HRM; fairness and well-being; women’s careers and global mobility; and founders, new ventures and governance.',
+  path: '/research/',
+  image: '/photos/p-03-lectern.jpg',
+})
 
 export default function Research() {
+  const abdcA = journalArticles.filter((p) => p.abdc === 'A').length
+  const leadPapers = journalArticles.filter((p) => p.authors[0] === HER_NAME_IN_AUTHORS)
+  const lead = leadPapers.length
+  const mostCited = [...journalArticles].sort(byCitations).slice(0, 3)
+  // Everyone she has published with, from the author lists themselves.
+  const coAuthors = [...new Set(publications.flatMap((p) => p.authors))]
+    .filter((a) => a !== HER_NAME_IN_AUTHORS)
+    .sort()
+
   return (
-    <Container>
-      <PageTitle>Research</PageTitle>
-
-      <Section>
-        <Draft>
+    <>
+      <PageHero
+        word="Research"
+        title="What happens to people when the systems around them change."
+        lede={
           <p>
-            Organisations are adopting systems that make decisions about people
-            faster than they are working out what those systems do to the
-            people. That is the problem I research.
+            My research examines how AI-driven systems affect engagement, trust and culture, and the
+            ethical side of algorithmic decisions in HR, alongside work on green HRM, fairness,
+            careers and new ventures. {journalArticles.length} peer-reviewed papers so far, {lead} as
+            lead author.
           </p>
-          <p>
-            I examine how AI-driven systems affect employee engagement, trust
-            and cultural evolution, and the ethical and emotional consequences
-            of algorithmic decision-making in human resources: privacy,
-            fairness, well-being. Alongside that I work on whether people
-            systems deliver what they claim, whether green HR practices change
-            environmental performance or stay on paper, what unfairness does to
-            what people are willing to share, and what makes teams in young
-            companies able to move quickly.
-          </p>
-          <p>
-            The through-line is the distance between a system as designed and a
-            system as lived. Most of what goes wrong at work happens in that
-            gap.
-          </p>
-        </Draft>
+        }
+        actions={
+          <>
+            <Button variant="light" href="/publications">All publications</Button>
+            <Button variant="light" href={SCHOLAR_URL} external>Google Scholar</Button>
+          </>
+        }
+      />
 
-      </Section>
+      <SectionShell label="The record">
+        <SectionHead
+          title="Work other researchers build on."
+          lede="Every figure is calculated from the publication list. Citation counts are per-paper Google Scholar figures as of July 2026."
+        />
+        <div className="mt-12">
+          <StatBand
+            stats={[
+              { value: String(totalCitations), label: `Citations to the ${journalArticles.length} journal papers`, sub: 'Google Scholar, July 2026' },
+              { value: String(abdcA), label: 'Papers in ABDC-A journals', sub: `Of ${journalArticles.length} peer-reviewed papers` },
+              { value: String(lead), label: 'Lead-authored papers', sub: [...new Set(leadPapers.map((p) => p.venue))].join('; ') },
+              { value: String(AWARDS.length), label: 'Best Paper Awards', sub: AWARDS.map((a) => a.year).join(', ') },
+            ]}
+          />
+        </div>
+      </SectionShell>
 
-      <Section
-        title="Four themes"
-        intro="Each theme is shown with its papers, the recognition attached to it and the writing that came out of it, together rather than scattered across the site."
-      >
-        <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-4 mt-8">
-          {THEMES.map((theme, index) => {
-            const papers = publications.filter((p) => p.theme === theme.id)
-            const icons = [
-              { icon: <Shield strokeWidth={1.5} />, color: 'blue' },
-              { icon: <Scale strokeWidth={1.5} />, color: 'purple' },
-              { icon: <Network strokeWidth={1.5} />, color: 'indigo' },
-              { icon: <Rocket strokeWidth={1.5} />, color: 'orange' },
-            ]
+      <SectionShell label="Five themes">
+        <SectionHead
+          title="Five strands of research."
+          lede="Each theme is drawn from her research statement and the papers filed under it. Open a theme for its questions, concepts and full publication list."
+        />
+        <div className="mt-12">
+          <ThemeCards withPhoto />
+        </div>
+      </SectionShell>
+
+      <SectionShell label="Themes in depth" imageSrc="/photos/w-01-desk.jpg">
+        <SectionHead title="The questions behind each theme." />
+        <div className="mt-12 space-y-6">
+          {THEMES.map((t, i) => {
+            const papers = byTheme(t.id)
             return (
-              <Link
-                key={theme.id}
-                href={themeHref(theme.id)}
-                className="flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-300 rounded-3xl bg-white/40 backdrop-blur-md border border-white/60 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:bg-white/60"
-              >
-                <GlassIcons 
-                  items={[
-                    {
-                      icon: icons[index]?.icon ?? icons[0]!.icon,
-                      color: icons[index]?.color ?? icons[0]!.color,
-                      label: '',
-                    },
-                  ]}
-                  className="!py-0 !gap-0 !grid-cols-1 place-items-center mb-6" 
-                />
-                <h3 className="font-serif text-lg group-hover:text-coral transition-colors">
-                  {theme.title}
-                </h3>
-                <p className="mt-2 text-sm text-sage px-2 leading-relaxed">
-                  {theme.statement}
-                </p>
-                <div className="mt-4 pt-3 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-sage opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span>{papers.length} {papers.length === 1 ? 'record' : 'records'}</span>
-                  <span className="text-coral group-hover:translate-x-1 transition-transform">→</span>
+              <Reveal key={t.id} delay={0.04 * i} className={`grid gap-8 p-7 sm:p-10 lg:grid-cols-[1fr_1fr] lg:gap-12 ${CARD_STATIC}`}>
+                <div>
+                  <h3 className="font-serif text-[clamp(1.4rem,2.2vw,1.8rem)] leading-snug text-dark-text">{t.title}</h3>
+                  <p className="mt-4 font-sans text-[15px] leading-relaxed text-dark-text/80">{t.intro[0]}</p>
+                  <div className="mt-5">
+                    <Bullets items={t.questions.slice(0, 3)} />
+                  </div>
                 </div>
-              </Link>
+                <div>
+                  <p className="font-sans text-[13px] font-medium text-dark-text/70">Publications in this theme</p>
+                  <ul className="mt-3 divide-y divide-dark-text/[0.07]">
+                    {papers.map((p) => (
+                      <li key={p.id} className="py-3">
+                        <p className="font-serif text-[16.5px] leading-snug text-dark-text">{p.shortTitle}</p>
+                        <p className="mt-1 font-sans text-[12.5px] text-dark-text/70">
+                          <span className="italic">{p.venue}</span>, {p.year}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={themeHref(t.id)} className="mt-5 inline-flex items-center gap-2 font-sans text-[14px] font-medium text-dark-text underline decoration-coral/50 underline-offset-4 hover:decoration-coral">
+                    Explore this theme<span className="sr-only">: {t.title}</span>
+                  </Link>
+                </div>
+              </Reveal>
             )
           })}
         </div>
+      </SectionShell>
 
-      </Section>
-
-      <Section title="Recognition">
-        <div className="grid gap-4 md:grid-cols-3">
-          {AWARDS.map((award) => (
-            <div key={award.paper} className="rounded-2xl bg-gradient-to-br from-amber-50/80 to-white/60 backdrop-blur-md border border-amber-100/50 p-5 shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-amber-500 text-lg">★</span>
-                <span className="text-xs font-medium uppercase tracking-wider text-amber-600/80">{award.year}</span>
-              </div>
-              <p className="font-medium leading-relaxed text-sm">{award.title}</p>
-              <p className="mt-2 text-sm leading-relaxed text-dark-text/70">{award.paper}</p>
-              <p className="mt-2 text-xs text-sage">{award.detail}</p>
-            </div>
-          ))}
+      <SectionShell label="Most cited">
+        <SectionHead title="The most-cited papers." lede="Ranked by Google Scholar citations, July 2026." />
+        <div className="mt-12">
+          <PaperCards papers={mostCited} />
         </div>
-      </Section>
-
-      <Section title="Editorial and service">
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {SERVICE.map((item) => (
-            <li key={item} className="flex items-center gap-4 leading-relaxed p-4 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-coral/60 flex-shrink-0" />
-              <span className="text-dark-text/80 text-sm font-medium">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section
-        title="Recent conference papers"
-        intro="Presented and recognised, ahead of publication."
-      >
-        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {AWARDS.map((a) => (
-            <li key={a.paper} className="p-5 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:bg-white/60 transition-all duration-300">
-              <p className="font-serif text-lg leading-snug text-dark-text">{a.paper}</p>
-              <p className="mt-3 text-sm font-medium text-sage">
-                {a.title}, <span className="text-coral">{a.year}</span>
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section
-        title="Academy of Management"
-        intro="Six annual meetings across six years, 2021 to 2026."
-      >
-        {/* Visual timeline strip */}
-        <div className="mb-8 flex items-center gap-1 overflow-x-auto no-scrollbar pb-2">
-          {AOM.slice().reverse().map((item) => (
-            <div
-              key={item.when}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-colors ${
-                item.upcoming
-                  ? 'bg-coral/10 text-coral border border-coral/20'
-                  : 'bg-dark-text/5 text-dark-text/70'
-              }`}
-            >
-              {item.when.split(' ')[1] || item.when}
-            </div>
-          ))}
+        <div className="mt-10">
+          <Button href="/publications">See every publication</Button>
         </div>
-        <Stages items={AOM} />
-      </Section>
+      </SectionShell>
 
-      <Section title="EGOS Colloquium">
-        <Stages items={EGOS} />
-      </Section>
+      <SectionShell label="Recognition">
+        <SectionHead title="Three best-paper awards." />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {AWARDS.map((a, i) => {
+            const paper = getPublication(a.paperId)
+            return (
+              <Reveal key={a.paperId} delay={0.07 * i} className={`flex h-full flex-col p-7 ${CARD_STATIC}`}>
+                <p className="font-serif text-[32px] leading-none text-dark-text">{a.year}</p>
+                <h3 className="mt-4 font-sans text-[14.5px] font-medium leading-snug text-dark-text">{a.title}</h3>
+                <p className="mt-3 font-serif text-[16px] italic leading-snug text-dark-text/85">&ldquo;{a.paper}&rdquo;</p>
+                <p className="mt-3 flex-1 font-sans text-[13.5px] leading-relaxed text-dark-text/75">{a.detail}</p>
+                <Link href={themeHref(paper.themes[0]!)} className="mt-5 font-sans text-[13px] font-medium text-dark-text underline decoration-coral/40 underline-offset-4 hover:decoration-coral">
+                  Theme: {THEMES.find((t) => t.id === paper.themes[0])?.title}
+                </Link>
+              </Reveal>
+            )
+          })}
+        </div>
+      </SectionShell>
 
-      <Section title="Other conferences and workshops">
-        <Stages items={OTHER_CONFERENCES} />
-      </Section>
-
-      <Section>
-        <p>
-          <PageLink href="/publications">All publications</PageLink>
-          <span className="mx-3 text-sage">&middot;</span>
-          <a
-            href={SCHOLAR_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-4 decoration-coral/30 hover:text-coral hover:decoration-coral transition-colors"
-          >
-            Google Scholar
-          </a>
+      <SectionShell label="Research network">
+        <SectionHead
+          title="Co-authors."
+          lede="Everyone she has published with, named as they appear in the author lists of her papers, chapter and teaching case."
+        />
+        <Reveal className="mt-10">
+          <Chips items={coAuthors} />
+        </Reveal>
+        <p className="mt-8 font-sans text-[14.5px] text-dark-text/80">
+          Conferences, editorial work and reviewing are on the{' '}
+          <Link href="/teaching" className="font-medium text-dark-text underline decoration-coral/50 underline-offset-4 hover:decoration-coral">
+            teaching and academic engagement
+          </Link>{' '}
+          page.
         </p>
-      </Section>
-    </Container>
+      </SectionShell>
+
+      <SectionShell label="Verify independently">
+        <SectionHead title="Check the record yourself." />
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <Button href={SCHOLAR_URL} variant="secondary" external>Google Scholar</Button>
+          <Button href={LINKEDIN_URL} variant="secondary" external>LinkedIn</Button>
+        </div>
+      </SectionShell>
+
+      <ClosingCta
+        eyebrow="Research"
+        title="Bring the evidence in-house."
+        body="Research collaborations, or a session built on the findings."
+        primary={{ label: 'Start a conversation', href: '#contact' }}
+        secondary={{ label: 'All publications', href: '/publications' }}
+      />
+    </>
   )
 }
