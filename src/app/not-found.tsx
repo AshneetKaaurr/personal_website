@@ -1,5 +1,5 @@
-import { Container, PageTitle, Section } from '@/components/Page'
-import { PRIMARY_NAV } from '@/lib/nav'
+import { Container } from '@/components/Page'
+import { NAV } from '@/content/site'
 import Link from 'next/link'
 
 export const metadata = {
@@ -9,21 +9,21 @@ export const metadata = {
 export default function NotFound() {
   return (
     <Container className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-      <div className="relative w-full max-w-2xl mx-auto mt-20">
-        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] font-serif font-bold text-dark-text/[0.03] select-none z-0">
+      <div className="relative w-full max-w-2xl mx-auto mt-20 overflow-hidden">
+        <p aria-hidden="true" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(8rem,40vw,15rem)] font-serif font-bold text-dark-text/[0.03] select-none z-0">
           404
-        </h1>
+        </p>
         
         <div className="relative z-10">
-          <h2 className="font-serif text-3xl md:text-4xl mb-4">
+          <h1 className="font-serif text-3xl md:text-4xl mb-4">
             There is nothing at this address
-          </h2>
-          <p className="text-lg text-sage max-w-md mx-auto mb-10">
+          </h1>
+          <p className="text-lg text-dark-text/75 max-w-md mx-auto mb-10">
             The link may be old, or it may have a typo in it. Here is the rest of the site.
           </p>
           
           <div className="flex flex-wrap items-center justify-center gap-3 max-w-lg mx-auto">
-            {PRIMARY_NAV.map(({ href, label }) => (
+            {NAV.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}

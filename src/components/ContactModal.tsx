@@ -1,167 +1,167 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
-interface ContactModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
+import { ConsultationForm } from '@/components/ConsultationForm'
+import {
+  EMAIL,
+  WHATSAPP_CHAT_URL,
+} from '@/content/site'
 
-export function ContactModal({ isOpen, onClose }: ContactModalProps) {
-  const [activeTab, setActiveTab] = useState<'message' | 'meet'>('message')
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle')
+/**
+ * "Book a consultation". Mounted once in the root layout. Any link to
+ * `#contact` anywhere on the site opens it, so every CTA is a plain anchor
+ * that still does something sensible without JavaScript (it scrolls to the
+ * page's closing CTA, which carries id="contact").
+ */
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setFormStatus('sending')
-    // Placeholder for Web3Forms or EmailJS API integration
-    setTimeout(() => setFormStatus('success'), 1500)
-  }
+export function ContactModal() {
+  const [open, setOpen] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const returnFocus = useRef<HTMLElement | null>(null)
+  const titleId = useId()
+
+  const close = useCallback(() => {
+    setOpen(false)
+    returnFocus.current?.focus()
+  }, [])
+
+  // Open from any #contact link.
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      const link = (e.target as HTMLElement | null)?.closest('a')
+      if (!link) return
+      const href = link.getAttribute('href') ?? ''
+      if (href === '#contact' || href.endsWith('/#contact')) {
+        e.preventDefault()
+        returnFocus.current = link
+        setOpen(true)
+      }
+    }
+    // A shared link ending in #contact opens the form on arrival.
+    function onHash() {
+      if (window.location.hash === '#contact') setOpen(true)
+    }
+    document.addEventListener('click', onClick)
+    window.addEventListener('hashchange', onHash)
+    const initial = window.setTimeout(onHash, 0)
+    return () => {
+      document.removeEventListener('click', onClick)
+      window.removeEventListener('hashchange', onHash)
+      window.clearTimeout(initial)
+    }
+  }, [])
+
+  // Focus, scroll lock, Escape and a focus trap while open.
+  useEffect(() => {
+    if (!open) return
+    const dialog = dialogRef.current
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const first = dialog?.querySelector<HTMLElement>('input, select, textarea, button')
+    first?.focus()
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        close()
+        return
+      }
+      if (e.key !== 'Tab' || !dialog) return
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea',
+        ),
+      )
+      if (focusable.length === 0) return
+      const firstEl = focusable[0]!
+      const lastEl = focusable[focusable.length - 1]!
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault()
+        lastEl.focus()
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault()
+        firstEl.focus()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open, close])
 
   return (
     <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
+      {open ? (
+        <div className="fixed inset-0 z-[100] flex items-end justify-center p-3 sm:items-center sm:p-6">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
+            onClick={close}
+            className="absolute inset-0 bg-black/45 backdrop-blur-sm"
+            aria-hidden="true"
           />
-
-          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, y: 100, scale: 0.95 }}
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            initial={{ opacity: 0, y: 60, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-x-4 bottom-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-white/80 backdrop-blur-2xl rounded-3xl p-6 md:p-8 shadow-[0_24px_80px_rgba(0,0,0,0.15)] border border-white/60 z-[101] w-auto max-w-md md:w-[480px]"
+            exit={{ opacity: 0, y: 20, scale: 0.97 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 300 }}
+            className="relative max-h-[92svh] w-full max-w-xl overflow-y-auto rounded-3xl border border-white/60 bg-light-bg/95 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.18)] backdrop-blur-2xl sm:p-9"
           >
-            {/* Header & Close Button */}
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="font-serif text-2xl text-dark-text">Start a Conversation</h2>
-              <button 
-                onClick={onClose}
-                className="w-10 h-10 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-dark-text transition-colors"
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <p className="flex items-center gap-3 font-sans text-[13px] font-medium text-dark-text/70">
+                  <span className="h-px w-6 bg-coral" aria-hidden="true" />
+                  A useful first conversation
+                </p>
+                <h2 id={titleId} className="mt-3 font-serif text-[clamp(1.6rem,3vw,2.1rem)] leading-tight text-dark-text">
+                  Book a consultation
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={close}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-dark-text/5 text-dark-text transition-colors hover:bg-dark-text/10"
                 aria-label="Close"
               >
-                ✕
+                <svg aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
 
-            {/* Tabs */}
-            <div className="flex items-center p-1 bg-black/5 rounded-full mb-6">
-              <button
-                onClick={() => setActiveTab('message')}
-                className={`flex-1 py-2 text-sm font-medium rounded-full transition-all ${activeTab === 'message' ? 'bg-white shadow-sm text-dark-text' : 'text-sage hover:text-dark-text'}`}
-              >
-                Send Message
-              </button>
-              <button
-                onClick={() => setActiveTab('meet')}
-                className={`flex-1 py-2 text-sm font-medium rounded-full transition-all ${activeTab === 'meet' ? 'bg-white shadow-sm text-dark-text' : 'text-sage hover:text-dark-text'}`}
-              >
-                Schedule Meeting
-              </button>
-            </div>
+            <>
+                <p className="mt-4 font-sans text-[15px] leading-relaxed text-dark-text/80">
+                  A few lines of context is enough. I read each request myself and usually reply within two working days.
+                </p>
 
-            {/* Content Area */}
-            <div className="relative min-h-[280px]">
-              <AnimatePresence mode="wait">
-                {activeTab === 'message' ? (
-                  <motion.form
-                    key="message-form"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ duration: 0.2 }}
-                    onSubmit={handleSubmit}
-                    className="flex flex-col gap-4"
-                  >
-                    {formStatus === 'success' ? (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl mb-4">
-                          ✓
-                        </div>
-                        <h3 className="font-serif text-xl mb-2 text-dark-text">Message Sent!</h3>
-                        <p className="text-sage text-sm">Thank you for reaching out. I&apos;ll get back to you shortly.</p>
-                      </div>
-                    ) : (
-                      <>
-                        <div>
-                          <label htmlFor="name" className="sr-only">Name</label>
-                          <input 
-                            type="text" 
-                            id="name" 
-                            required 
-                            placeholder="Your Name"
-                            className="w-full px-4 py-3 rounded-2xl bg-white/50 border border-black/5 focus:outline-none focus:border-coral/50 transition-colors text-dark-text placeholder:text-sage"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="email" className="sr-only">Email</label>
-                          <input 
-                            type="email" 
-                            id="email" 
-                            required 
-                            placeholder="Your Email"
-                            className="w-full px-4 py-3 rounded-2xl bg-white/50 border border-black/5 focus:outline-none focus:border-coral/50 transition-colors text-dark-text placeholder:text-sage"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="message" className="sr-only">Message</label>
-                          <textarea 
-                            id="message" 
-                            required 
-                            placeholder="How can I help you?"
-                            rows={4}
-                            className="w-full px-4 py-3 rounded-2xl bg-white/50 border border-black/5 focus:outline-none focus:border-coral/50 transition-colors text-dark-text placeholder:text-sage resize-none"
-                          />
-                        </div>
-                        <button 
-                          type="submit" 
-                          disabled={formStatus === 'sending'}
-                          className="w-full bg-dark-text text-white font-medium py-4 rounded-2xl hover:bg-black transition-colors disabled:opacity-70 mt-2"
-                        >
-                          {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
-                        </button>
-                      </>
-                    )}
-                  </motion.form>
-                ) : (
-                  <motion.div
-                    key="meet-tab"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute inset-0 flex flex-col items-center justify-center text-center"
-                  >
-                    <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center text-2xl mb-4">
-                      🗓
-                    </div>
-                    <h3 className="font-serif text-xl mb-2 text-dark-text">Schedule a Time</h3>
-                    <p className="text-sage text-sm mb-6">Pick a convenient slot directly on my calendar.</p>
-                    
-                    {/* Placeholder for Calendly embed or link */}
-                    <a 
-                      href="#" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-coral text-white font-medium px-6 py-3 rounded-full hover:bg-coral/90 transition-colors"
-                    >
-                      Open Calendar ↗
+                <ConsultationForm />
+
+                <div className="mt-7 flex flex-col gap-4 border-t border-dark-text/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="font-sans text-[14px] text-dark-text/80">
+                    Prefer email?{' '}
+                    <a href={`mailto:${EMAIL}`} className="font-medium text-dark-text underline decoration-coral/50 underline-offset-4 hover:decoration-coral">
+                      {EMAIL}
                     </a>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                  </p>
+                    <a
+                      href={WHATSAPP_CHAT_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`inline-flex items-center justify-center gap-2 rounded-full border border-dark-text/15 bg-white/60 px-5 py-2.5 font-sans text-[13px] font-medium text-dark-text transition-colors hover:bg-white`}
+                    >
+                      Chat on WhatsApp
+                    </a>
+                </div>
+            </>
           </motion.div>
-        </>
-      )}
+        </div>
+      ) : null}
     </AnimatePresence>
   )
 }
