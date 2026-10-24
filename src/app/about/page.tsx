@@ -1,195 +1,244 @@
-import {
-  Container,
-  PageTitle,
-  Section,
-  Record,
-  RecordList,
-} from '@/components/Page'
-import { ROUTE_HERE } from '@/content/record'
-import { GraduationCap, Briefcase, Landmark, Building2, Users, MonitorPlay, LineChart, Shield } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
-function InstituteBadge({ icon: Icon, imageSrc, name, role }: { icon: any, imageSrc?: string, name: string, role?: string }) {
-  return (
-    <div className="flex items-center gap-4 p-3 rounded-2xl bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:bg-white/60 transition-all duration-300 group">
-      <div className="p-1.5 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-all duration-300 text-dark-text/60 flex items-center justify-center overflow-hidden w-11 h-11 shrink-0">
-        {imageSrc ? (
-          <img src={imageSrc} alt={name} className="w-full h-full object-contain mix-blend-multiply" />
-        ) : (
-          <Icon size={18} strokeWidth={2} className="group-hover:text-coral transition-colors duration-300" />
-        )}
-      </div>
-      <div className="flex flex-col">
-        <span className="text-sm font-bold text-dark-text leading-tight">{name}</span>
-        {role && <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-coral mt-1 leading-tight">{role}</span>}
-      </div>
-    </div>
-  )
-}
+import { ClosingCta, RuledList, Timeline } from '@/components/Blocks'
+import { JsonLd, PERSON_LD } from '@/components/JsonLd'
+import { PageHero } from '@/components/PageHero'
+import { ThemeCards } from '@/components/Research'
+import { Reveal, SectionShell } from '@/components/Shell'
+import { Bullets, Button, CARD_STATIC, Photo, SectionHead } from '@/components/ui'
+import { CONSULTING, CURRENT_ROLES, EXPERIENCE_BY_DATE, type Experience } from '@/content/experience'
+import { CERTIFICATIONS, EDUCATION, FACULTY_DEVELOPMENT, PROFILE_SUMMARY } from '@/content/profile'
+import { ARTICLES, AWARDS } from '@/content/record'
+import { LINKEDIN_URL } from '@/content/site'
+import { INSTITUTION_BUILDING, PODCAST, SERVICE } from '@/content/teaching'
+import { pageMeta } from '@/lib/meta'
+import type { ShotRef } from '@/lib/shots'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'About',
   description:
-    'From Deloitte, McKinsey and ATOS to a doctorate at IIM Ahmedabad and the classroom. Dr Ashneet Kaur on research, teaching and the route between them.',
+    'Dr Ashneet Kaur: education at SRCC, the Delhi School of Economics and IIM Ahmedabad; work at Deloitte, McKinsey and Atos; faculty at SPJIMR and ISB; and Independent Director of PUNCOM.',
+  path: '/about/',
+})
+
+const KIND_LABEL: Record<Experience['kind'], string> = {
+  board: 'Board',
+  academic: 'Academic',
+  visiting: 'Visiting and guest faculty',
+  industry: 'Industry',
+  venture: 'Entrepreneurship',
 }
 
+/** Photographs from the supplied set, captioned only with what is known. */
+const IN_THE_ROOM: { shot: ShotRef; caption: string }[] = [
+  { shot: 'S-04', caption: '86th Annual Meeting of the Academy of Management, Philadelphia, August 2026' },
+  { shot: 'S-01', caption: 'Presenting to a conference audience' },
+  { shot: 'C-02', caption: 'With a cohort in a lecture theatre' },
+]
+
 export default function About() {
+  const mpi = ARTICLES.find((a) => a.reachFigure)
+
   return (
-    <Container>
-      <PageTitle>About</PageTitle>
+    <>
+      <JsonLd data={PERSON_LD} />
 
-      <Section>
-        <div className="grid lg:grid-cols-[1fr_320px] gap-16 items-start mt-8">
-          <div className="prose prose-lg prose-slate text-dark-text/80 leading-relaxed font-sans max-w-none space-y-6 lg:text-[1.1rem]">
-            <p className="text-2xl font-serif text-coral leading-snug mb-8">
-              I work on what happens to people when the systems around them change.
-            </p>
+      <PageHero
+        word="About"
+        title="Scholar and educator in organisational behaviour and HRM."
+        lede={
+          <p>
+            Faculty in HR-OB at the Indian School of Business and Independent
+            Director of Punjab Communications Limited. Before academia: Deloitte, McKinsey &amp;
+            Company, Atos and two ventures of my own.
+          </p>
+        }
+        actions={<Button variant="light" href="/research">Research</Button>}
+      />
 
-            <p>
-              My research sits where organisational behaviour meets technology:
-              how AI-driven systems affect employee engagement, trust and the way
-              a culture evolves, and what algorithmic decision-making does to
-              privacy, fairness and well-being. I work mostly in fast-growing,
-              digitally enabled and sustainability-focused firms, because that is
-              where these questions arrive first and get answered worst.
-            </p>
-
-            <p>
-              I came to research through practice, not around it. I founded my
-              first venture, College Ki Knowledge, while I was still an
-              undergraduate at Shri Ram College of Commerce, and co-founded a
-              second, Start-up Pal, before I graduated. I audited US clients at
-              Deloitte, then spent two years at McKinsey on the Strategy Analytics
-              team, running knowledge sessions for partners and experts. I
-              finished a master&apos;s at the Delhi School of Economics while I was
-              there. At ATOS I built a human resource retention strategy across
-              the UK, France and India offices and interviewed more than fifty
-              stakeholders to do it.
-            </p>
-
-            <p>
-              So when I teach strategic HR to executives, I am teaching work I
-              have done. That matters more than it sounds. The gap between an HR
-              system on paper and an HR system as experienced by the person inside
-              it is the gap most of my research lives in, and I first saw it from
-              the inside.
-            </p>
-
-            <p>
-              I took my doctorate in Human Resource Management at IIM Ahmedabad.
-              I taught at SPJIMR Mumbai across eight programmes, from the two-year
-              flagship to the doctoral fellowship, and as visiting faculty at the
-              University of Pécs, Great Lakes Chennai and Masters Union. I am now
-              faculty in Organisational Behaviour at the Indian School of
-              Business. In April 2026 I joined the board of Punjab Communications
-              Limited as an independent director.
-            </p>
-
-            <p>
-              In the classroom I use design thinking, rapid prototyping,
-              cinema-based leadership education and gamified teaching. I
-              co-designed three courses on that principle: one that teaches
-              leadership through film, one that reads strategy off Indian cricket,
-              and one built on Indian turnaround stories. The point is not
-              novelty. It is that people remember an argument they have watched
-              play out, and they will argue with a character in a way they will
-              not argue with a framework.
-            </p>
-          </div>
-          
-          <div className="sticky top-32 space-y-10 bg-white/30 backdrop-blur-xl p-8 rounded-[2rem] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
-            <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
-                <Landmark size={14} /> Education
-              </h3>
-              <div className="space-y-3">
-                <InstituteBadge imageSrc="/photos/iima.png" icon={Landmark} name="IIM Ahmedabad" role="Doctorate" />
-                <InstituteBadge imageSrc="/photos/Delhi_school_economics.jpeg" icon={GraduationCap} name="Delhi School of Economics" role="Master's" />
-                <InstituteBadge imageSrc="/photos/SRCC.png" icon={GraduationCap} name="Shri Ram College of Commerce" role="Undergrad" />
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
-                <Briefcase size={14} /> Practice
-              </h3>
-              <div className="space-y-3">
-                <InstituteBadge imageSrc="/photos/McKinsey..webp" icon={LineChart} name="McKinsey & Co." role="Strategy Analytics" />
-                <InstituteBadge imageSrc="/photos/Deloitte.webp" icon={Shield} name="Deloitte" role="Audit" />
-                <InstituteBadge imageSrc="/photos/Atos_logo.png" icon={Building2} name="ATOS" role="HR Strategy" />
-                <InstituteBadge imageSrc="/photos/PunjabCommun.webp" icon={Building2} name="Puncom" role="Board Director" />
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-coral mb-5 flex items-center gap-2">
-                <Users size={14} /> Faculty
-              </h3>
-              <div className="space-y-3">
-                <InstituteBadge imageSrc="/photos/ISB.jpg" icon={Users} name="ISB" role="Current Faculty" />
-                <InstituteBadge imageSrc="/photos/spjimr.png" icon={Users} name="SPJIMR Mumbai" role="Past Faculty" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </Section>
-
-      <Section
-        title="The route here"
-        intro="Two of these overlap on purpose. The master's was taken while working at McKinsey, and the ATOS engagement sits inside the doctorate, which is why it runs a single month."
-      >
-        {/* Interactive vertical timeline */}
-        <div className="relative ml-4 md:ml-0">
-          {/* Vertical line */}
-          <div className="absolute left-3 md:left-4 top-0 bottom-0 w-px bg-gradient-to-b from-coral via-coral/30 to-transparent" />
-          
-          <ol className="space-y-0">
-            {ROUTE_HERE.map((step, index) => (
-              <li key={step.where} className="relative pl-12 md:pl-14 pb-8 last:pb-0 group">
-                {/* Node */}
-                <div className="absolute left-0 md:left-0.5 top-1 w-7 h-7 rounded-full bg-white border-2 border-coral/40 group-hover:border-coral group-hover:scale-110 transition-all duration-300 flex items-center justify-center z-10">
-                  <span className="text-[10px] font-bold text-coral">{index + 1}</span>
-                </div>
-                {/* Content */}
-                <div className="bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-4 md:p-5 shadow-[0_2px_12px_rgba(0,0,0,0.03)] group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] group-hover:bg-white/60 transition-all duration-300">
-                  <span className="block leading-relaxed font-medium text-dark-text">{step.where}</span>
-                  <span className="block text-sm text-sage mt-1">{step.when}</span>
-                </div>
-              </li>
+      <SectionShell label="In my words">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+          <Reveal className="max-w-[42rem] space-y-5 font-sans text-[16px] leading-relaxed text-dark-text/80">
+            {PROFILE_SUMMARY.map((p) => (
+              <p key={p.slice(0, 30)}>{p}</p>
             ))}
-          </ol>
+          </Reveal>
+          <Reveal delay={0.1} className="mx-auto w-full max-w-md lg:mr-0">
+            <Photo shot="P-06" sizes="(max-width: 1024px) 100vw, 28rem" className="aspect-[4/5]!" />
+          </Reveal>
         </div>
+      </SectionShell>
 
-      </Section>
+      <SectionShell label="Now">
+        <SectionHead title="Current roles." />
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {CURRENT_ROLES.map((e, i) => (
+            <Reveal key={e.id} delay={0.06 * i} className={`p-8 ${CARD_STATIC}`}>
+              <p className="font-sans text-[13px] font-medium text-dark-text/70">{e.when}</p>
+              <h3 className="mt-2 font-serif text-[22px] leading-snug text-dark-text">{e.role}</h3>
+              <p className="mt-1 font-sans text-[15px] text-dark-text/80">{e.organisation}</p>
+              {e.details.length ? <div className="mt-5"><Bullets items={e.details} /></div> : null}
+            </Reveal>
+          ))}
+        </div>
+      </SectionShell>
 
-      <Section title="Credentials">
-        <RecordList columns={2}>
-          <Record label="Doctorate">
-            PhD in Human Resource Management, IIM Ahmedabad, June 2018 to
-            February 2023
-          </Record>
-          <Record label="Masters">
-            M.Com, Delhi School of Economics, University of Delhi, June 2017
-          </Record>
-          <Record label="Undergraduate">
-            B.Com (Honours), Shri Ram College of Commerce, Delhi University, May
-            2015
-          </Record>
-          <Record label="Certification">
-            SHRM Senior Certified Professional, August 2024 to August 2027
-          </Record>
-          <Record label="Faculty development">
-            Wharton Global Faculty Development Programme, 2025, a four-day
-            intensive on impactful research and the art of teaching with Martine
-            Haas, Lori Rosenkopf, Rahul Kapoor and Matthew Bidwell
-          </Record>
-          <Record label="Teaching">
-            Doctoral Consortium on Teaching, Centre for Teaching and Learning,
-            IIM Bangalore, February 2022
-          </Record>
-        </RecordList>
-      </Section>
-    </Container>
+      <SectionShell label="Education" imageSrc="/photos/w-01-desk.jpg">
+        <SectionHead title="Education and qualifications." />
+        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+          {EDUCATION.map((q, i) => (
+            <Reveal key={q.title} delay={0.06 * i} as="li" className={`flex h-full flex-col p-7 ${CARD_STATIC}`}>
+              {q.logo ? (
+                <span className="relative mb-5 block h-14 w-28">
+                  <Image src={q.logo} alt={`${q.institution} logo`} fill sizes="112px" className="object-contain object-left mix-blend-multiply" />
+                </span>
+              ) : null}
+              <p className="font-sans text-[13px] font-medium text-dark-text/70">{q.when}</p>
+              <h3 className="mt-2 font-serif text-[20px] leading-snug text-dark-text">{q.title}</h3>
+              <p className="mt-1 font-sans text-[14px] leading-relaxed text-dark-text/80">{q.institution}</p>
+            </Reveal>
+          ))}
+        </ul>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
+          {[...CERTIFICATIONS, ...FACULTY_DEVELOPMENT].map((q, i) => (
+            <Reveal key={q.title} delay={0.05 * i} className={`p-7 ${CARD_STATIC}`}>
+              <p className="font-sans text-[13px] font-medium text-dark-text/70">{q.when}</p>
+              <h3 className="mt-2 font-serif text-[19px] leading-snug text-dark-text">{q.title}</h3>
+              <p className="mt-1 font-sans text-[14px] leading-relaxed text-dark-text/80">{q.institution}</p>
+            </Reveal>
+          ))}
+        </div>
+      </SectionShell>
+
+      <SectionShell label="The path">
+        <SectionHead
+          title="Professional and academic journey."
+          lede="Every role on the CV, newest first. The Atos engagement took place during the doctorate at IIM Ahmedabad (2018 to 2023)."
+        />
+        <div className="mt-12 max-w-4xl">
+          <Timeline
+            items={EXPERIENCE_BY_DATE.map((e) => ({
+              when: `${e.when} · ${KIND_LABEL[e.kind]}`,
+              title: `${e.role}, ${e.organisation}${e.place ? `, ${e.place}` : ''}`,
+              body: (
+                <>
+                  {e.details.length ? <Bullets items={e.details} /> : null}
+                </>
+              ),
+            }))}
+          />
+        </div>
+      </SectionShell>
+
+      <SectionShell label="Consulting">
+        <SectionHead title="Corporate consulting engagements." lede="Listed on the CV without dates." />
+        <div className="mt-12">
+          <RuledList items={CONSULTING.map((c) => ({ label: `${c.client}: ${c.scope}`, value: `${c.sector}. ${c.detail}` }))} />
+        </div>
+        <div className="mt-10">
+          <Button href="/advisory" variant="secondary">Advisory work</Button>
+        </div>
+      </SectionShell>
+
+      <SectionShell label="Research interests">
+        <SectionHead title="Research interests." lede="Five themes drawn from the research statement and the published record." />
+        <div className="mt-12">
+          <ThemeCards />
+        </div>
+      </SectionShell>
+
+      <SectionShell label="Recognition">
+        <SectionHead title="Awards and recognition." />
+        <div className="mt-12">
+          <RuledList items={AWARDS.map((a) => ({ label: `${a.title}, ${a.year}`, value: <>&ldquo;{a.paper}&rdquo;. {a.detail}.</> }))} />
+        </div>
+      </SectionShell>
+
+      <SectionShell label="Contributions">
+        <SectionHead title="Other academic contributions." />
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          <Reveal className={`p-8 ${CARD_STATIC}`}>
+            <h3 className="font-serif text-[21px] leading-snug text-dark-text">Editorial, review and track chair roles</h3>
+            <div className="mt-5"><Bullets items={SERVICE} /></div>
+          </Reveal>
+          <Reveal delay={0.08} className={`p-8 ${CARD_STATIC}`}>
+            <h3 className="font-serif text-[21px] leading-snug text-dark-text">Institution building</h3>
+            <div className="mt-5"><Bullets items={[...INSTITUTION_BUILDING, PODCAST]} /></div>
+          </Reveal>
+        </div>
+        <p className="mt-10 font-sans text-[14.5px] text-dark-text/80">
+          Teaching, conferences and invited talks are on the{' '}
+          <Link href="/teaching" className="font-medium text-dark-text underline decoration-coral/50 underline-offset-4 hover:decoration-coral">
+            teaching and academic engagement
+          </Link>{' '}
+          page.
+        </p>
+      </SectionShell>
+
+      <SectionShell label="Writing">
+        <SectionHead
+          title="Writing for practitioners."
+          lede={`${ARTICLES.length} articles in outlets including Forbes India, ET-HRWorld, People Matters, CXO Today and Business Manager.`}
+        />
+        <div className="mt-12 grid gap-5 lg:grid-cols-[1fr_1.3fr]">
+          {mpi ? (
+            <Reveal>
+              <article className={`flex h-full flex-col justify-between p-8 lg:p-10 ${CARD_STATIC}`}>
+                <div>
+                  <p className="font-serif text-[clamp(2.8rem,5vw,3.6rem)] leading-none text-dark-text">{mpi.reachFigure}</p>
+                  <p className="mt-3 font-sans text-[13px] font-medium text-dark-text/70">Downloads</p>
+                  <h3 className="mt-6 font-serif text-[21px] leading-snug text-dark-text">{mpi.title}</h3>
+                </div>
+                <p className="mt-6 font-sans text-[14px] leading-relaxed text-dark-text/75">{mpi.reach}</p>
+              </article>
+            </Reveal>
+          ) : null}
+          <Reveal delay={0.1}>
+            <ul className={`h-full divide-y divide-dark-text/[0.07] p-8 lg:p-10 ${CARD_STATIC}`}>
+              {ARTICLES.map((a) => (
+                <li key={a.title} className="py-4 first:pt-0 last:pb-0">
+                  {a.url ? (
+                    <a href={a.url} target="_blank" rel="noreferrer" className="font-serif text-[17px] leading-snug text-dark-text underline decoration-coral/30 underline-offset-4 hover:decoration-coral">
+                      {a.title}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ) : (
+                    <p className="font-serif text-[17px] leading-snug text-dark-text">{a.title}</p>
+                  )}
+                  <p className="mt-1.5 font-sans text-[13px] text-dark-text/70">
+                    {a.outlet}, {a.year}. {a.authorship}.{' '}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </SectionShell>
+
+      <SectionShell label="In the room">
+        <SectionHead title="In the room." />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {IN_THE_ROOM.map((item, i) => (
+            <Reveal key={item.shot} delay={0.07 * i}>
+              <figure>
+                <Photo shot={item.shot} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="aspect-square!" />
+                <figcaption className="mt-3 font-sans text-[13.5px] leading-snug text-dark-text/75">
+                  {item.caption}
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+      </SectionShell>
+
+      <ClosingCta
+        eyebrow="Get in touch"
+        title="Research, teaching, a programme or a board question?"
+        body="A few lines about what you have in mind is enough to start."
+        primary={{ label: 'Start a conversation', href: '#contact' }}
+        secondary={{ label: 'Connect on LinkedIn', href: LINKEDIN_URL, external: true }}
+      />
+    </>
   )
 }

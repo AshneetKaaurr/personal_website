@@ -3,8 +3,10 @@ import { Inter, Outfit } from 'next/font/google'
 
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
-import { ContactCard } from '@/components/ContactCard'
+import { ContactModal } from '@/components/ContactModal'
 import { GlobalBackground } from '@/components/GlobalBackground'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
+import { SITE_URL } from '@/content/site'
 import './globals.css'
 
 const outfit = Outfit({
@@ -20,13 +22,13 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ashneetkaur.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Dr Ashneet Kaur',
-    template: '%s — Dr Ashneet Kaur',
+    template: '%s | Dr Ashneet Kaur',
   },
   description:
-    'Faculty in Organisational Behaviour at the Indian School of Business. Research on AI, trust and fairness at work; executive teaching through cinema, cricket and turnaround stories.',
+    'Dr Ashneet Kaur: organisational behaviour, HRM and the human side of AI. Advisory, executive programmes, research and board governance.',
   openGraph: {
     type: 'profile',
     siteName: 'Dr Ashneet Kaur',
@@ -43,15 +45,16 @@ export default function RootLayout({
       <body className="bg-light-bg text-dark-text font-sans antialiased selection:bg-coral selection:text-white overflow-x-hidden">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-white focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-dark-text"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-3 focus:font-sans focus:text-sm focus:text-dark-text"
         >
           Skip to content
         </a>
         <GlobalBackground />
         <Header />
-        <main id="main" className="pb-12">{children}</main>
-        <ContactCard />
+        <main id="main">{children}</main>
         <Footer />
+        <ContactModal />
+        <WhatsAppButton />
       </body>
     </html>
   )
