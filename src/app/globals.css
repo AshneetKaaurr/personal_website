@@ -11,40 +11,39 @@
   --color-sage: #81988b;
   --color-coral: #e07a5f;
   
-  --color-glass-dark: rgba(26, 35, 31, 0.85);
-  --color-glass-light: rgba(255, 255, 255, 0.6);
-  --color-glass-border: rgba(255, 255, 255, 0.2);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  --radius-3xl: 3rem;
-}
+  /* The organisations logo row. Duration is set per instance from the logo count. */
+  --animate-marquee: marquee 40s linear infinite;
 
-@layer utilities {
-  .animate-fade-in { animation: fade-in 0.8s ease-out forwards; }
-  .animate-slide-up { animation: slide-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-  .animate-scroll-y { animation: scroll-y 40s linear infinite; }
-  .animate-scroll-y-reverse { animation: scroll-y-reverse 45s linear infinite; }
-  .animate-scroll-y-slow { animation: scroll-y 55s linear infinite; }
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
   }
 
-  @keyframes slide-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* The wallpaper's colour fields. Slow and small, so it reads as alive, not busy. */
+  --animate-drift-a: drift-a 38s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 46s ease-in-out infinite alternate;
+  --animate-drift-c: drift-c 54s ease-in-out infinite alternate;
+
+  @keyframes drift-a {
+    to { transform: translate3d(12vw, 10vh, 0) scale(1.12); }
+  }
+  @keyframes drift-b {
+    to { transform: translate3d(-10vw, -8vh, 0) scale(0.92); }
+  }
+  @keyframes drift-c {
+    to { transform: translate3d(8vw, -12vh, 0) scale(1.08); }
   }
 
-  @keyframes scroll-y {
-    from { transform: translateY(0); }
-    to { transform: translateY(-50%); }
-  }
+  /* The same row running the other way, for the second testimonials lane. */
+  --animate-marquee-reverse: marquee-reverse 40s linear infinite;
 
-  @keyframes scroll-y-reverse {
-    from { transform: translateY(-50%); }
-    to { transform: translateY(0); }
+  @keyframes marquee-reverse {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
   }
 }
 
@@ -63,25 +62,22 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
-}
 
-@layer components {
-  .glass-panel {
-    background: var(--color-glass-light);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--color-glass-border);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  /* Visible keyboard focus on every interactive element, both surfaces. */
+  :focus-visible {
+    outline: 2px solid var(--color-coral);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
-  .glass-dark {
-    background: var(--color-glass-dark);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
-
 
 /* Used by the hero's pillar rail. Referenced before it existed, so the rail
    was showing a scrollbar. */
@@ -91,5 +87,15 @@
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* A closing card that hangs over the footer (ClosingCta) needs room above the footer content. */
+body:has(.footer-overlap) .site-footer {
+  padding-top: 5rem;
+}
+@media (min-width: 64rem) {
+  body:has(.footer-overlap) .site-footer {
+    padding-top: 7rem;
   }
 }
